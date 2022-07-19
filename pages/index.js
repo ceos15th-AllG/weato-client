@@ -58,11 +58,13 @@ export default function Home() {
           <br />
 
           <li>
-            뉴스레터 홈 : <a href="/login">weato.net/newsletter</a>
+            뉴스레터 홈 : <a href="/newsletter">weato.net/newsletter</a>
           </li>
           <li>
             뉴스레터 - 상세 페이지 :
-            <a href="/login">weato.net/newsletter/뉴스레터_번호</a>
+            <a href="/newsletter/뉴스레터_번호">
+              weato.net/newsletter/뉴스레터_번호
+            </a>
           </li>
 
           <br />
