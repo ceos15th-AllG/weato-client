@@ -28,9 +28,9 @@
 |          | 사용한 기술 스택 |
 | -------- | ------------ |
 | 마크업 및 구조 | <img alt="Next.js" src ="https://img.shields.io/badge/Next.js-000000.svg?&style=flat&logo=next.js&logoColor=FFFFFF"/> |
-| 스타일링 | <img alt="Tailwind CSS" src ="https://img.shields.io/badge/Tailwind CSS-06B6D4.svg?&style=flat&logo=tailwindcss&logoColor=FFFFFF"/> <img alt="PostCSS" src ="https://img.shields.io/badge/PostCSS-DD3A0A.svg?&style=flat&logo=postcss&logoColor=FFFFFF"/> |
+| 스타일링 | <img alt="Emotion" src ="https://img.shields.io/badge/Emotion-5B0BB5.svg?&style=flat&logo=tailwindcss&logoColor=FFFFFF"/> |
 | 상태 관리 도구 | <img alt="Recoil" src ="https://img.shields.io/badge/Recoil-3178C6.svg?&style=flat"/> |
-| 빌드 도구 | <img alt="SWC" src ="https://img.shields.io/badge/SWC-FFFFFF.svg?&style=flat&logo=swc&logoColor=000000"/> |
+| 빌드 도구 | <img alt="SWC" src ="https://img.shields.io/badge/SWC-FFFFFF.svg?&style=flat&logo=swc&logoColor=000000"/> <img alt="Babel" src ="https://img.shields.io/badge/Babel-F9DC3E.svg?&style=flat&logo=babel&logoColor=000000"/> |
 | 라이브러리 관리 | <img alt="Yarn" src ="https://img.shields.io/badge/Yarn-2C8EBB.svg?&style=flat&logo=yarn&logoColor=FFFFFF"/> |
 | 배포 | <img alt="Vercel" src ="https://img.shields.io/badge/Vercel-000000.svg?&style=flat&logo=vercel&logoColor=FFFFFF"/> |
 <!-- prettier-ignore-end -->
@@ -47,6 +47,8 @@
 빠르게 결정하기
 
 ## 📝 커밋 컨벤션
+
+- **Udacity Git Commit Message Style Guide**를 참고함
 
 <!-- prettier-ignore-start -->
 |    | Gitmoji | Header | 설명 |
