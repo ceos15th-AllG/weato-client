@@ -1,6 +1,12 @@
+/** @jsxImportSource @emotion/react */
+import { jsx, css } from '@emotion/react';
+
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+
+const HomeStyle = css`
+  margin: 0px 300px;
+`;
 
 export default function Home() {
   return (
@@ -11,7 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main css={HomeStyle}>
         <h1>홈페이지</h1>
 
         <ul className="list-disc list-inside">
