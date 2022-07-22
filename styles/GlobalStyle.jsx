@@ -13,6 +13,11 @@ const GlobalStyle = css`
     text-decoration: none;
   }
 
+  ul,
+  li {
+    list-style: none;
+  }
+
   * {
     box-sizing: border-box;
     margin: 0;
