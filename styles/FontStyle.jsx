@@ -2,65 +2,66 @@
 import { css } from '@emotion/react';
 
 export const Display1 = css`
-  font-weight: 500;
-  /* font-size: 32px; */
-  font-size: 24px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 42px;
 `;
 
 export const Headline2 = css`
-  font-weight: 500;
-  /* font-size: 28px; */
-  font-size: 21px;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 38px;
 `;
 
 export const Headline1 = css`
-  font-weight: 500;
-  /* font-size: 24px; */
-  font-size: 18px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 34px;
 `;
 
 export const Subhead4 = css`
-  font-weight: 500;
-  /* font-size: 20px; */
-  font-size: 15px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
 `;
 
 export const Subhead3 = css`
-  font-weight: 500;
-  /* font-size: 16px; */
-  font-size: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
 `;
 
 export const Body5 = css`
-  font-weight: medium;
-  /* font-size: 24px; */
-  font-size: 18px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 34px;
 `;
 
 export const Body4 = css`
-  font-weight: 300;
-  /* font-size: 24px; */
-  font-size: 18px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
 `;
 
 export const Body3 = css`
-  font-weight: medium;
-  /* font-size: 20px; */
-  font-size: 15px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
 `;
 export const Body2 = css`
-  font-weight: 300;
-  /* font-size: 16px; */
-  font-size: 12px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
 `;
 
 export const Body1 = css`
-  font-weight: medium;
-  /* font-size: 14px; */
-  font-size: 11.5px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
 `;
 
-export const Tag = css`
-  font-weight: medium;
-  font-size: 12px;
+export const Tag1 = css`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
 `;
