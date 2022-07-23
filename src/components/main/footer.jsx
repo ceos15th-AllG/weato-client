@@ -1,72 +1,112 @@
 /** @jsxImportSource @emotion/react */
 import { jsx, css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+import { Body1, Body2 } from '../../../styles/FontStyle';
+import { gray02, gray05, text_black } from '../../../styles/Colors';
 
 import Image from 'next/image';
 
-import logo from '../../../public/logo.png';
+import Logo from '../common/Logo';
+
 import icon_instagram from '../../../public/icon_instagram.png';
 import icon_twitter from '../../../public/icon_twitter.png';
 import icon_facebook from '../../../public/icon_facebook.png';
 
-const FooterStyle = css`
-  height: 120px;
+const FooterLayout = styled.footer`
+  height: 160px;
 
-  margin: 0px 300px;
+  padding: 0px 224px;
 
   display: flex;
   justify-content: space-between;
 
-  background-color: red;
+  border-top: 1px solid ${gray02};
 `;
 
-const FooterLeftContainerStyle = css`
+const FooterInfoBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
 `;
 
-const FooterLeftTopContainerStyle = css``;
+const FooterCowDogList = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
 
-const FooterLeftBottomContainerStyle = css``;
+const FooterCowDog = styled.ul`
+  color: ${text_black};
+  padding: 0;
 
-const FooterRightContainerStyle = css`
+  display: flex;
+  padding-top: 20px;
+`;
+
+const FooterCowDogItem = styled.li`
+  color: ${text_black};
+  margin-right: 10px;
+`;
+
+const FooterCEOText = styled.article`
+  display: flex;
+
+  margin-top: 4px;
+  color: ${gray05};
+`;
+
+const FooterCEOMail = styled.div`
+  margin-right: 35px;
+`;
+
+const FooterContactBox = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
 
-  margin-bottom: 24px;
-
-  background-color: green;
+  margin-bottom: 32px;
 `;
 
-const FooterRightContainerIconStyle = css`
+const FooterIconLayout = styled.div`
   margin-left: 12px;
 `;
 
 function Footer() {
   return (
-    <footer css={FooterStyle}>
-      <div css={FooterLeftContainerStyle}>
-        <div css={FooterLeftTopContainerStyle}>
-          <Image src={logo} width="128" height="30" />
+    <FooterLayout>
+      <FooterInfoBox>
+        <div>
+          <Logo />
         </div>
-        <div css={FooterLeftBottomContainerStyle}>
-          <div>위아토 소개 | 제휴제안 | 이용약관 | FAQ</div>
-          <div>대표 박재민 Email | qujaemwin@gmail.com</div>
-        </div>
-      </div>
-      <div css={FooterRightContainerStyle}>
-        <div css={FooterRightContainerIconStyle}>
+        <FooterCowDogList>
+          <FooterCowDog>
+            <FooterCowDogItem css={Body2}>위아토 소개</FooterCowDogItem>
+            <FooterCowDogItem css={Body2}>|</FooterCowDogItem>
+            <FooterCowDogItem css={Body2}>제휴제안</FooterCowDogItem>
+            <FooterCowDogItem css={Body2}>|</FooterCowDogItem>
+            <FooterCowDogItem css={Body2}>이용약관</FooterCowDogItem>
+            <FooterCowDogItem css={Body2}>|</FooterCowDogItem>
+            <FooterCowDogItem css={Body2}>FAQ</FooterCowDogItem>
+          </FooterCowDog>
+          <FooterCEOText css={Body1}>
+            <FooterCEOMail>대표 박재민</FooterCEOMail>
+            <FooterCEOMail>Email | qujaemwin@gmail.com</FooterCEOMail>
+          </FooterCEOText>
+        </FooterCowDogList>
+      </FooterInfoBox>
+
+      <FooterContactBox>
+        <FooterIconLayout>
           <Image src={icon_instagram} width="24" height="24" />
-        </div>
-        <div css={FooterRightContainerIconStyle}>
+        </FooterIconLayout>
+        <FooterIconLayout>
           <Image src={icon_twitter} width="24" height="24" />
-        </div>
-        <div css={FooterRightContainerIconStyle}>
+        </FooterIconLayout>
+        <FooterIconLayout>
           <Image src={icon_facebook} width="24" height="24" />
-        </div>
-      </div>
-    </footer>
+        </FooterIconLayout>
+      </FooterContactBox>
+    </FooterLayout>
   );
 }
 
