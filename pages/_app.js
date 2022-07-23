@@ -1,11 +1,28 @@
-import '../styles/globals.css';
+/** @jsxImportSource @emotion/react */
+import { Global } from '@emotion/react';
 
-function MyApp({ Component, pageProps }) {
+import GlobalStyle from '../styles/GlobalStyle';
+
+import Head from 'next/head';
+
+import Navbar from '../src/components/main/Navbar';
+
+const App = ({ Component, pageProps }) => {
   return (
-    <>
-      <Component {...pageProps} />
-    </>
-  );
-}
+    <div>
+      <Head>
+        <link
+          href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+          rel="stylesheet"
+          type="text/css"
+        />
+      </Head>
+      <Global styles={GlobalStyle} />
 
-export default MyApp;
+      <Navbar />
+      <Component {...pageProps} />
+    </div>
+  );
+};
+
+export default App;
