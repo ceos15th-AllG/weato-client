@@ -1,31 +1,27 @@
-/** @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react';
+import styled from '@emotion/styled';
 
-const ButtonStyle = css`
-  width: 102px;
-  height: 30px;
+import { main, gray03, text_white } from '../../../styles/Colors';
 
-  border-radius: 8px;
+const ButtonLayout = styled.div`
+  width: 128px;
+  height: 36px;
+
+  /* padding: 20px; */
+  border-radius: 6px;
 
   display: flex;
   flex-direction: center;
   justify-content: center;
   align-items: center;
 
-  background-color: green;
+  font-size: 14px;
+
+  color: ${text_white};
+  background-color: ${(props) => (!props.disabled ? main : gray03)};
 `;
 
-const Button = ({ text }) => {
-  return (
-    <div
-      css={ButtonStyle}
-      onClick={() => {
-        alert('clicked');
-      }}
-    >
-      {text}
-    </div>
-  );
+const Button = (props) => {
+  return <ButtonLayout>{props.text}</ButtonLayout>;
 };
 
 export default Button;
