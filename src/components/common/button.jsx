@@ -3,18 +3,18 @@ import styled from '@emotion/styled';
 import { main, gray03, text_white } from '../../../styles/Colors';
 
 const ButtonLayout = styled.div`
-  width: 128px;
-  height: 36px;
+  width: 204px;
+  height: 60px;
 
   /* padding: 20px; */
-  border-radius: 6px;
+  border-radius: 8px;
 
   display: flex;
   flex-direction: center;
   justify-content: center;
   align-items: center;
 
-  font-size: 14px;
+  font-size: 20px;
 
   color: ${text_white};
   background-color: ${(props) => (!props.disabled ? main : gray03)};
