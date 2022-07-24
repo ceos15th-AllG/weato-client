@@ -16,7 +16,7 @@ import Button from '../src/components/common/Button';
 import banner from '../public/main_banner.png';
 
 const HomeLayout = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 4px;
 `;
 
 const BannerLayout = styled.div`
@@ -27,37 +27,35 @@ const BannerLayout = styled.div`
 
 const BannerContent = styled.div`
   position: absolute;
-  right: 18%;
+  right: 261px;
 
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
 
-  height: 120px;
+  height: 184px;
 `;
 
 const BannerText = styled.article`
   color: ${text_white};
 
   text-align: right;
-  line-height: 32px;
 `;
 
 const HomeContent = styled.main`
-  margin: 0px 224px;
-  padding: 50px 0px 0px;
+  margin: 0px 300px;
+  padding-top: 90px;
 `;
 
 const CardHeader = styled.header`
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 `;
 
 const CardRow = styled.div`
   display: flex;
 
   justify-content: space-between;
-  margin: 20px 0px;
 `;
 
 const ButtonRow = styled.div`
@@ -65,7 +63,7 @@ const ButtonRow = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin: 30px 0px 60px;
+  margin: 60px 0px 96px;
 `;
 
 export default function Home() {
@@ -82,8 +80,14 @@ export default function Home() {
           <BannerLayout>
             <Image src={banner} />
             <BannerContent>
-              {/* <BannerText css={Headline2}>아토피와의 긴 여정,</BannerText> */}
-              <BannerText css={Headline2}>
+              <BannerText
+                css={[
+                  Headline2,
+                  css`
+                    line-height: 42px;
+                  `,
+                ]}
+              >
                 아토피와의 긴 여정,
                 <br />
                 이제는 위아토와 함께해요!
@@ -95,7 +99,11 @@ export default function Home() {
 
           <HomeContent>
             <CardHeader css={Display1}>이주의 아토레터</CardHeader>
-            <CardRow>
+            <CardRow
+              css={css`
+                margin-bottom: 40px;
+              `}
+            >
               <Card
                 text={
                   '샤워부터 시작하는 아토피 관리 샤워부터 시작하는 시작하는 시작하는 시작하는 시작하는'
@@ -146,7 +154,11 @@ export default function Home() {
             </ButtonRow>
 
             <CardHeader css={Display1}>가장 많은 스크랩</CardHeader>
-            <CardRow>
+            <CardRow
+              css={css`
+                margin-bottom: 40px;
+              `}
+            >
               <Card
                 text={
                   '샤워부터 시작하는 아토피 관리 샤워부터 시작하는 시작하는 시작하는 시작하는 시작하는'
