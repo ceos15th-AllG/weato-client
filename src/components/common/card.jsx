@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { gray07 } from '../../../styles/Colors';
 
@@ -8,8 +6,8 @@ import { Headline1, Body2 } from '../../../styles/FontStyle';
 import Tag from './Tag';
 
 const CardLayout = styled.section`
-  width: 240px;
-  height: 240px;
+  width: 315px;
+  height: 315px;
 
   border-radius: 16px;
 
@@ -17,9 +15,7 @@ const CardLayout = styled.section`
   flex-direction: column;
   justify-content: space-between;
 
-  padding: 46px;
-
-  line-height: 26px;
+  padding: 60px;
 
   box-shadow: -4px -4px 12px rgba(0, 0, 0, 0.03),
     3.2px 3.2px 12px rgba(0, 0, 0, 0.06);
@@ -39,12 +35,15 @@ const CardText = styled.article`
 
 const CardBottomRow = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: left;
+  align-items: flex-end;
 `;
 
 const CardDate = styled.time`
   display: flex;
+
+  margin-bottom: 3px;
 
   color: ${gray07};
 `;
