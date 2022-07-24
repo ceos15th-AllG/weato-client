@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Subhead3, Subhead4 } from '../../../styles/FontStyle';
 import { gray04 } from '../../../styles/Colors';
@@ -43,7 +44,9 @@ function Navbar() {
   return (
     <NavbarLayout>
       <NavbarContent>
-        <Image src={logo_horizontal} width={239.5} height={58} />
+        <Link href="/">
+          <Image src={logo_horizontal} width={239.5} height={58} />
+        </Link>
         <li
           css={[
             Subhead4,
@@ -52,7 +55,7 @@ function Navbar() {
             `,
           ]}
         >
-          뉴스레터
+          <Link href="/newsletter">뉴스레터</Link>
         </li>
         <li
           css={[
@@ -62,7 +65,7 @@ function Navbar() {
             `,
           ]}
         >
-          커뮤니티
+          <Link href="/community">커뮤니티</Link>
         </li>
       </NavbarContent>
 
@@ -70,7 +73,9 @@ function Navbar() {
         <NavbarRightGroupItem css={Subhead3}>
           회원가입 / 로그인
         </NavbarRightGroupItem>
-        <Image src={icon_search} width="28" height="28.84" />
+        <Link href="/search">
+          <Image src={icon_search} width="28" height="28.84" />
+        </Link>
       </NavbarRightGroup>
     </NavbarLayout>
   );
