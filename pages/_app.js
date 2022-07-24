@@ -5,11 +5,14 @@ import GlobalStyle from '../styles/GlobalStyle';
 
 import Head from 'next/head';
 
+import ScreenLayout from '../src/components/main/ScreenLayout';
+import ContentLayout from '../src/components/main/ContentLayout';
 import Navbar from '../src/components/main/Navbar';
+import FooterBar from '../src/components/main/FooterBar';
 
 const App = ({ Component, pageProps }) => {
   return (
-    <div>
+    <ScreenLayout>
       <Head>
         <link
           href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
@@ -20,8 +23,11 @@ const App = ({ Component, pageProps }) => {
       <Global styles={GlobalStyle} />
 
       <Navbar />
-      <Component {...pageProps} />
-    </div>
+      <ContentLayout>
+        <Component {...pageProps} />
+        <FooterBar />
+      </ContentLayout>
+    </ScreenLayout>
   );
 };
 

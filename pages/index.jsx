@@ -12,7 +12,6 @@ import { Display1, Headline2 } from '../styles/FontStyle';
 
 import Card from '../src/components/common/Card';
 import Button from '../src/components/common/Button';
-import Footer from '../src/components/main/Footer';
 
 import banner from '../public/main_banner.png';
 
@@ -199,7 +198,6 @@ export default function Home() {
           </HomeContent>
         </div>
       </HomeLayout>
-      <Footer />
     </>
   );
 }
