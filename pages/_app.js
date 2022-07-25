@@ -13,13 +13,6 @@ import FooterBar from '../src/components/main/Footerbar';
 const App = ({ Component, pageProps }) => {
   return (
     <ScreenLayout>
-      <Head>
-        <link
-          href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
-          rel="stylesheet"
-          type="text/css"
-        />
-      </Head>
       <Global styles={GlobalStyle} />
 
       <Navbar />
