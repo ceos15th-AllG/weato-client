@@ -28,6 +28,33 @@ import {
 } from '../../styles/Colors';
 
 import Button from '../../src/components/common/ButtonContainer';
+import Navbar from '../../src/components/main/Navbar';
+import Tag from '../../src/components/common/Tag';
+
+import {
+  Display1,
+  Headline2,
+  Headline1,
+  Subhead4,
+  Subhead3,
+  Body5,
+  Body4,
+  Body3,
+  Body2,
+  Body1,
+  Tag1,
+} from '../../styles/FontStyle';
+
+import icon_heart_fill from '../../public/icon_heart_fill.png';
+import icon_heart from '../../public/icon_heart.png';
+import icon_search from '../../public/icon_search.png';
+import icon_bookmark from '../../public/icon_bookmark.png';
+import icon_bookmark_fill from '../../public/icon_bookmark_fill.png';
+import icon_system from '../../public/icon_system.png';
+import icon_view from '../../public/icon_view.png';
+import icon_leftarrow from '../../public/icon_leftarrow.png';
+import icon_rightarrow from '../../public/icon_rightarrow.png';
+import icon_cancel from '../../public/icon_cancel.png';
 
 const ComponentLayout = styled.div`
   display: flex;
@@ -74,18 +101,22 @@ export default function ComponentSample() {
         화면입니다.
       </ComponentContent>
 
+      {/* 로고 */}
       <ComponentHeader>Logo</ComponentHeader>
+      <ComponentSubHeader>가로 로고</ComponentSubHeader>
       <ComponentContent>
         <div>
           <Image src={logo_horizontal} width={485} height={108} />
-          <div>가로 로고</div>
         </div>
+      </ComponentContent>
+      <ComponentSubHeader>세로 로고</ComponentSubHeader>
+      <ComponentContent>
         <div>
           <Image src={logo_vertical} width={303.54} height={212.42} />
-          <div>세로 로고</div>
         </div>
       </ComponentContent>
 
+      {/* 컬러 */}
       <ComponentHeader>Color</ComponentHeader>
       <ComponentSubHeader>Main Color</ComponentSubHeader>
       <ComponentContent>
@@ -276,6 +307,7 @@ export default function ComponentSample() {
         </div>
       </ComponentContent>
 
+      {/* 버튼 */}
       <ComponentHeader>Button</ComponentHeader>
       <ComponentContent>
         <div>
@@ -345,6 +377,166 @@ export default function ComponentSample() {
         </div>
         <div>
           <Button text="type 8" btnType="8" disabled />
+        </div>
+      </ComponentContent>
+
+      {/* 드롭다운 */}
+      <ComponentHeader>Dropdown</ComponentHeader>
+      <ComponentContent>잠시 비워 놓겠음</ComponentContent>
+
+      {/* 네비게이션 바 */}
+      <ComponentHeader>Navigation Bar</ComponentHeader>
+      <ComponentSubHeader>
+        팁 : 밑에 깨져 보이니까 저 위에 붙은 거 참고하세요~~
+      </ComponentSubHeader>
+      <ComponentContent>
+        <div>
+          <Navbar />
+        </div>
+      </ComponentContent>
+
+      {/* 탭 그룹 */}
+      <ComponentHeader>Tap Group</ComponentHeader>
+      <ComponentContent>잠시 비워 놓겠음</ComponentContent>
+
+      {/* 태그 */}
+      <ComponentHeader>Tag</ComponentHeader>
+      <ComponentContent>
+        <div>
+          <Tag text={'약품'} />
+        </div>
+        <div>
+          <Tag text={'수면'} />
+        </div>
+        <div>
+          <Tag text={'세면'} />
+        </div>
+        <div>
+          <Tag text={'음식'} />
+        </div>
+        <div>
+          <Tag text={'환경'} />
+        </div>
+        <div>
+          <Tag text={'기타'} />
+        </div>
+      </ComponentContent>
+
+      {/* 쉐도우 */}
+      <ComponentHeader>Shadow</ComponentHeader>
+      <ComponentContent>
+        <div
+          css={css`
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            filter: drop-shadow(-4px -4px 10px rgba(0, 0, 0, 0.04))
+              drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.07));
+          `}
+        >
+          drop-shadow 적용
+        </div>
+      </ComponentContent>
+
+      {/* 박스 모서리 */}
+      <ComponentHeader>Radius</ComponentHeader>
+      <ComponentContent>
+        <div
+          css={css`
+            width: 200px;
+            height: 48px;
+            color: white;
+            background-color: green;
+            border-radius: 4px;
+          `}
+        >
+          4px
+        </div>
+        <div
+          css={css`
+            width: 200px;
+            height: 96px;
+            color: white;
+            background-color: green;
+            border-radius: 8px;
+          `}
+        >
+          8px
+        </div>
+      </ComponentContent>
+
+      {/* 체크박스 */}
+      <ComponentHeader>Checkbox</ComponentHeader>
+      <ComponentContent>잠시 비워 놓겠음</ComponentContent>
+
+      {/* 타이포그래피 */}
+      <ComponentHeader>Typography</ComponentHeader>
+      <ComponentContent>
+        <span css={Display1}>Display1 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Headline2}>Headline2 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Headline1}>Headline1 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Subhead4}>Subhead4 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Subhead3}>Subhead3 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Body5}>Body5 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Body4}>Body4 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Body3}>Body3 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Body2}>Body2 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Body1}>Body1 폰트입니다.</span>
+      </ComponentContent>
+      <ComponentContent>
+        <span css={Tag1}>Tag 폰트입니다.</span>
+      </ComponentContent>
+
+      {/* 아이콘 */}
+      <ComponentHeader>Icon</ComponentHeader>
+      <ComponentContent>
+        <div>
+          <Image src={icon_heart_fill} width="40" height="40" />
+        </div>
+        <div>
+          <Image src={icon_heart} width="40" height="40" />
+        </div>
+        <div>
+          <Image src={icon_search} width="40" height="40" />
+        </div>
+        <div>
+          <Image src={icon_bookmark} width="40" height="40" />
+        </div>
+        <div>
+          <Image src={icon_bookmark_fill} width="40" height="40" />
+        </div>
+        <div>
+          <Image src={icon_system} width="40" height="40" />
+        </div>
+        <div>
+          <Image src={icon_view} width="40" height="40" />
+        </div>
+        <div>
+          <Image src={icon_leftarrow} width="40" height="40" />
+        </div>
+        <div>
+          <Image src={icon_rightarrow} width="40" height="40" />
+        </div>
+        <div>
+          <Image src={icon_cancel} width="40" height="40" />
         </div>
       </ComponentContent>
     </ComponentLayout>
