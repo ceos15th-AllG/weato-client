@@ -1,3 +1,5 @@
+// Card 스타일 관리
+
 import styled from '@emotion/styled';
 import { gray07 } from '../../../styles/Colors';
 
