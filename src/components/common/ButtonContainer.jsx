@@ -3,7 +3,7 @@
 import Button from './button';
 
 const ButtonContainer = (props) => {
-  return <Button text={props.text} />;
+  return <Button {...props} />;
 };
 
 export default ButtonContainer;

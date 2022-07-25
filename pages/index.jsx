@@ -96,7 +96,7 @@ export default function Home() {
                 이제는 위아토와 함께해요!
               </BannerText>
               <BannerText css={Headline2}></BannerText>
-              <Button text={'바로 구독하기'} />
+              <Button text={'바로 구독하기'} btnType={'4'} />
             </BannerContent>
           </BannerLayout>
 
@@ -153,7 +153,7 @@ export default function Home() {
               />
             </CardRow>
             <ButtonRow>
-              <Button text={'더보기'} />
+              <Button text={'더보기'} btnType={'4'} />
             </ButtonRow>
 
             <CardHeader css={Display1}>가장 많은 스크랩</CardHeader>
@@ -208,7 +208,7 @@ export default function Home() {
               />
             </CardRow>
             <ButtonRow>
-              <Button text={'더보기'} />
+              <Button text={'더보기'} btnType={'4'} />
             </ButtonRow>
           </HomeContent>
         </div>
