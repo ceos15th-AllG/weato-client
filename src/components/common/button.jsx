@@ -1,3 +1,5 @@
+// Button 스타일 관리
+
 import styled from '@emotion/styled';
 
 import { main, gray03, text_white } from '../../../styles/Colors';
@@ -6,7 +8,6 @@ const ButtonLayout = styled.div`
   width: 204px;
   height: 60px;
 
-  /* padding: 20px; */
   border-radius: 8px;
 
   display: flex;
