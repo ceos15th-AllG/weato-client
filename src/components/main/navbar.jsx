@@ -69,6 +69,16 @@ function Navbar() {
         >
           <Link href="/community">커뮤니티</Link>
         </li>
+        <li
+          css={[
+            Subhead4,
+            css`
+              margin-left: 140px;
+            `,
+          ]}
+        >
+          <Link href="/componentsample">테스트</Link>
+        </li>
       </NavbarContent>
 
       <NavbarRightGroup>
