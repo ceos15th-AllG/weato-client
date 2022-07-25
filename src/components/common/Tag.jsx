@@ -1,3 +1,5 @@
+// Tag 스타일 관리
+
 import styled from '@emotion/styled';
 
 import { Tag1 } from '../../../styles/FontStyle';
@@ -30,41 +32,41 @@ const TagText = styled.div`
   color: ${text_black};
 `;
 
-const Tag = (props) => {
-  if (props.text === '약품') {
+const Tag = ({ text }) => {
+  if (text === '약품') {
     return (
       <TagLayout color={tag_medicine}>
-        <TagText css={Tag1}>{props.text}</TagText>
+        <TagText css={Tag1}>{text}</TagText>
       </TagLayout>
     );
-  } else if (props.text === '수면') {
+  } else if (text === '수면') {
     return (
       <TagLayout color={tag_sleep}>
-        <TagText css={Tag1}>{props.text}</TagText>
+        <TagText css={Tag1}>{text}</TagText>
       </TagLayout>
     );
-  } else if (props.text === '세면') {
+  } else if (text === '세면') {
     return (
       <TagLayout color={tag_water}>
-        <TagText css={Tag1}>{props.text}</TagText>
+        <TagText css={Tag1}>{text}</TagText>
       </TagLayout>
     );
-  } else if (props.text === '음식') {
+  } else if (text === '음식') {
     return (
       <TagLayout color={tag_food}>
-        <TagText css={Tag1}>{props.text}</TagText>
+        <TagText css={Tag1}>{text}</TagText>
       </TagLayout>
     );
-  } else if (props.text === '환경') {
+  } else if (text === '환경') {
     return (
       <TagLayout color={tag_env}>
-        <TagText css={Tag1}>{props.text}</TagText>
+        <TagText css={Tag1}>{text}</TagText>
       </TagLayout>
     );
-  } else if (props.text === '기타') {
+  } else if (text === '기타') {
     return (
       <TagLayout color={tag_etc}>
-        <TagText css={Tag1}>{props.text}</TagText>
+        <TagText css={Tag1}>{text}</TagText>
       </TagLayout>
     );
   }
