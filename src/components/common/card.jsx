@@ -1,9 +1,15 @@
-/** @jsxImportSource @emotion/react */
-import { jsx, css } from '@emotion/react';
+// Card 스타일 관리
 
-const CardStyle = css`
-  width: 200px;
-  height: 200px;
+import styled from '@emotion/styled';
+import { gray07 } from '../../../styles/Colors';
+
+import { Headline1, Body2 } from '../../../styles/FontStyle';
+
+import Tag from './Tag';
+
+const CardLayout = styled.section`
+  width: 315px;
+  height: 315px;
 
   border-radius: 16px;
 
@@ -11,34 +17,49 @@ const CardStyle = css`
   flex-direction: column;
   justify-content: space-between;
 
-  padding: 32px;
+  padding: 60px;
 
-  background-color: orange;
+  box-shadow: -4px -4px 12px rgba(0, 0, 0, 0.03),
+    3.2px 3.2px 12px rgba(0, 0, 0, 0.06);
 `;
 
-const CardTopContainer = css`
+const CardText = styled.article`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 `;
 
-const CardBottomContainer = css`
+const CardBottomRow = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
+`;
+
+const CardDate = styled.time`
+  display: flex;
+
+  margin-bottom: 3px;
+
+  color: ${gray07};
 `;
 
 const Card = ({ text, date, tag }) => {
   return (
-    <div css={CardStyle}>
-      <div css={CardTopContainer}>
-        <div>{text}</div>
-      </div>
+    <CardLayout>
+      <CardText css={Headline1}>{text}</CardText>
 
-      <div css={CardBottomContainer}>
-        <div>{date}</div>
-        <div>{tag}</div>
-      </div>
-    </div>
+      <CardBottomRow>
+        <CardDate css={Body2}>{date}</CardDate>
+        <Tag text={tag} />
+      </CardBottomRow>
+    </CardLayout>
   );
 };
 
