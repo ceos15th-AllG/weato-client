@@ -10,8 +10,8 @@ import { text_white } from '../styles/Colors';
 
 import { Display1, Headline2 } from '../styles/FontStyle';
 
-import Card from '../src/components/common/Card';
-import Button from '../src/components/common/Button';
+import Card from '../src/components/common/CardContainer';
+import Button from '../src/components/common/ButtonContainer';
 
 import banner from '../public/main_banner.png';
 
