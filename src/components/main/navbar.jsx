@@ -82,9 +82,11 @@ function Navbar() {
       </NavbarContent>
 
       <NavbarRightGroup>
-        <NavbarRightGroupItem css={Subhead3}>
-          회원가입 / 로그인
-        </NavbarRightGroupItem>
+        <Link href="/login">
+          <NavbarRightGroupItem css={Subhead3}>
+            회원가입 / 로그인
+          </NavbarRightGroupItem>
+        </Link>
         <Link href="/search">
           <Image src={icon_search} width="28" height="28.84" />
         </Link>
