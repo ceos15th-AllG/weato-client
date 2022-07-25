@@ -27,6 +27,8 @@ import {
   tag_etc,
 } from '../../styles/Colors';
 
+import Button from '../../src/components/common/ButtonContainer';
+
 const ComponentLayout = styled.div`
   display: flex;
   flex-direction: column;
@@ -58,6 +60,8 @@ const ComponentContent = styled.section`
     align-items: center;
 
     font-size: 14px;
+
+    margin-right: 20px;
   }
 `;
 
@@ -90,7 +94,6 @@ export default function ComponentSample() {
             background-color: ${main};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           Main
@@ -100,7 +103,6 @@ export default function ComponentSample() {
             background-color: ${sub};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           Sub
@@ -113,7 +115,6 @@ export default function ComponentSample() {
             background-color: ${semantic_red};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           Red
@@ -126,7 +127,6 @@ export default function ComponentSample() {
             background-color: ${gray01};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           Gray01
@@ -136,7 +136,6 @@ export default function ComponentSample() {
             background-color: ${gray02};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           Gray02
@@ -146,7 +145,6 @@ export default function ComponentSample() {
             background-color: ${gray03};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
 
             color: white;
           `}
@@ -158,7 +156,6 @@ export default function ComponentSample() {
             background-color: ${gray04};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
 
             color: white;
           `}
@@ -170,7 +167,6 @@ export default function ComponentSample() {
             background-color: ${gray05};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
 
             color: white;
           `}
@@ -182,7 +178,6 @@ export default function ComponentSample() {
             background-color: ${gray06};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
 
             color: white;
           `}
@@ -194,7 +189,6 @@ export default function ComponentSample() {
             background-color: ${gray07};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
 
             color: white;
           `}
@@ -209,7 +203,6 @@ export default function ComponentSample() {
             background-color: ${text_black};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
             color: white;
           `}
         >
@@ -220,7 +213,6 @@ export default function ComponentSample() {
             background-color: ${text_white};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           white
@@ -233,7 +225,6 @@ export default function ComponentSample() {
             background-color: ${tag_medicine};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           약품
@@ -243,7 +234,6 @@ export default function ComponentSample() {
             background-color: ${tag_sleep};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           수면
@@ -253,7 +243,6 @@ export default function ComponentSample() {
             background-color: ${tag_water};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           세면
@@ -263,7 +252,6 @@ export default function ComponentSample() {
             background-color: ${tag_food};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           음식
@@ -273,7 +261,6 @@ export default function ComponentSample() {
             background-color: ${tag_env};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           환경
@@ -283,18 +270,83 @@ export default function ComponentSample() {
             background-color: ${tag_etc};
             width: 100px;
             height: 100px;
-            margin-right: 20px;
           `}
         >
           기타
         </div>
       </ComponentContent>
 
-      {/* <ComponentHeader>Button</ComponentHeader>
+      <ComponentHeader>Button</ComponentHeader>
       <ComponentContent>
-        <div></div>
-        <div></div>
-      </ComponentContent> */}
+        <div>
+          <Button text="type 1" btnType="1" />
+        </div>
+        <div>
+          <Button text="type 1" btnType="1" disabled />
+        </div>
+        <div>{`커뮤니티 > 글쓰기 > 발행`}</div>
+      </ComponentContent>
+      <ComponentContent>
+        <div>
+          <Button text="type 2" btnType="2" />
+        </div>
+        <div>
+          <Button text="type 2" btnType="2" disabled />
+        </div>
+        <div>{`커뮤니티 > 댓글 > 등록`}</div>
+      </ComponentContent>
+      <ComponentContent>
+        <div>
+          <Button text="type 3" btnType="3" />
+        </div>
+        <div>
+          <Button text="type 3" btnType="3" disabled />
+        </div>
+        <div>{`회원가입 > 중복 인증`}</div>
+      </ComponentContent>
+      <ComponentContent>
+        <div>
+          <Button text="type 4" btnType="4" />
+        </div>
+        <div>
+          <Button text="type 4" btnType="4" disabled />
+        </div>
+        <div>{`더보기 / 저장`}</div>
+      </ComponentContent>
+      <ComponentContent>
+        <div>
+          <Button text="type 5" btnType="5" />
+        </div>
+        <div>
+          <Button text="type 5" btnType="5" disabled />
+        </div>
+        <div>{`회원가입 > 상세 정보 입력하기`}</div>
+      </ComponentContent>
+      <ComponentContent>
+        <div>
+          <Button text="type 6" btnType="6" />
+        </div>
+        <div>
+          <Button text="type 6" btnType="6" disabled />
+        </div>
+      </ComponentContent>
+      <ComponentContent>
+        <div>
+          <Button text="type 7" btnType="7" />
+        </div>
+        <div>
+          <Button text="type 7" btnType="7" disabled />
+        </div>
+        <div>{`글 작성하기`}</div>
+      </ComponentContent>
+      <ComponentContent>
+        <div>
+          <Button text="type 8" btnType="8" />
+        </div>
+        <div>
+          <Button text="type 8" btnType="8" disabled />
+        </div>
+      </ComponentContent>
     </ComponentLayout>
   );
 }
