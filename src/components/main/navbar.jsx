@@ -20,6 +20,8 @@ const NavbarLayout = styled.header`
   padding: 0px 300px;
 
   height: 100px;
+
+  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.07);
 `;
 
 const NavbarContent = styled.ul`

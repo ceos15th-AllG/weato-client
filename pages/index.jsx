@@ -20,27 +20,31 @@ const HomeLayout = styled.div`
 `;
 
 const BannerLayout = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 1920px;
+  height: 421px;
+
+  background-image: url(${banner.src});
+  background-size: contain;
 `;
 
 const BannerContent = styled.div`
-  position: absolute;
-  right: 261px;
+  position: relative;
+
+  right: 300px;
+  top: 140px;
+
+  height: 184px;
 
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
-
-  height: 184px;
 `;
 
 const BannerText = styled.article`
-  color: ${text_white};
-
   text-align: right;
+
+  color: ${text_white};
 `;
 
 const HomeContent = styled.main`
@@ -78,7 +82,6 @@ export default function Home() {
 
         <div>
           <BannerLayout>
-            <Image src={banner} />
             <BannerContent>
               <BannerText
                 css={[
