@@ -28,8 +28,9 @@ const TagLayout = styled.div`
   background-color: ${(props) => props.color};
 `;
 
-const TagText = styled.div`
+const TagText = styled.span`
   color: ${text_black};
+  text-align: center;
 `;
 
 const Tag = ({ text }) => {
