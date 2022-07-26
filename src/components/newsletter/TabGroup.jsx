@@ -16,19 +16,19 @@ const Layout = styled.div`
   margin-bottom: 72px;
 `;
 
-const Item = styled.section`
-  span {
-    ${Headline2}
-
-    color : ${main};
-  }
-
+const Item = styled.span`
   height: 48px;
 
+  ${Headline2}
+
+  color : ${main};
+
   /* border-bottom: ${(props) => {
-    props.tag === tags[props.selected] ? `5px` : `0px`;
+    props.tag === tags[props.selected] ? `1px` : `0px`;
   }}
     solid ${main}; */
+
+  /* border-bottom: 5px solid ${main}; */
 `;
 
 export default function TabGroup({ selected }) {
@@ -36,9 +36,10 @@ export default function TabGroup({ selected }) {
     <Layout>
       {tags.map((tag, index) => (
         <Item key={index} tag={tag} selected={selected}>
-          <span>{tag}</span>
+          {tag}
         </Item>
       ))}
+      {console.log(selected)}
     </Layout>
   );
 }
