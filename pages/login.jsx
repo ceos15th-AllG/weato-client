@@ -1,11 +1,8 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
 import banner_login from '../public/banner_login.png';
-import Button from '../src/components/common/button';
 
 import { main, text_black } from '../styles/Colors';
 
@@ -51,8 +48,26 @@ const NaverLoginBtn = styled.div`
   color: white;
 `;
 
+// import { useEffect, useState } from 'react';
+// import axios from 'axios';
+import useSWR from 'swr';
+
 const BASE_URL =
   'http://ec2-3-37-94-86.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/naver';
+
+const fetcher = async (url) => {
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (res.status !== 200) {
+    console.log(data.message);
+    throw new Error(data.message);
+  }
+  console.log(data);
+  console.log(data.json());
+
+  return data.json();
+};
 
 export default function Login() {
   return (
@@ -68,7 +83,8 @@ export default function Login() {
 
           <MidText>회원가입 | 로그인</MidText>
 
-          <NaverLoginBtn onClick={() => console.log()} />
+          {/* <NaverLoginBtn onClick={() => fetcher(BASE_URL)} /> */}
+          <NaverLoginBtn onClick={() => alert()} />
         </Column>
       </Row>
     </Layout>
