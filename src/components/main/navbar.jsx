@@ -47,7 +47,9 @@ function Navbar() {
     <NavbarLayout>
       <NavbarContent>
         <Link href="/">
-          <Image src={logo_horizontal} width={239.5} height={58} />
+          <a>
+            <Image src={logo_horizontal} width={239.5} height={58} />
+          </a>
         </Link>
         <li
           css={[
@@ -57,7 +59,9 @@ function Navbar() {
             `,
           ]}
         >
-          <Link href="/newsletter">뉴스레터</Link>
+          <Link href="/newsletter">
+            <a>뉴스레터</a>
+          </Link>
         </li>
         <li
           css={[
@@ -67,7 +71,9 @@ function Navbar() {
             `,
           ]}
         >
-          <Link href="/community">커뮤니티</Link>
+          <Link href="/community">
+            <a>커뮤니티</a>
+          </Link>
         </li>
         <li
           css={[
@@ -77,18 +83,22 @@ function Navbar() {
             `,
           ]}
         >
-          <Link href="/componentsample">테스트</Link>
+          <Link href="/componentsample">
+            <a>테스트</a>
+          </Link>
         </li>
       </NavbarContent>
 
       <NavbarRightGroup>
-        <Link href="/login">
-          <NavbarRightGroupItem css={Subhead3}>
-            회원가입 / 로그인
-          </NavbarRightGroupItem>
-        </Link>
+        <NavbarRightGroupItem css={Subhead3}>
+          <Link href="/login">
+            <a>회원가입 / 로그인</a>
+          </Link>
+        </NavbarRightGroupItem>
         <Link href="/search">
-          <Image src={icon_search} width="28" height="28.84" />
+          <a>
+            <Image src={icon_search} width="28" height="28.84" />
+          </a>
         </Link>
       </NavbarRightGroup>
     </NavbarLayout>
