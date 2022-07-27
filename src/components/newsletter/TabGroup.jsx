@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
 
+import Link from 'next/link';
+
 import { Headline2 } from '../../../styles/FontStyle';
-import { main } from '../../../styles/Colors';
+import { main, gray05 } from '../../../styles/Colors';
 
 const tags = ['전체', '약품', '수면', '세면', '음식', '환경', '기타'];
+const routes = ['all', 'medicine', 'sleep', 'water', 'food', 'env', 'etc'];
 
 const Layout = styled.div`
   width: 652px;
@@ -21,14 +24,10 @@ const Item = styled.span`
 
   ${Headline2}
 
-  color : ${main};
+  color : ${(props) => `${props.tag === props.selected ? main : gray05}`};
 
-  /* border-bottom: ${(props) => {
-    props.tag === tags[props.selected] ? `1px` : `0px`;
-  }}
-    solid ${main}; */
-
-  /* border-bottom: 5px solid ${main}; */
+  border-bottom: 5px solid
+    ${(props) => `${props.tag === props.selected ? main : 'transparent'}`};
 `;
 
 export default function TabGroup({ selected }) {
@@ -36,10 +35,11 @@ export default function TabGroup({ selected }) {
     <Layout>
       {tags.map((tag, index) => (
         <Item key={index} tag={tag} selected={selected}>
-          {tag}
+          <Link href={`/newsletter?tag=${routes[index]}`}>
+            <a>{tag}</a>
+          </Link>
         </Item>
       ))}
-      {console.log(selected)}
     </Layout>
   );
 }
