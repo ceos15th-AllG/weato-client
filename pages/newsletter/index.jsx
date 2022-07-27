@@ -15,10 +15,10 @@ const Layout = styled.div`
   margin: 78px 300px 86px;
 `;
 
-export default function Newsletter() {
+function Newsletter(props) {
   return (
     <Layout>
-      <TabGroup selected={'전체'} />
+      <TabGroup selected={props.tag} />
 
       <CardBox />
 
@@ -26,3 +26,32 @@ export default function Newsletter() {
     </Layout>
   );
 }
+
+export const getServerSideProps = async (context) => {
+  const query = context.query;
+  const koreanTags = {
+    all: '전체',
+    medicine: '약품',
+    sleep: '수면',
+    water: '세면',
+    food: '음식',
+    env: '환경',
+    etc: '기타',
+  };
+
+  if (('길이', Object.keys(query).length === 0)) {
+    return {
+      props: {
+        tag: koreanTags['all'],
+      },
+    };
+  }
+
+  return {
+    props: {
+      tag: koreanTags[query.tag],
+    },
+  };
+};
+
+export default Newsletter;

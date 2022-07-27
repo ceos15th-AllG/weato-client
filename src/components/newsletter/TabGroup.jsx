@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { Headline2 } from '../../../styles/FontStyle';
 import { main, gray05 } from '../../../styles/Colors';
 
-const tags = ['전체', '약품', '수면', '세면', '음식', '환경', '기타'];
 const routes = ['all', 'medicine', 'sleep', 'water', 'food', 'env', 'etc'];
+const tags = ['전체', '약품', '수면', '세면', '음식', '환경', '기타'];
 
 const Layout = styled.div`
   width: 652px;
