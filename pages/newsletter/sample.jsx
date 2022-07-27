@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 import ProgressBar from '../../src/components/newsletter/ProgressBar';
 import NewsletterForm from '../../src/components/newsletter/NewsletterForm';
+import Button from '../../src/components/newsletter/ButtonContainer';
 
 import { Subhead3 } from '../../styles/FontStyle';
 import { main, gray02, gray06, text_black } from '../../styles/Colors';
@@ -16,13 +17,12 @@ const Content = styled.main`
   flex-direction: column;
   align-items: center;
 
-  margin: 83px 300px 160px;
+  margin: 83px 300px 0px;
 `;
 
 const ContentHeader = styled.header`
   width: 100%;
 
-  margin-top: 83px;
   margin-bottom: 101px;
   padding-bottom: 23px;
 
@@ -30,6 +30,13 @@ const ContentHeader = styled.header`
 
   color : ${text_black};
   border-bottom: 3px solid ${gray06};
+`;
+
+const ButtonRow = styled.div`
+  margin: 16px 635px 160px;
+
+  display: flex;
+  justify-content: right;
 `;
 
 function Sample(props) {
@@ -41,6 +48,11 @@ function Sample(props) {
         <ContentHeader>뉴스레터 &#xE001; 세면</ContentHeader>
         <NewsletterForm />
       </Content>
+
+      <ButtonRow>
+        <Button value={200} btnType="heart" />
+        <Button value={200} btnType="save" />
+      </ButtonRow>
     </Layout>
   );
 }

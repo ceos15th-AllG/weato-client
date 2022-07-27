@@ -3,6 +3,9 @@ import styled from '@emotion/styled';
 import { main, gray02 } from '../../../styles/Colors';
 
 const Layout = styled.div`
+  position: top;
+  top: 50px;
+
   height: 12px;
 
   display: flex;
