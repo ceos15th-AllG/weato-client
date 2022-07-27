@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { useScrollPercentage } from 'react-scroll-percentage';
+
 import ProgressBar from '../../src/components/newsletter/ProgressBar';
 import NewsletterForm from '../../src/components/newsletter/NewsletterForm';
 import Button from '../../src/components/newsletter/ButtonContainer';
@@ -40,15 +42,19 @@ const ButtonRow = styled.div`
 `;
 
 function Sample(props) {
+  const [ref, percentage] = useScrollPercentage({
+    /* Optional options */
+    threshold: 0,
+  });
+
   return (
-    <Layout>
-      <ProgressBar />
+    <Layout ref={ref}>
+      <ProgressBar percentage={percentage * 100} />
 
       <Content>
         <ContentHeader>뉴스레터 &#xE001; 세면</ContentHeader>
         <NewsletterForm />
       </Content>
-
       <ButtonRow>
         <Button value={200} btnType="heart" />
         <Button value={200} btnType="save" />

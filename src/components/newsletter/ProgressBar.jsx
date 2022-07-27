@@ -3,8 +3,9 @@ import styled from '@emotion/styled';
 import { main, gray02 } from '../../../styles/Colors';
 
 const Layout = styled.div`
-  position: top;
-  top: 50px;
+  position: fixed;
+  top: 100px;
+  z-index: 900px;
 
   height: 12px;
 
@@ -15,17 +16,17 @@ const Layout = styled.div`
 `;
 
 const Bar = styled.div`
-  width: 500px;
+  width: ${(props) => `${props.percentage}`}vw;
 
   border-radius: 100px;
 
   background-color: ${main};
 `;
 
-function ProgressBar() {
+function ProgressBar({ percentage }) {
   return (
     <Layout>
-      <Bar />
+      <Bar percentage={percentage} />
     </Layout>
   );
 }
