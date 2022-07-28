@@ -1,15 +1,31 @@
-export default function Community() {
-  return (
-    <div>
-      <main>
-        <h1>커뮤니티 페이지 - 홈</h1>
-        <h3>
-          홈페이지 : <a href="/">weato.net</a>
-        </h3>
-        <h4>커뮤니티 페이지 임시 화면입니다.</h4>
-      </main>
+import styled from '@emotion/styled';
 
-      <footer>Footer</footer>
-    </div>
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin: 83px 300px 119px;
+
+  background-color: blue;
+`;
+
+function Community() {
+  return (
+    <Layout>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+      <h1>커뮤니티 페이지 - 홈</h1>
+    </Layout>
   );
 }
+
+export default Community;
