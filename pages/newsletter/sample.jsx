@@ -43,8 +43,8 @@ const ButtonRow = styled.div`
 
 function Sample(props) {
   const [ref, percentage] = useScrollPercentage({
-    /* Optional options */
-    threshold: 0,
+    // rootMargin: '100px',
+    threshold: 0.5,
   });
 
   return (
