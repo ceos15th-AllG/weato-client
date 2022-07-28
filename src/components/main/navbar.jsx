@@ -11,7 +11,11 @@ import { gray04 } from '../../../styles/Colors';
 import icon_search from '../../../public/icon_search.png';
 import logo_horizontal from '../../../public/logo_horizontal.png';
 
-const NavbarLayout = styled.header`
+const NavbarLayout = styled.div`
+  position: fixed;
+  top: 0px;
+  z-index: 1000;
+
   display: flex;
 
   justify-content: space-between;
@@ -19,7 +23,10 @@ const NavbarLayout = styled.header`
 
   padding: 0px 300px;
 
+  width: 100%;
   height: 100px;
+
+  background-color: white;
 
   box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.07);
 `;

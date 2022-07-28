@@ -386,14 +386,7 @@ export default function ComponentSample() {
 
       {/* 네비게이션 바 */}
       <ComponentHeader>Navigation Bar</ComponentHeader>
-      <ComponentSubHeader>
-        팁 : 밑에 깨져 보이니까 저 위에 붙은 거 참고하세요~~
-      </ComponentSubHeader>
-      <ComponentContent>
-        <div>
-          <Navbar />
-        </div>
-      </ComponentContent>
+      <ComponentContent>저 위에 붙은 거 참고하세요~~~~~</ComponentContent>
 
       {/* 탭 그룹 */}
       <ComponentHeader>Tap Group</ComponentHeader>
