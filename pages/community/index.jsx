@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
 
+import BoardGroup from '../../src/components/community/BoardGroup';
+import Banner from '../../src/components/community/Banner';
+
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
@@ -9,21 +12,19 @@ const Layout = styled.div`
   background-color: blue;
 `;
 
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 function Community() {
   return (
     <Layout>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
-      <h1>커뮤니티 페이지 - 홈</h1>
+      <Row>
+        <BoardGroup />
+        <Banner />
+      </Row>
+      <Row></Row>
     </Layout>
   );
 }
