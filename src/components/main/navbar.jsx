@@ -104,7 +104,10 @@ function Navbar() {
         </NavbarRightGroupItem>
         <Link href="/search">
           <a>
-            <Image src={icon_search} width="28" height="28.84" />
+            {/* <Image src={icon_search} width="28" height="28.84" />
+            <Image src={icon_search} width="32" height="32.84" /> */}
+            <Image src={icon_search} width="34" height="35.02" />
+            {/* <Image src={icon_search} width="36" height="36.84" /> */}
           </a>
         </Link>
       </NavbarRightGroup>
