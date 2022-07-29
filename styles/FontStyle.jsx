@@ -7,26 +7,30 @@ export const Display1 = css`
   line-height: 42px;
 `;
 
+// font-weight Figma 기준 700이지만 렌더링 감안해 500으로 조정
 export const Headline2 = css`
-  font-weight: 700;
+  font-weight: 500;
   font-size: 28px;
   line-height: 38px;
 `;
 
+// font-weight Figma 기준 700이지만 렌더링 감안해 500으로 조정
 export const Headline1 = css`
-  font-weight: 700;
+  font-weight: 500;
   font-size: 24px;
   line-height: 34px;
 `;
 
+// font-weight Figma 기준 700이지만 렌더링 감안해 500으로 조정
 export const Subhead4 = css`
-  font-weight: 700;
+  font-weight: 500;
   font-size: 20px;
   line-height: 28px;
 `;
 
+// font-weight Figma 기준 700이지만 렌더링 감안해 500으로 조정
 export const Subhead3 = css`
-  font-weight: 700;
+  font-weight: 500;
   font-size: 16px;
   line-height: 22px;
 `;
