@@ -12,6 +12,7 @@ const Layout = styled.div`
   align-items: flex-end;
 
   padding-bottom: 19px;
+  margin-bottom: 36px;
 
   border-bottom: 3px solid ${gray06};
 `;
@@ -23,6 +24,8 @@ const Title = styled.header`
 `;
 
 const More = styled.span`
+  margin-bottom: 5px;
+
   ${Subhead3}
 
   color : ${text_black};
