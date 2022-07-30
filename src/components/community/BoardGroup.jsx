@@ -11,8 +11,6 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  background-color: red;
 `;
 
 const Row = styled.div`

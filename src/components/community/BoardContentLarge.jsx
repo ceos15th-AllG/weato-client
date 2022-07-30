@@ -70,8 +70,8 @@ const Date = styled.span`
 function BoardContentLarge({ posts }) {
   return (
     <Layout>
-      {posts.map(({ category, title, comments, tag, view, date }) => (
-        <Box>
+      {posts.map(({ category, title, comments, tag, view, date, index }) => (
+        <Box key={index}>
           <Box>
             <Tag text={category} />
             <Title>

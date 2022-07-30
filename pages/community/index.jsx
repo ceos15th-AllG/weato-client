@@ -23,8 +23,6 @@ const BannerBox = styled.div`
   align-items: center;
 
   padding-top: 53px;
-
-  background-color: red;
 `;
 
 function Community() {

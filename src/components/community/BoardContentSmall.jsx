@@ -57,8 +57,8 @@ const Date = styled.span`
 function BoardContentSmall({ posts }) {
   return (
     <Layout>
-      {posts.map(({ title, view, date }) => (
-        <Box>
+      {posts.map(({ title, view, date, index }) => (
+        <Box key={index}>
           <Title>{title}</Title>
           <Box>
             <Box>
