@@ -2,6 +2,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import Link from 'next/link';
+
 import Button from '../common/ButtonContainer';
 
 import { Headline1, Subhead4 } from '../../../styles/FontStyle';
@@ -70,21 +72,27 @@ function TabBar({ selected }) {
               margin-left: 11px;
             `}
           >
-            핫토픽
+            <Link href="/community/hot">
+              <a>핫토픽</a>
+            </Link>
           </HeaderTextSelected>
           <HeaderText
             css={css`
               margin-left: 123px;
             `}
           >
-            나만의 관리법
+            <Link href="/community/knowhow">
+              <a>나만의 관리법</a>
+            </Link>
           </HeaderText>
           <HeaderText
             css={css`
               margin-left: 132px;
             `}
           >
-            질문
+            <Link href="/community/questions">
+              <a>질문</a>
+            </Link>
           </HeaderText>
         </Box>
         <Box>
@@ -104,21 +112,27 @@ function TabBar({ selected }) {
               margin-left: 11px;
             `}
           >
-            핫토픽
+            <Link href="/community/hot">
+              <a>핫토픽</a>
+            </Link>
           </HeaderText>
           <HeaderTextSelected
             css={css`
               margin-left: 123px;
             `}
           >
-            나만의 관리법
+            <Link href="/community/knowhow">
+              <a>나만의 관리법</a>
+            </Link>
           </HeaderTextSelected>
           <HeaderText
             css={css`
               margin-left: 132px;
             `}
           >
-            질문
+            <Link href="/community/questions">
+              <a>질문</a>
+            </Link>
           </HeaderText>
         </Box>
         <Box>
@@ -138,21 +152,27 @@ function TabBar({ selected }) {
               margin-left: 11px;
             `}
           >
-            핫토픽
+            <Link href="/community/hot">
+              <a>핫토픽</a>
+            </Link>
           </HeaderText>
           <HeaderText
             css={css`
               margin-left: 123px;
             `}
           >
-            나만의 관리법
+            <Link href="/community/knowhow">
+              <a>나만의 관리법</a>
+            </Link>
           </HeaderText>
           <HeaderTextSelected
             css={css`
               margin-left: 132px;
             `}
           >
-            질문
+            <Link href="/community/questions">
+              <a>질문</a>
+            </Link>
           </HeaderTextSelected>
         </Box>
         <Box>
@@ -164,6 +184,46 @@ function TabBar({ selected }) {
       </Layout>
     );
   }
+
+  return (
+    <Layout>
+      <Box>
+        <HeaderText
+          css={css`
+            margin-left: 11px;
+          `}
+        >
+          <Link href="/community/hot">
+            <a>핫토픽</a>
+          </Link>
+        </HeaderText>
+        <HeaderText
+          css={css`
+            margin-left: 123px;
+          `}
+        >
+          <Link href="/community/knowhow">
+            <a>나만의 관리법</a>
+          </Link>
+        </HeaderText>
+        <HeaderText
+          css={css`
+            margin-left: 132px;
+          `}
+        >
+          <Link href="/community/questions">
+            <a>질문</a>
+          </Link>
+        </HeaderText>
+      </Box>
+      <Box>
+        <Button text="글쓰기" btnType="7" />
+        <DropDown>
+          <span>태그</span>
+        </DropDown>
+      </Box>
+    </Layout>
+  );
 }
 
 export default TabBar;
