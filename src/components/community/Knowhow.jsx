@@ -13,6 +13,7 @@ const Layout = styled.div`
 function Knowhow() {
   const posts = [
     {
+      id: 0,
       category: '관리법',
       title: '최근 아이에게 유산균을 먹이기 시작 했어요',
       comments: '100',
@@ -21,6 +22,7 @@ function Knowhow() {
       date: '2022-05-27',
     },
     {
+      id: 1,
       category: '관리법',
       title: '최근 아이에게 유산균을 먹이기 시작 했어요',
       comments: '67',
@@ -29,6 +31,7 @@ function Knowhow() {
       date: '24분전',
     },
     {
+      id: 2,
       category: '질문',
       title: '최근 아이에게 유산균을 먹이기 시작 했어요',
       comments: '88',

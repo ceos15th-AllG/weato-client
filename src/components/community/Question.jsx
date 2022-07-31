@@ -13,6 +13,7 @@ const Layout = styled.div`
 function Questions() {
   const posts = [
     {
+      id: 0,
       category: '관리법',
       title: '잘 때마다 가려워서 미치겠어요',
       comments: '100',
@@ -21,6 +22,7 @@ function Questions() {
       date: '2022-05-27',
     },
     {
+      id: 1,
       category: '관리법',
       title: '잘 때마다 가려워서 미치겠어요',
       comments: '67',
@@ -29,6 +31,7 @@ function Questions() {
       date: '24분전',
     },
     {
+      id: 2,
       category: '질문',
       title: '잘 때마다 가려워서 미치겠어요',
       comments: '88',
