@@ -13,7 +13,7 @@ const Layout = styled.div`
   flex-direction: column;
 `;
 
-function Mypage() {
+function Mypage(props) {
   const userData = {
     level: '새싹',
     name: '아토랑',
@@ -23,10 +23,31 @@ function Mypage() {
   return (
     <Layout>
       <HeaderBox userData={userData} />
-      <TabBar selected={'profile'} />
-      <ProfileTab />
+      <TabBar selected={props.tab} />
+
+      {props.tab === 'profile' ? <ProfileTab /> : undefined}
+      {props.tab === 'bookmarks' ? <BookmarksTab /> : undefined}
+      {props.tab === 'community' ? <CommunityTab /> : undefined}
     </Layout>
   );
 }
+
+export const getServerSideProps = async (context) => {
+  const query = context.query;
+
+  if (Object.keys(query).length === 0 || !query.hasOwnProperty('tab')) {
+    return {
+      props: {
+        tab: 'profile',
+      },
+    };
+  }
+
+  return {
+    props: {
+      tab: query.tab,
+    },
+  };
+};
 
 export default Mypage;
