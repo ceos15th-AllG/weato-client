@@ -1,15 +1,23 @@
 import styled from '@emotion/styled';
 
+import TabGroup from './TabGroup';
+import CardBox from './CardBox';
+import Pagenator from '../common/Pagenator';
+
 const Layout = styled.div`
-  margin: 0px 300px;
+  margin: 58px 300px 104px;
 
   display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 function BookmarksTab() {
   return (
     <Layout>
-      <span>dd</span>
+      <TabGroup selected={'전체'} />
+      <CardBox />
+      <Pagenator />
     </Layout>
   );
 }
