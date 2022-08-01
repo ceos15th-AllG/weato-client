@@ -1,15 +1,44 @@
-export default function Community() {
-  return (
-    <div>
-      <main>
-        <h1>커뮤니티 페이지 - 홈</h1>
-        <h3>
-          홈페이지 : <a href="/">weato.net</a>
-        </h3>
-        <h4>커뮤니티 페이지 임시 화면입니다.</h4>
-      </main>
+import styled from '@emotion/styled';
 
-      <footer>Footer</footer>
-    </div>
+import BoardGroup from '../../src/components/community/BoardGroup';
+import Banner from '../../src/components/community/Banner';
+import QnA from '../../src/components/community/QnA';
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin: 83px 300px 119px;
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const BannerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding-top: 53px;
+`;
+
+function Community() {
+  return (
+    <Layout>
+      <Row>
+        <BoardGroup />
+        <BannerBox>
+          <Banner />
+        </BannerBox>
+      </Row>
+      <Row>
+        <QnA />
+      </Row>
+    </Layout>
   );
 }
+
+export default Community;
