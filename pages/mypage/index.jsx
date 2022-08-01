@@ -1,15 +1,32 @@
-export default function MyPage() {
-  return (
-    <div>
-      <main>
-        <h1>마이페이지</h1>
-        <h3>
-          홈페이지 : <a href="/">weato.net</a>
-        </h3>
-        <h4>마이페이지 임시 화면입니다.</h4>
-      </main>
+import styled from '@emotion/styled';
 
-      <footer>Footer</footer>
-    </div>
+import HeaderBox from '../../src/components/mypage/HeaderBox';
+import TabBar from '../../src/components/mypage/TabBar';
+import ProfileTab from '../../src/components/mypage/ProfileTab';
+import BookmarksTab from '../../src/components/mypage/BookmarksTab';
+import CommunityTab from '../../src/components/mypage/CommunityTab';
+
+import { gray01 } from '../../styles/Colors';
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+function Mypage() {
+  const userData = {
+    level: '새싹',
+    name: '아토랑',
+    email: 'abcdef000@naver.com',
+  };
+
+  return (
+    <Layout>
+      <HeaderBox userData={userData} />
+      <TabBar selected={'profile'} />
+      <ProfileTab />
+    </Layout>
   );
 }
+
+export default Mypage;
