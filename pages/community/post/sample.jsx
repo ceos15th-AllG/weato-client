@@ -82,7 +82,7 @@ function Sample() {
 
   return (
     <Layout>
-      <ContentHeader>뉴스레터 &#xE001; 세면</ContentHeader>
+      <ContentHeader>커뮤니티 &#xE001; 나만의 관리법</ContentHeader>
       <PostContent post={post} />
       <PostComment comment={comment} />
     </Layout>
@@ -90,34 +90,3 @@ function Sample() {
 }
 
 export default Sample;
-
-// const Content = styled.main`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-
-//   margin: 83px 300px 0px;
-// `;
-
-// const ButtonRow = styled.div`
-//   margin: 16px 635px 160px;
-
-//   display: flex;
-//   justify-content: right;
-// `;
-
-// function Sample(props) {
-
-//   return (
-//     <Layout ref={ref}>
-//       <Content>
-//         <ContentHeader>뉴스레터 &#xE001; 세면</ContentHeader>
-//         <NewsletterForm />
-//       </Content>
-//       <ButtonRow>
-//         <Button value={200} btnType="heart" />
-//         <Button value={200} btnType="save" />
-//       </ButtonRow>
-//     </Layout>
-//   );
-// }
