@@ -11,8 +11,6 @@ import icon_gray_views from '../../../public/icon_gray_views.png';
 import icon_color_heart from '../../../public/icon_color_heart.png';
 
 const Layout = styled.div`
-  margin-bottom: 22px;
-
   display: flex;
   flex-direction: column;
 `;

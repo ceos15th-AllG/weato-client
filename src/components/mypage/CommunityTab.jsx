@@ -79,7 +79,7 @@ const InfoData = styled.div`
 `;
 
 const Board = styled.div`
-  margin-top: 23px;
+  margin: 23px 0px 23px;
 
   display: flex;
   flex-direction: column;

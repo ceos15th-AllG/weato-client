@@ -20,7 +20,7 @@ import { gray04, gray06, text_black } from '../../../styles/Colors';
 import icon_naver from '../../../public/icon_naver.png';
 
 const Layout = styled.div`
-  margin: 47px 300px 160px;
+  margin: 42px 300px 160px;
 
   display: flex;
   flex-direction: column;
