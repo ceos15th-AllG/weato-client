@@ -39,7 +39,7 @@ export const getServerSideProps = async (context) => {
     etc: '기타',
   };
 
-  if (('길이', Object.keys(query).length === 0)) {
+  if (Object.keys(query).length === 0 || !query.hasOwnProperty('tag')) {
     return {
       props: {
         tag: koreanTags['all'],
