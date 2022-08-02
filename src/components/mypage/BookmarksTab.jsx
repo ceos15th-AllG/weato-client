@@ -12,10 +12,10 @@ const Layout = styled.div`
   align-items: center;
 `;
 
-function BookmarksTab() {
+function BookmarksTab(props) {
   return (
     <Layout>
-      <TabGroup selected={'전체'} />
+      <TabGroup selected={props.tag} />
       <CardBox />
       <Pagenator />
     </Layout>

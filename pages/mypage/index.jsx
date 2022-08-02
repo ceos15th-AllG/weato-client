@@ -26,7 +26,7 @@ function Mypage(props) {
       <TabBar selected={props.tab} />
 
       {props.tab === 'profile' ? <ProfileTab /> : undefined}
-      {props.tab === 'bookmarks' ? <BookmarksTab /> : undefined}
+      {props.tab === 'bookmarks' ? <BookmarksTab tag={props.tag} /> : undefined}
       {props.tab === 'community' ? <CommunityTab /> : undefined}
     </Layout>
   );
@@ -34,18 +34,30 @@ function Mypage(props) {
 
 export const getServerSideProps = async (context) => {
   const query = context.query;
+  let defaultTab = 'profile';
+  let defaultTag = 'all';
+  const koreanTags = {
+    all: '전체',
+    medicine: '약품',
+    sleep: '수면',
+    water: '세면',
+    food: '음식',
+    env: '환경',
+    etc: '기타',
+  };
 
-  if (Object.keys(query).length === 0 || !query.hasOwnProperty('tab')) {
-    return {
-      props: {
-        tab: 'profile',
-      },
-    };
+  if (Object.keys(query).length !== 0 && query.hasOwnProperty('tab')) {
+    defaultTab = query.tab;
+  }
+
+  if (Object.keys(query).length !== 0 && query.hasOwnProperty('tag')) {
+    defaultTag = query.tag;
   }
 
   return {
     props: {
-      tab: query.tab,
+      tab: defaultTab,
+      tag: koreanTags[defaultTag],
     },
   };
 };
