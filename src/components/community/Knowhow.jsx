@@ -43,7 +43,7 @@ function Knowhow() {
 
   return (
     <Layout>
-      <BoardHeader title={'나만의 관리법'} />
+      <BoardHeader title={'나만의 관리법'} link="knowhow" />
       <BoardContent posts={posts} />
     </Layout>
   );

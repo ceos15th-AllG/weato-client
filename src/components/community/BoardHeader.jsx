@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import Link from 'next/link';
+
 import { Headline1, Subhead3 } from '../../../styles/FontStyle';
 
 import { gray06, text_black } from '../../../styles/Colors';
@@ -31,11 +33,15 @@ const More = styled.span`
   color : ${text_black};
 `;
 
-function BoardHeader({ title }) {
+function BoardHeader({ title, link }) {
   return (
     <Layout>
       <Title>{title}</Title>
-      <More>더보기 &#xE001;</More>
+      <More>
+        <Link href={`/community/${link}`}>
+          <a>더보기 &#xE001;</a>
+        </Link>
+      </More>
     </Layout>
   );
 }

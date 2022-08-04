@@ -71,7 +71,7 @@ function HotTopic() {
 
   return (
     <Layout>
-      <BoardHeader title={'핫토픽'} />
+      <BoardHeader title={'핫토픽'} link="hot" />
       <BoardContentLarge posts={posts} />
     </Layout>
   );

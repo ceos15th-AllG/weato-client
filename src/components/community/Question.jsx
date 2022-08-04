@@ -43,7 +43,7 @@ function Questions() {
 
   return (
     <Layout>
-      <BoardHeader title={'질문'} />
+      <BoardHeader title={'질문'} link="questions" />
       <BoardContent posts={posts} />
     </Layout>
   );
