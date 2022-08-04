@@ -92,7 +92,7 @@ function TabBar({ selected }) {
           </HeaderText>
         </Box>
         <Box>
-          <Button text="글쓰기" btnType="7" />
+          <Button text="글쓰기" btnType="7" href="/community/post/new" />
           <DropDown>
             <span>태그</span>
           </DropDown>
@@ -128,7 +128,7 @@ function TabBar({ selected }) {
           </HeaderText>
         </Box>
         <Box>
-          <Button text="글쓰기" btnType="7" />
+          <Button text="글쓰기" btnType="7" href="/community/post/new" />
           <DropDown>
             <span>태그</span>
           </DropDown>
@@ -164,7 +164,7 @@ function TabBar({ selected }) {
           </HeaderTextSelected>
         </Box>
         <Box>
-          <Button text="글쓰기" btnType="7" />
+          <Button text="글쓰기" btnType="7" href="/community/post/new" />
           <DropDown>
             <span>태그</span>
           </DropDown>
@@ -201,7 +201,7 @@ function TabBar({ selected }) {
         </HeaderText>
       </Box>
       <Box>
-        <Button text="글쓰기" btnType="7" />
+        <Button text="글쓰기" btnType="7" href="/community/post/new" />
         <DropDown>
           <span>태그</span>
         </DropDown>
