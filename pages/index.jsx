@@ -94,8 +94,7 @@ export default function Home() {
                 <br />
                 이제는 위아토와 함께해요!
               </BannerText>
-              <BannerText css={Headline2}></BannerText>
-              <Button text={'바로 구독하기'} btnType={'4'} />
+              <Button text={'바로 구독하기'} btnType={'4'} href="/login" />
             </BannerContent>
           </BannerLayout>
 
