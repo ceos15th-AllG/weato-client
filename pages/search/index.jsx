@@ -110,7 +110,8 @@ const Search = ({ keyword, category }) => {
   return (
     <Layout>
       <Title>
-        '{keyword}'{category === 'all' ? ' 에 대한 검색결과' : undefined}
+        &apos;{keyword}&apos;
+        {category === 'all' ? ' 에 대한 검색결과' : undefined}
         {category === 'newsletter' ? ' 에 대한 뉴스레터 검색결과' : undefined}
         {category === 'community' ? ' 에 대한 커뮤니티 검색결과' : undefined}
       </Title>
@@ -119,7 +120,7 @@ const Search = ({ keyword, category }) => {
         <>
           <SubtitleBox>
             <SubTitle>
-              '{keyword}' 에 대한 뉴스레터입니다. ({newsletterLength})
+              &apos;{keyword}&apos; 에 대한 뉴스레터입니다. ({newsletterLength})
             </SubTitle>
           </SubtitleBox>
           <NewsletterResult />
@@ -135,7 +136,8 @@ const Search = ({ keyword, category }) => {
         <>
           <SubtitleBox>
             <SubTitle>
-              '{keyword}' 에 대한 커뮤니티 글입니다. ({communityLength})
+              &apos;{keyword}&apos; 에 대한 커뮤니티 글입니다. (
+              {communityLength})
             </SubTitle>
           </SubtitleBox>
           <CommunityResult communityData={communityData} />
