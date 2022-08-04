@@ -88,12 +88,22 @@ function FooterBar() {
             <FooterInfoItem css={Body2}>|</FooterInfoItem>
             <FooterInfoItem css={Body2}>이용약관</FooterInfoItem>
             <FooterInfoItem css={Body2}>|</FooterInfoItem>
-            <FooterInfoItem css={Body2}>FAQ</FooterInfoItem>
+            <FooterInfoItem css={Body2}>
+              <a
+                href="https://docs.google.com/forms/d/11lNkZerluc-NxiFOx4iZOByeC3p7tZTn9mduHX-3Yl4/viewform?chromeless=1&edit_requested=true"
+                target="_blank"
+              >
+                FAQ
+              </a>
+            </FooterInfoItem>
           </FooterInfo>
           <FooterCEOText css={Body1}>
             <FooterCEOMail>대표 박재민</FooterCEOMail>
             <FooterCEOMail>
-              Email | <a href="naver.com">qujaemwin@gmail.com</a>
+              Email |{' '}
+              <a href="mailto:weato4u@gmail.com" target="_top">
+                weato4u@gmail.com
+              </a>
             </FooterCEOMail>
           </FooterCEOText>
         </FooterInfoList>
