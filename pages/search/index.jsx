@@ -128,7 +128,11 @@ const Search = ({ keyword, category }) => {
       ) : undefined}
       {category === 'all' ? (
         <ButtonBox>
-          <Button text="더보기" btnType="4" />
+          <Button
+            text="더보기"
+            btnType="4"
+            href={`/search?keyword=${keyword}&category=newsletter`}
+          />
         </ButtonBox>
       ) : undefined}
 
@@ -145,7 +149,11 @@ const Search = ({ keyword, category }) => {
       ) : undefined}
       {category === 'all' ? (
         <ButtonBox>
-          <Button text="더보기" btnType="4" />
+          <Button
+            text="더보기"
+            btnType="4"
+            href={`/search?keyword=${keyword}&category=community`}
+          />
         </ButtonBox>
       ) : undefined}
 
