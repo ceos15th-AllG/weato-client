@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import TabGroup from '@newsletter/TabGroup';
 import CardBox from '@newsletter/CardBox';
 
-import Button from '@common/ButtonContainer';
+import Pagenator from '@common/Pagenator';
 
 const Layout = styled.div`
   display: flex;
@@ -15,6 +15,13 @@ const Layout = styled.div`
   margin: 78px 300px 86px;
 `;
 
+const Row = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+`;
+
 function Newsletter(props) {
   return (
     <Layout>
@@ -22,7 +29,9 @@ function Newsletter(props) {
 
       <CardBox />
 
-      <Button text={'더보기'} btnType={'4'} />
+      <Row>
+        <Pagenator />
+      </Row>
     </Layout>
   );
 }
