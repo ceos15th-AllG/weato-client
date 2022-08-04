@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import ModalBase from '../search/ModalBase';
 import SearchModal from '../search/SearchModal';
@@ -55,14 +56,12 @@ const NavbarRightGroupItem = styled.div`
 `;
 
 const TopNav = () => {
+  const router = useRouter();
+
   const [isActive, setIsActive] = useState(false);
 
   const onClickModalOn = () => {
     setIsActive(true);
-  };
-
-  const onClickModalOff = () => {
-    setIsActive(false);
   };
 
   return (
@@ -113,7 +112,7 @@ const TopNav = () => {
       </NavbarLayout>
 
       <ModalBase active={isActive}>
-        <SearchModal closeEvent={onClickModalOff} />
+        <SearchModal setIsActive={setIsActive} router={router} />
       </ModalBase>
     </>
   );

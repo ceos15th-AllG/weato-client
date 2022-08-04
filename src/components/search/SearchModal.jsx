@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { useState } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -107,18 +109,40 @@ const ButtonRow = styled.div`
   justify-content: space-between;
 `;
 
-const SearchModal = ({ closeEvent }) => {
+const SearchModal = ({ setIsActive, router }) => {
+  const [searchText, setSearchText] = useState('');
+
+  const onChange = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      setIsActive(false);
+      router.push(`/search?keyword=${searchText}`);
+    }
+  };
+
   return (
     <Layout>
       <TopBox>
         <QuitBox>
-          <div onClick={closeEvent}>
+          <div
+            onClick={() => {
+              setIsActive(false);
+            }}
+          >
             <Image src={icon_quit} width={28} height={28} alt="" />
           </div>
         </QuitBox>
         <InputBox>
-          <Input placeholder={'궁금한 것을 검색해보세요'} />
-          <Link href="/">
+          <Input
+            placeholder={'궁금한 것을 검색해보세요'}
+            value={searchText}
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+          />
+          <Link href={`/search?keyword=${searchText}`}>
             <a>
               <Image src={icon_search_big} width={37} height={36} alt="" />
             </a>
