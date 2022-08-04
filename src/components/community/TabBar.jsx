@@ -67,11 +67,7 @@ function TabBar({ selected }) {
     return (
       <Layout>
         <Box>
-          <HeaderTextSelected
-            css={css`
-              margin-left: 11px;
-            `}
-          >
+          <HeaderTextSelected css={css``}>
             <Link href="/community/hot">
               <a>핫토픽</a>
             </Link>
@@ -107,11 +103,7 @@ function TabBar({ selected }) {
     return (
       <Layout>
         <Box>
-          <HeaderText
-            css={css`
-              margin-left: 11px;
-            `}
-          >
+          <HeaderText css={css``}>
             <Link href="/community/hot">
               <a>핫토픽</a>
             </Link>
@@ -147,11 +139,7 @@ function TabBar({ selected }) {
     return (
       <Layout>
         <Box>
-          <HeaderText
-            css={css`
-              margin-left: 11px;
-            `}
-          >
+          <HeaderText css={css``}>
             <Link href="/community/hot">
               <a>핫토픽</a>
             </Link>
@@ -188,11 +176,7 @@ function TabBar({ selected }) {
   return (
     <Layout>
       <Box>
-        <HeaderText
-          css={css`
-            margin-left: 11px;
-          `}
-        >
+        <HeaderText css={css``}>
           <Link href="/community/hot">
             <a>핫토픽</a>
           </Link>

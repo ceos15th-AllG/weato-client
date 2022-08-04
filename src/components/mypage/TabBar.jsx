@@ -38,6 +38,8 @@ const Box = styled.div`
 const Menu = styled.span`
   height: 100%;
 
+  padding-top: 10px;
+
   display: flex;
   align-items: center;
 
@@ -49,6 +51,8 @@ const Menu = styled.span`
 
 const MenuSelected = styled.span`
   height: 100%;
+
+  padding-top: 10px;
 
   display: flex;
   align-items: center;
