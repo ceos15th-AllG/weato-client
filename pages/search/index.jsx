@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Button from '../../src/components/common/ButtonContainer';
 import NewsletterResult from '../../src/components/search/NewsletterResult';
 import CommunityResult from '../../src/components/search/CommunityResult';
+import Pagenator from '../../src/components/common/Pagenator';
 
 import { Display1, Body4 } from '../../styles/FontStyle';
 
@@ -25,9 +26,16 @@ const Title = styled.span`
   color :${text_black};
 `;
 
-const SubTitle = styled.span`
+const SubtitleBox = styled.div`
+  width: 100%;
+
   margin: 100px 0px 40px;
 
+  display: flex;
+  justify-content: space-between;
+`;
+
+const SubTitle = styled.span`
   ${Body4}
 
   color : ${main};
@@ -40,7 +48,14 @@ const ButtonBox = styled.div`
   justify-content: center;
 `;
 
-const Search = ({ keyword, catogory }) => {
+const PagenatorBox = styled.div`
+  margin: 73px 0px 210px;
+
+  display: flex;
+  justify-content: center;
+`;
+
+const Search = ({ keyword, category }) => {
   const newsletterLength = 3;
   const communityLength = 5;
 
@@ -94,32 +109,56 @@ const Search = ({ keyword, catogory }) => {
 
   return (
     <Layout>
-      <Title>'{keyword}' 에 대한 검색결과</Title>
-      <SubTitle>
-        '{keyword}' 에 대한 뉴스레터입니다. ({newsletterLength})
-      </SubTitle>
-      {/*  */}
-      <NewsletterResult />
-      {/*  */}
-      <ButtonBox>
-        <Button text="더보기" btnType="4" />
-      </ButtonBox>
-      <SubTitle>
-        '{keyword}' 에 대한 커뮤니티 글입니다. ({communityLength})
-      </SubTitle>
-      {/*  */}
-      <CommunityResult communityData={communityData} />
-      {/*  */}
-      <ButtonBox>
-        <Button text="더보기" btnType="4" />
-      </ButtonBox>
+      <Title>
+        '{keyword}'{category === 'all' ? ' 에 대한 검색결과' : undefined}
+        {category === 'newsletter' ? ' 에 대한 뉴스레터 검색결과' : undefined}
+        {category === 'community' ? ' 에 대한 커뮤니티 검색결과' : undefined}
+      </Title>
+
+      {category === 'all' || category === 'newsletter' ? (
+        <>
+          <SubtitleBox>
+            <SubTitle>
+              '{keyword}' 에 대한 뉴스레터입니다. ({newsletterLength})
+            </SubTitle>
+          </SubtitleBox>
+          <NewsletterResult />
+        </>
+      ) : undefined}
+      {category === 'all' ? (
+        <ButtonBox>
+          <Button text="더보기" btnType="4" />
+        </ButtonBox>
+      ) : undefined}
+
+      {category === 'all' || category === 'community' ? (
+        <>
+          <SubtitleBox>
+            <SubTitle>
+              '{keyword}' 에 대한 커뮤니티 글입니다. ({communityLength})
+            </SubTitle>
+          </SubtitleBox>
+          <CommunityResult communityData={communityData} />
+        </>
+      ) : undefined}
+      {category === 'all' ? (
+        <ButtonBox>
+          <Button text="더보기" btnType="4" />
+        </ButtonBox>
+      ) : undefined}
+
+      {category === 'newsletter' || category === 'community' ? (
+        <PagenatorBox>
+          <Pagenator />
+        </PagenatorBox>
+      ) : undefined}
     </Layout>
   );
 };
 
 export const getServerSideProps = async (context) => {
   const query = context.query;
-  let defaultKeyword = '';
+  let defaultKeyword = '빈 검색어';
   let defaultCategory = 'all';
 
   if (Object.keys(query).length !== 0 && query.hasOwnProperty('keyword')) {
