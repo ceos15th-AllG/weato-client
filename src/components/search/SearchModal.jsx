@@ -123,6 +123,11 @@ const SearchModal = ({ setIsActive, router }) => {
     }
   };
 
+  const onClick = (e) => {
+    setIsActive(false);
+    router.push(`/search?keyword=${searchText}`);
+  };
+
   return (
     <Layout>
       <TopBox>
@@ -142,11 +147,13 @@ const SearchModal = ({ setIsActive, router }) => {
             onChange={onChange}
             onKeyPress={onKeyPress}
           />
-          <Link href={`/search?keyword=${searchText}`}>
-            <a>
-              <Image src={icon_search_big} width={37} height={36} alt="" />
-            </a>
-          </Link>
+          <Image
+            src={icon_search_big}
+            width={37}
+            height={36}
+            alt=""
+            onClick={onClick}
+          />
         </InputBox>
       </TopBox>
 
