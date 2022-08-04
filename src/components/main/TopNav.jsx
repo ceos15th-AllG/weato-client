@@ -54,7 +54,7 @@ const NavbarRightGroupItem = styled.div`
   color: ${gray04};
 `;
 
-const Navbar = () => {
+const TopNav = () => {
   const [isActive, setIsActive] = useState(false);
 
   const onClickModalOn = () => {
@@ -119,4 +119,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default TopNav;

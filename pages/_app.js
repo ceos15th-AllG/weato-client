@@ -8,8 +8,8 @@ import Head from 'next/head';
 
 import ScreenLayout from '../src/components/main/ScreenLayout';
 import ContentLayout from '../src/components/main/ContentLayout';
-import Navbar from '../src/components/main/Navbar';
-import FooterBar from '../src/components/main/Footerbar';
+import TopNav from '../src/components/main/TopNav';
+import Footerbar from '../src/components/main/Footerbar';
 
 const MARGIN = styled.div`
   height: 100px;
@@ -25,7 +25,7 @@ const App = ({ Component, pageProps }) => {
       <ContentLayout>
         <MARGIN />
         <Component {...pageProps} />
-        <FooterBar />
+        <Footerbar />
       </ContentLayout>
     </ScreenLayout>
   );
