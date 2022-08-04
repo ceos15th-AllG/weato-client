@@ -163,8 +163,9 @@ function ProfileTab() {
         <InfoBox>
           <InfoName>선호 태그</InfoName>
           <InfoData>
-            {atopyData.favorTags.map((tag) => (
+            {atopyData.favorTags.map((tag, index) => (
               <div
+                key={index}
                 css={css`
                   margin-right: 16px;
                 `}

@@ -107,9 +107,9 @@ function CommentRow({ name, level, content, like, date, reply }) {
 
       <Row>
         <Content>
-          {content.split('\n').map((line) => {
+          {content.split('\n').map((line, index) => {
             return (
-              <span>
+              <span key={index}>
                 {line}
                 <br />
               </span>

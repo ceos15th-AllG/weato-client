@@ -135,9 +135,9 @@ function PostContent({ post }) {
 
       <Row>
         <ContentText>
-          {post.content.split('\n').map((line) => {
+          {post.content.split('\n').map((line, index) => {
             return (
-              <span>
+              <span key={index}>
                 {line}
                 <br />
               </span>
