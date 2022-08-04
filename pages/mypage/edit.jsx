@@ -187,7 +187,7 @@ function Edit() {
       <InfoBox>
         <InfoName>프로필 사진</InfoName>
         <InfoData>
-          <Image src={profile_guest} width={42} height={42} />
+          <Image src={profile_guest} width={42} height={42} alt="" />
           <span
             css={css`
               margin-left: 18px;
