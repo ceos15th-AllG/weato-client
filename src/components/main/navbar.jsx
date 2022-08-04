@@ -98,18 +98,6 @@ const Navbar = () => {
               <a>커뮤니티</a>
             </Link>
           </li>
-          <li
-            css={[
-              Subhead4,
-              css`
-                margin-left: 140px;
-              `,
-            ]}
-          >
-            <Link href="/componentsample">
-              <a>테스트</a>
-            </Link>
-          </li>
         </NavbarContent>
 
         <NavbarRightGroup>
