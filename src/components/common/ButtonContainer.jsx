@@ -1,6 +1,6 @@
 // Button 데이터 관리
 
-import Button from './button';
+import Button from './Button';
 
 const ButtonContainer = (props) => {
   return <Button {...props} />;
