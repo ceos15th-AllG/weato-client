@@ -12,7 +12,7 @@ import ModalBase from '@search/ModalBase';
 import SearchModal from '@search/SearchModal';
 
 import { Subhead3, Subhead4 } from '@styles/FontStyle';
-import { gray04 } from '@styles/Colors';
+import { main, gray04, text_black } from '@styles/Colors';
 
 import icon_search from '@public/icon_search.png';
 import logo_horizontal from '@public/logo_horizontal.png';
@@ -38,10 +38,31 @@ const NavbarLayout = styled.div`
 `;
 
 const NavbarContent = styled.ul`
+  height: 100%;
+
   display: flex;
   align-items: center;
 
   padding: 0px;
+`;
+
+const NavbarItem = styled.li`
+  width: 92px;
+  height: 100%;
+
+  padding-top: 5px;
+
+  ${Subhead4}
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-bottom: 5px solid
+    ${(props) =>
+      `${props.currentPath.startsWith(props.menu) ? main : 'transparent'}`};
+  color: ${(props) =>
+    `${props.currentPath.startsWith(props.menu) ? main : text_black}`};
 `;
 
 const NavbarRightGroup = styled.div`
@@ -73,30 +94,28 @@ const TopNav = () => {
               <Image src={logo_horizontal} width={239.5} height={58} alt="" />
             </a>
           </Link>
-          <li
-            css={[
-              Subhead4,
-              css`
-                margin-left: 104.49px;
-              `,
-            ]}
+          <NavbarItem
+            menu={'/newsletter'}
+            currentPath={router.pathname}
+            css={css`
+              margin-left: 95px;
+            `}
           >
             <Link href="/newsletter">
               <a>뉴스레터</a>
             </Link>
-          </li>
-          <li
-            css={[
-              Subhead4,
-              css`
-                margin-left: 140px;
-              `,
-            ]}
+          </NavbarItem>
+          <NavbarItem
+            menu={'/community'}
+            currentPath={router.pathname}
+            css={css`
+              margin-left: 130px;
+            `}
           >
             <Link href="/community">
               <a>커뮤니티</a>
             </Link>
-          </li>
+          </NavbarItem>
         </NavbarContent>
 
         <NavbarRightGroup>
