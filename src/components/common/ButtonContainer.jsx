@@ -1,9 +1,19 @@
-// Button 데이터 관리
-
 import Button from '@common/Button';
 
+import Link from 'next/link';
+
 const ButtonContainer = (props) => {
-  return <Button {...props} />;
+  if (!props.href) {
+    return <Button onClick={props.onClick} {...props} />;
+  }
+
+  return (
+    <Link href={`${props.href}`}>
+      <a>
+        <Button {...props} />
+      </a>
+    </Link>
+  );
 };
 
 export default ButtonContainer;

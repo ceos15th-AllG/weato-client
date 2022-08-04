@@ -8,7 +8,6 @@ import { main, sub, gray03, gray04, text_white } from '@styles/Colors';
 import { Headline1, Subhead3, Subhead4 } from '@styles/FontStyle';
 
 const DefaultLayout = css`
-  /* default css properties */
   display: flex;
   flex-direction: center;
   justify-content: center;
