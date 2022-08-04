@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
 import Button from '../../src/components/common/ButtonContainer';
-import CardBox from '../../src/components/search/CardBox';
-import BoardRow from '../../src/components/search/BoardRow';
+import NewsletterResult from '../../src/components/search/NewsletterResult';
+import CommunityResult from '../../src/components/search/CommunityResult';
 
 import { Display1, Body4 } from '../../styles/FontStyle';
 
@@ -33,11 +33,6 @@ const SubTitle = styled.span`
   color : ${main};
 `;
 
-const Board = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const ButtonBox = styled.div`
   margin-top: 60px;
 
@@ -45,8 +40,7 @@ const ButtonBox = styled.div`
   justify-content: center;
 `;
 
-const Search = () => {
-  const keyword = '강아지 아토피';
+const Search = ({ keyword, catogory }) => {
   const newsletterLength = 3;
   const communityLength = 5;
 
@@ -101,38 +95,47 @@ const Search = () => {
   return (
     <Layout>
       <Title>'{keyword}' 에 대한 검색결과</Title>
-
       <SubTitle>
         '{keyword}' 에 대한 뉴스레터입니다. ({newsletterLength})
       </SubTitle>
-      <CardBox />
+      {/*  */}
+      <NewsletterResult />
+      {/*  */}
       <ButtonBox>
         <Button text="더보기" btnType="4" />
       </ButtonBox>
-
       <SubTitle>
-        '{keyword}' 에 대한 뉴스레터입니다. ({communityLength})
+        '{keyword}' 에 대한 커뮤니티 글입니다. ({communityLength})
       </SubTitle>
-      <Board>
-        {communityData.map(
-          ({ id, category, title, view, like, name, level }) => (
-            <BoardRow
-              key={id}
-              category={category}
-              title={title}
-              view={view}
-              like={like}
-              name={name}
-              level={level}
-            />
-          )
-        )}
-      </Board>
+      {/*  */}
+      <CommunityResult communityData={communityData} />
+      {/*  */}
       <ButtonBox>
         <Button text="더보기" btnType="4" />
       </ButtonBox>
     </Layout>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  const query = context.query;
+  let defaultKeyword = '';
+  let defaultCategory = 'all';
+
+  if (Object.keys(query).length !== 0 && query.hasOwnProperty('keyword')) {
+    defaultKeyword = query.keyword;
+  }
+
+  if (Object.keys(query).length !== 0 && query.hasOwnProperty('category')) {
+    defaultCategory = query.category;
+  }
+
+  return {
+    props: {
+      keyword: defaultKeyword,
+      category: defaultCategory,
+    },
+  };
 };
 
 export default Search;
