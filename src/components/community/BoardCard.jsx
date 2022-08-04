@@ -78,11 +78,11 @@ function BoardCard({ title, content, view, like }) {
       </Box>
       <Row>
         <SmallBox>
-          <Image src={icon_gray_views} width={20} height={13.69} />
+          <Image src={icon_gray_views} width={20} height={13.69} alt="" />
           <SmallText>{view}</SmallText>
         </SmallBox>
         <SmallBox>
-          <Image src={icon_color_heart} width={16} height={14} />
+          <Image src={icon_color_heart} width={16} height={14} alt="" />
           <SmallText>{like}</SmallText>
         </SmallBox>
       </Row>

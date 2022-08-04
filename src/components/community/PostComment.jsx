@@ -136,7 +136,7 @@ function PostComment() {
             margin-left: 10px;
           `}
         >
-          <Image src={profile_guest} width={32} height={32} />
+          <Image src={profile_guest} width={32} height={32} alt="" />
           <Input placeholder="댓글 추가" />
         </Box>
         <Button text="등록" btnType="2" />

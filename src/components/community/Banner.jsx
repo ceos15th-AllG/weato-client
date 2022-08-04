@@ -16,7 +16,7 @@ const Layout = styled.div`
 function Banner() {
   return (
     <Layout>
-      <Image src={banner_1} />
+      <Image src={banner_1} alt="" />
     </Layout>
   );
 }

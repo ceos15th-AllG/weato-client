@@ -62,7 +62,7 @@ function BoardContentSmall({ posts }) {
           <Title>{title}</Title>
           <Box>
             <Box>
-              <Image src={icon_views} width={17.54} height={12} />
+              <Image src={icon_views} width={17.54} height={12} alt="" />
               <Views>{view}</Views>
             </Box>
             <Date>{date}</Date>

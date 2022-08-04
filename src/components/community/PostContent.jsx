@@ -108,14 +108,14 @@ function PostContent({ post }) {
         `}
       >
         <Box>
-          <Image src={profile_sample_big} width={42} height={42} />
+          <Image src={profile_sample_big} width={42} height={42} alt="" />
           <Level>{post.level}</Level>
           <Name>{post.name}</Name>
           <Since>병력: {post.since}</Since>
           <Severity>정도: {post.severity}</Severity>
         </Box>
         <Box>
-          <Image src={icon_gray_views} width={20} height={13.69} />
+          <Image src={icon_gray_views} width={20} height={13.69} alt="" />
           <SmallText
             css={css`
               margin-left: 5px;

@@ -73,7 +73,7 @@ export default function Login() {
   return (
     <Layout>
       <Row>
-        <Image src={banner_login} width={872} height={388} />
+        <Image src={banner_login} width={872} height={388} alt="" />
         <Column>
           <TopText>
             아토피와의 긴 여정,

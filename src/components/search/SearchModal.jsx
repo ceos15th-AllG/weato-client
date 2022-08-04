@@ -113,14 +113,14 @@ const SearchModal = ({ closeEvent }) => {
       <TopBox>
         <QuitBox>
           <div onClick={closeEvent}>
-            <Image src={icon_quit} width={28} height={28} />
+            <Image src={icon_quit} width={28} height={28} alt="" />
           </div>
         </QuitBox>
         <InputBox>
           <Input placeholder={'궁금한 것을 검색해보세요'} />
           <Link href="/">
             <a>
-              <Image src={icon_search_big} width={37} height={36} />
+              <Image src={icon_search_big} width={37} height={36} alt="" />
             </a>
           </Link>
         </InputBox>

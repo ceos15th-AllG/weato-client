@@ -181,7 +181,7 @@ function Edit() {
       >
         <InfoName>소셜 로그인 정보</InfoName>
         <InfoData>
-          <Image src={icon_naver} width={42} height={42} />
+          <Image src={icon_naver} width={42} height={42} alt="" />
         </InfoData>
       </InfoBox>
       <InfoBox>

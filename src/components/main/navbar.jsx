@@ -71,7 +71,7 @@ const Navbar = () => {
         <NavbarContent>
           <Link href="/">
             <a>
-              <Image src={logo_horizontal} width={239.5} height={58} />
+              <Image src={logo_horizontal} width={239.5} height={58} alt="" />
             </a>
           </Link>
           <li
@@ -107,7 +107,7 @@ const Navbar = () => {
             </Link>
           </NavbarRightGroupItem>
           <div onClick={onClickModalOn}>
-            <Image src={icon_search} width="34" height="35.02" />
+            <Image src={icon_search} width="34" height="35.02" alt="" />
           </div>
         </NavbarRightGroup>
       </NavbarLayout>

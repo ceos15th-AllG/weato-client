@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { text_white } from '../styles/Colors';

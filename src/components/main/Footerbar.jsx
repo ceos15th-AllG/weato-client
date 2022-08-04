@@ -78,7 +78,7 @@ function FooterBar() {
     <FooterLayout>
       <FooterInfoBox>
         <div>
-          <Image src={logo_horizontal} width={239} height={58} />
+          <Image src={logo_horizontal} width={239} height={58} alt="" />
         </div>
         <FooterInfoList>
           <FooterInfo>
@@ -101,13 +101,13 @@ function FooterBar() {
 
       <FooterContactBox>
         <FooterIconLayout>
-          <Image src={icon_instagram} width="40" height="40" />
+          <Image src={icon_instagram} width="40" height="40" alt="" />
         </FooterIconLayout>
         <FooterIconLayout>
-          <Image src={icon_twitter} width="40" height="40" />
+          <Image src={icon_twitter} width="40" height="40" alt="" />
         </FooterIconLayout>
         <FooterIconLayout>
-          <Image src={icon_facebook} width="40" height="40" />
+          <Image src={icon_facebook} width="40" height="40" alt="" />
         </FooterIconLayout>
       </FooterContactBox>
     </FooterLayout>

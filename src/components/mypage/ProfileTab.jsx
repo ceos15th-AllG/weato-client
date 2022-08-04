@@ -142,7 +142,7 @@ function ProfileTab() {
         </InfoBox>
         <InfoBox>
           <InfoName>사용중인 계정</InfoName>
-          <Image src={icon_naver} width={42} height={42} />
+          <Image src={icon_naver} width={42} height={42} alt="" />
         </InfoBox>
       </Column>
 

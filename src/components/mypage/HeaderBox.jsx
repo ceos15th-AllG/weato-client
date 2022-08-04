@@ -51,7 +51,7 @@ const Email = styled.span`
 function HeaderBox({ userData }) {
   return (
     <Layout>
-      <Image src={profile_sample_large} width={180} height={180} />
+      <Image src={profile_sample_large} width={180} height={180} alt="" />
       <Column>
         <Level>{userData.level}</Level>
         <Name>{userData.name}</Name>

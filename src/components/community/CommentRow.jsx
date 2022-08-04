@@ -91,16 +91,16 @@ function CommentRow({ name, level, content, like, date, reply }) {
   return (
     <Layout reply={reply}>
       {/* <ReplyBlock>
-        <Image src={icon_reply_comment} width={16} height={16} />
+        <Image src={icon_reply_comment} width={16} height={16} alt=''/>
       </ReplyBlock> */}
       <Row>
         <Box>
-          <Image src={profile_sample_big} width={42} height={42} />
+          <Image src={profile_sample_big} width={42} height={42} alt="" />
           <Name>{name}</Name>
           <Date>{date}</Date>
         </Box>
         <Box>
-          <Image src={icon_color_heart} width={20} height={18} />
+          <Image src={icon_color_heart} width={20} height={18} alt="" />
           <LikeText>{like}</LikeText>
         </Box>
       </Row>

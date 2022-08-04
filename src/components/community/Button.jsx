@@ -55,14 +55,14 @@ const Button = (props) => {
   if (props.btnType === 'heart') {
     return (
       <ButtonLayoutHeart {...props}>
-        <Image src={icon_color_heart} width={16} height={14} />
+        <Image src={icon_color_heart} width={16} height={14} alt="" />
         <ButtonText>{props.value}</ButtonText>
       </ButtonLayoutHeart>
     );
   } else if (props.btnType === 'save') {
     return (
       <ButtonLayoutSave {...props}>
-        <Image src={icon_color_save} width={11.34} height={16} />
+        <Image src={icon_color_save} width={11.34} height={16} alt="" />
         <ButtonText>{props.value}</ButtonText>
       </ButtonLayoutSave>
     );
