@@ -20,7 +20,7 @@ const App = ({ Component, pageProps }) => {
     <ScreenLayout>
       <Global styles={GlobalStyle} />
 
-      <Navbar />
+      <TopNav />
 
       <ContentLayout>
         <MARGIN />
