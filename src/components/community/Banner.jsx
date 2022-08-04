@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import banner_1 from '@public/banner_community.png';
 
@@ -16,7 +17,11 @@ const Layout = styled.div`
 function Banner() {
   return (
     <Layout>
-      <Image src={banner_1} alt="" />
+      <Link href="/newsletter">
+        <a>
+          <Image src={banner_1} alt="" />
+        </a>
+      </Link>
     </Layout>
   );
 }
