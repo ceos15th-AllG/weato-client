@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import BoardHeader from './BoardHeader';
+import BoardHeader from '@community/BoardHeader';
 
-import { Subhead3, Body2 } from '../../../styles/FontStyle';
+import { Subhead3, Body2 } from '@styles/FontStyle';
 
-import { gray04, text_black } from '../../../styles/Colors';
+import { gray04, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
   width: 100%;

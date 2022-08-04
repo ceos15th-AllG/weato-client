@@ -2,15 +2,15 @@
 import { jsx, css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { Body1, Body2 } from '../../../styles/FontStyle';
-import { gray02, gray05, text_black } from '../../../styles/Colors';
+import { Body1, Body2 } from '@styles/FontStyle';
+import { gray02, gray05, text_black } from '@styles/Colors';
 
 import Image from 'next/image';
 
-import logo_horizontal from '../../../public/logo_horizontal.png';
-import icon_instagram from '../../../public/icon_instagram.png';
-import icon_twitter from '../../../public/icon_twitter.png';
-import icon_facebook from '../../../public/icon_facebook.png';
+import logo_horizontal from '@public/logo_horizontal.png';
+import icon_instagram from '@public/icon_instagram.png';
+import icon_twitter from '@public/icon_twitter.png';
+import icon_facebook from '@public/icon_facebook.png';
 
 const FooterLayout = styled.footer`
   height: 240px;

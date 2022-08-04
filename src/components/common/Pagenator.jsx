@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import { Headline1 } from '../../../styles/FontStyle';
+import { Headline1 } from '@styles/FontStyle';
 
-import { gray05, text_black, tag_etc } from '../../../styles/Colors';
+import { gray05, text_black, tag_etc } from '@styles/Colors';
 
 const Layout = styled.div`
   display: flex;

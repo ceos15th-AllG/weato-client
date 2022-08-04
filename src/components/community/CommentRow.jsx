@@ -2,25 +2,13 @@ import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
-import {
-  Subhead3,
-  Subhead4,
-  Body1,
-  Body2,
-  Tag1,
-} from '../../../styles/FontStyle';
-import {
-  gray01,
-  gray03,
-  gray05,
-  gray06,
-  text_black,
-} from '../../../styles/Colors';
+import { Subhead3, Subhead4, Body1, Body2, Tag1 } from '@styles/FontStyle';
+import { gray01, gray03, gray05, gray06, text_black } from '@styles/Colors';
 
-import profile_sample_big from '../../../public/profile_sample_big.png';
-import icon_color_heart from '../../../public/icon_color_heart.png';
-import icon_blank_heart from '../../../public/icon_blank_heart.png';
-import icon_reply_comment from '../../../public/icon_reply_comment.png';
+import profile_sample_big from '@public/profile_sample_big.png';
+import icon_color_heart from '@public/icon_color_heart.png';
+import icon_blank_heart from '@public/icon_blank_heart.png';
+import icon_reply_comment from '@public/icon_reply_comment.png';
 
 const Layout = styled.div`
   padding-top: 21px;

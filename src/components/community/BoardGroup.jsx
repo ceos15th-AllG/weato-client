@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import HotTopic from './HotTopic';
-import Knowhow from './Knowhow';
-import Questions from './Question';
+import HotTopic from '@community/HotTopic';
+import Knowhow from '@community/Knowhow';
+import Questions from '@community/Question';
 
 const Layout = styled.div`
   width: 873px;

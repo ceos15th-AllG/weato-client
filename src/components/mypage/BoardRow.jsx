@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
-import { Subhead3, Body1, Body3, Tag1 } from '../../../styles/FontStyle';
+import { Subhead3, Body1, Body3, Tag1 } from '@styles/FontStyle';
 
-import { gray05, gray06, text_black, tag_etc } from '../../../styles/Colors';
+import { gray05, gray06, text_black, tag_etc } from '@styles/Colors';
 
-import profile_sample from '../../../public/profile_sample.png';
-import icon_gray_views from '../../../public/icon_gray_views.png';
-import icon_color_heart from '../../../public/icon_color_heart.png';
+import profile_sample from '@public/profile_sample.png';
+import icon_gray_views from '@public/icon_gray_views.png';
+import icon_color_heart from '@public/icon_color_heart.png';
 
 const Layout = styled.div`
   display: flex;

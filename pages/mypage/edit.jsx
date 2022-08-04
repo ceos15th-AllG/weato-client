@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Image from 'next/image';
-import Button from '../../src/components/common/ButtonContainer';
+import Button from '@common/ButtonContainer';
 
 import {
   Headline1,
@@ -12,12 +12,12 @@ import {
   Subhead3,
   Body3,
   Tag1,
-} from '../../styles/FontStyle';
+} from '@styles/FontStyle';
 
-import { sub, gray04, gray05, gray06, text_black } from '../../styles/Colors';
+import { sub, gray04, gray05, gray06, text_black } from '@styles/Colors';
 
-import icon_naver from '../../public/icon_naver.png';
-import profile_guest from '../../public/profile_guest.png';
+import icon_naver from '@public/icon_naver.png';
+import profile_guest from '@public/profile_guest.png';
 
 const Layout = styled.div`
   margin: 79px 635px 160px;

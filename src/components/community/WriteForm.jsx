@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-import { Subhead4, Subhead3 } from '../../../styles/FontStyle';
-import { gray04, gray05 } from '../../../styles/Colors';
+import { Subhead4, Subhead3 } from '@styles/FontStyle';
+import { gray04, gray05 } from '@styles/Colors';
 
 const Layout = styled.div`
   display: flex;

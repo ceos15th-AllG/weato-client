@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import Row from './BoardRow';
+import Row from '@search/BoardRow';
 
 const Layout = styled.div`
   display: flex;

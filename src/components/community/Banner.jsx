@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
-import banner_1 from '../../../public/banner_community.png';
+import banner_1 from '@public/banner_community.png';
 
 const Layout = styled.div`
   width: 315px;

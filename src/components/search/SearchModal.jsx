@@ -5,14 +5,14 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Button from '../common/ButtonContainer';
+import Button from '@common/ButtonContainer';
 
-import { Headline1, Body4 } from '../../../styles/FontStyle';
+import { Headline1, Body4 } from '@styles/FontStyle';
 
-import { main, text_black, text_white } from '../../../styles/Colors';
+import { main, text_black, text_white } from '@styles/Colors';
 
-import icon_quit from '../../../public/icon_quit.png';
-import icon_search_big from '../../../public/icon_search_big.png';
+import icon_quit from '@public/icon_quit.png';
+import icon_search_big from '@public/icon_search_big.png';
 
 const Layout = styled.div`
   height: 100%;

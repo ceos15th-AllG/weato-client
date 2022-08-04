@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
-import PostContent from '../../../src/components/community/PostContent';
-import PostComment from '../../../src/components/community/PostComment';
+import PostContent from '@community/PostContent';
+import PostComment from '@community/PostComment';
 
-import { Subhead3 } from '../../../styles/FontStyle';
-import { main, gray02, gray06, text_black } from '../../../styles/Colors';
+import { Subhead3 } from '@styles/FontStyle';
+import { main, gray02, gray06, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
   width: 874px;

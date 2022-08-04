@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import TabGroup from './TabGroup';
-import CardBox from './CardBox';
-import Pagenator from '../common/Pagenator';
+import TabGroup from '@mypage/TabGroup';
+import CardBox from '@mypage/CardBox';
+import Pagenator from '@common/Pagenator';
 
 const Layout = styled.div`
   margin: 58px 300px 104px;

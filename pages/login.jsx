@@ -2,11 +2,11 @@ import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
-import banner_login from '../public/banner_login.png';
+import banner_login from '@public/banner_login.png';
 
-import { main, text_black } from '../styles/Colors';
+import { main, text_black } from '@styles/Colors';
 
-import { Display1, Headline2 } from '../styles/FontStyle';
+import { Display1, Headline2 } from '@styles/FontStyle';
 
 const Layout = styled.div`
   margin: 164px 300px 188px;

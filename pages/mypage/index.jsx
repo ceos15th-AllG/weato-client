@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
-import HeaderBox from '../../src/components/mypage/HeaderBox';
-import TabBar from '../../src/components/mypage/TabBar';
-import ProfileTab from '../../src/components/mypage/ProfileTab';
-import BookmarksTab from '../../src/components/mypage/BookmarksTab';
-import CommunityTab from '../../src/components/mypage/CommunityTab';
+import HeaderBox from '@mypage/HeaderBox';
+import TabBar from '@mypage/TabBar';
+import ProfileTab from '@mypage/ProfileTab';
+import BookmarksTab from '@mypage/BookmarksTab';
+import CommunityTab from '@mypage/CommunityTab';
 
-import { gray01 } from '../../styles/Colors';
+import { gray01 } from '@styles/Colors';
 
 const Layout = styled.div`
   display: flex;

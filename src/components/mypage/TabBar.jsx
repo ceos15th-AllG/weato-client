@@ -4,11 +4,11 @@ import styled from '@emotion/styled';
 
 import Link from 'next/link';
 
-import Button from '../common/ButtonContainer';
+import Button from '@common/ButtonContainer';
 
-import { Headline1, Subhead3, Subhead4 } from '../../../styles/FontStyle';
+import { Headline1, Subhead3, Subhead4 } from '@styles/FontStyle';
 
-import { main, gray02, gray05, text_black } from '../../../styles/Colors';
+import { main, gray02, gray05, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
   width: 100%;

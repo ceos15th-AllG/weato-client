@@ -2,11 +2,11 @@ import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
-import { Subhead3, Body1 } from '../../../styles/FontStyle';
+import { Subhead3, Body1 } from '@styles/FontStyle';
 
-import { gray05, text_black } from '../../../styles/Colors';
+import { gray05, text_black } from '@styles/Colors';
 
-import icon_views from '../../../public/icon_gray_views.png';
+import icon_views from '@public/icon_gray_views.png';
 
 const Layout = styled.div`
   height: 134px;

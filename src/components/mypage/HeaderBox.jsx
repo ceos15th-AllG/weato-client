@@ -2,11 +2,11 @@ import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
-import { Display1, Tag1 } from '../../../styles/FontStyle';
+import { Display1, Tag1 } from '@styles/FontStyle';
 
-import { gray01, gray06, text_black } from '../../../styles/Colors';
+import { gray01, gray06, text_black } from '@styles/Colors';
 
-import profile_sample_large from '../../../public/profile_sample_large.png';
+import profile_sample_large from '@public/profile_sample_large.png';
 
 const Layout = styled.header`
   height: 400px;

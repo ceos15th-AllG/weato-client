@@ -2,11 +2,11 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import Button from '../../../src/components/common/ButtonContainer';
-import WriteForm from '../../../src/components/community/WriteForm';
+import Button from '@common/ButtonContainer';
+import WriteForm from '@community/WriteForm';
 
-import { Display1, Subhead3 } from '../../../styles/FontStyle';
-import { main, gray04, gray06, text_black } from '../../../styles/Colors';
+import { Display1, Subhead3 } from '@styles/FontStyle';
+import { main, gray04, gray06, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
   margin: 79px 523px 60px;

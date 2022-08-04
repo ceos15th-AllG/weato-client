@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import Button from '../src/components/common/ButtonContainer';
+import Button from '@common/ButtonContainer';
 
 const Layout = styled.div`
   height: calc(100vh - 340px);

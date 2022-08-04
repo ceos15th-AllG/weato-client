@@ -4,11 +4,11 @@ import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
-import icon_color_heart from '../../../public/icon_color_heart.png';
-import icon_color_save from '../../../public/icon_color_save.png';
+import icon_color_heart from '@public/icon_color_heart.png';
+import icon_color_save from '@public/icon_color_save.png';
 
-import { Tag1 } from '../../../styles/FontStyle';
-import { gray04, gray05 } from '../../../styles/Colors';
+import { Tag1 } from '@styles/FontStyle';
+import { gray04, gray05 } from '@styles/Colors';
 
 const ButtonLayoutHeart = styled.div`
   display: flex;

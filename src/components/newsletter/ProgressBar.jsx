@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { main, gray02 } from '../../../styles/Colors';
+import { main, gray02 } from '@styles/Colors';
 
 const Layout = styled.div`
   position: fixed;

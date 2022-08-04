@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 
 import Link from 'next/link';
 
-import { Headline1, Subhead3 } from '../../../styles/FontStyle';
+import { Headline1, Subhead3 } from '@styles/FontStyle';
 
-import { gray06, text_black } from '../../../styles/Colors';
+import { gray06, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
   width: 100%;

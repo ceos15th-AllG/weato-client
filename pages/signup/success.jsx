@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import { Display1, Body5 } from '../../styles/FontStyle';
-import { text_black } from '../../styles/Colors';
-import Button from '../../src/components/common/ButtonContainer';
+import { Display1, Body5 } from '@styles/FontStyle';
+import { text_black } from '@styles/Colors';
+import Button from '@common/ButtonContainer';
 
 const Layout = styled.div`
   display: flex;

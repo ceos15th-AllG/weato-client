@@ -2,9 +2,9 @@
 
 import styled from '@emotion/styled';
 
-import { Tag1 } from '../../../styles/FontStyle';
+import { Tag1 } from '@styles/FontStyle';
 
-import { text_black } from '../../../styles/Colors';
+import { text_black } from '@styles/Colors';
 
 import {
   tag_medicine,
@@ -13,7 +13,7 @@ import {
   tag_food,
   tag_env,
   tag_etc,
-} from '../../../styles/Colors';
+} from '@styles/Colors';
 
 const TagLayout = styled.div`
   width: 60px;

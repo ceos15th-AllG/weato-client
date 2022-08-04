@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 
 import { useScrollPercentage } from 'react-scroll-percentage';
 
-import ProgressBar from '../../src/components/newsletter/ProgressBar';
-import NewsletterForm from '../../src/components/newsletter/NewsletterForm';
-import Button from '../../src/components/newsletter/ButtonContainer';
+import ProgressBar from '@newsletter/ProgressBar';
+import NewsletterForm from '@newsletter/NewsletterForm';
+import Button from '@newsletter/ButtonContainer';
 
-import { Subhead3 } from '../../styles/FontStyle';
-import { main, gray02, gray06, text_black } from '../../styles/Colors';
+import { Subhead3 } from '@styles/FontStyle';
+import { main, gray02, gray06, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
   display: flex;

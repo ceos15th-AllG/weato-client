@@ -8,14 +8,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import ModalBase from '../search/ModalBase';
-import SearchModal from '../search/SearchModal';
+import ModalBase from '@search/ModalBase';
+import SearchModal from '@search/SearchModal';
 
-import { Subhead3, Subhead4 } from '../../../styles/FontStyle';
-import { gray04 } from '../../../styles/Colors';
+import { Subhead3, Subhead4 } from '@styles/FontStyle';
+import { gray04 } from '@styles/Colors';
 
-import icon_search from '../../../public/icon_search.png';
-import logo_horizontal from '../../../public/logo_horizontal.png';
+import icon_search from '@public/icon_search.png';
+import logo_horizontal from '@public/logo_horizontal.png';
 
 const NavbarLayout = styled.div`
   position: fixed;

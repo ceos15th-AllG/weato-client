@@ -4,19 +4,13 @@ import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
-import Button from '../common/ButtonContainer';
-import CommentRow from '../community/CommentRow';
+import Button from '@common/ButtonContainer';
+import CommentRow from '@community/CommentRow';
 
-import {
-  Subhead3,
-  Subhead4,
-  Body1,
-  Body2,
-  Tag1,
-} from '../../../styles/FontStyle';
-import { gray03, gray05, gray07, text_black } from '../../../styles/Colors';
+import { Subhead3, Subhead4, Body1, Body2, Tag1 } from '@styles/FontStyle';
+import { gray03, gray05, gray07, text_black } from '@styles/Colors';
 
-import profile_guest from '../../../public/profile_guest.png';
+import profile_guest from '@public/profile_guest.png';
 
 const Layout = styled.div`
   margin-top: 24px;

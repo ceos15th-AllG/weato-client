@@ -5,14 +5,14 @@ import styled from '@emotion/styled';
 import Head from 'next/head';
 import Link from 'next/link';
 
-import { text_white } from '../styles/Colors';
+import { text_white } from '@styles/Colors';
 
-import { Display1, Headline2 } from '../styles/FontStyle';
+import { Display1, Headline2 } from '@styles/FontStyle';
 
-import Card from '../src/components/common/CardContainer';
-import Button from '../src/components/common/ButtonContainer';
+import Card from '@common/CardContainer';
+import Button from '@common/ButtonContainer';
 
-import banner from '../public/main_banner.png';
+import banner from '@public/main_banner.png';
 
 const HomeLayout = styled.div`
   margin-bottom: 4px;

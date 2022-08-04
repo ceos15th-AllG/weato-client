@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
-import BoardHeader from './BoardHeader';
-import BoardContent from './BoardContentSmall';
+import BoardHeader from '@community/BoardHeader';
+import BoardContent from '@community/BoardContentSmall';
 
 const Layout = styled.div`
   width: 427px;

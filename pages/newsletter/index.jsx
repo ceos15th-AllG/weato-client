@@ -2,10 +2,10 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import TabGroup from '../../src/components/newsletter/TabGroup';
-import CardBox from '../../src/components/newsletter/CardBox';
+import TabGroup from '@newsletter/TabGroup';
+import CardBox from '@newsletter/CardBox';
 
-import Button from '../../src/components/common/ButtonContainer';
+import Button from '@common/ButtonContainer';
 
 const Layout = styled.div`
   display: flex;

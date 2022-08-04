@@ -4,15 +4,15 @@ import styled from '@emotion/styled';
 
 import Image from 'next/image';
 
-import PostTag from './PostTag';
-import Tag from '../common/Tag';
-import HeartButton from './ButtonContainer';
+import PostTag from '@community/PostTag';
+import Tag from '@common/Tag';
+import HeartButton from '@community/ButtonContainer';
 
-import { Subhead4, Body1, Body2, Tag1 } from '../../../styles/FontStyle';
-import { gray04, gray05, gray06, text_black } from '../../../styles/Colors';
+import { Subhead4, Body1, Body2, Tag1 } from '@styles/FontStyle';
+import { gray04, gray05, gray06, text_black } from '@styles/Colors';
 
-import profile_sample_big from '../../../public/profile_sample_big.png';
-import icon_gray_views from '../../../public/icon_gray_views.png';
+import profile_sample_big from '@public/profile_sample_big.png';
+import icon_gray_views from '@public/icon_gray_views.png';
 
 const Layout = styled.div`
   margin-top: 30px;

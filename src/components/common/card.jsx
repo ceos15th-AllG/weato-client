@@ -1,11 +1,11 @@
 // Card 스타일 관리
 
 import styled from '@emotion/styled';
-import { gray07 } from '../../../styles/Colors';
+import { gray07 } from '@styles/Colors';
 
-import { Headline1, Body2 } from '../../../styles/FontStyle';
+import { Headline1, Body2 } from '@styles/FontStyle';
 
-import Tag from './Tag';
+import Tag from '@common/Tag';
 
 const CardLayout = styled.section`
   width: 315px;

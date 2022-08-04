@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@public/*": ["public/*"],
+      "@pages/*": ["pages/*"],
+      "@common/*": ["src/components/common/*"],
+      "@community/*": ["src/components/community/*"],
+      "@main/*": ["src/components/main/*"],
+      "@mypage/*": ["src/components/mypage/*"],
+      "@newsletter/*": ["src/components/newsletter/*"],
+      "@search/*": ["src/components/search/*"],
+      "@styles/*": ["styles/*"]
+    }
+  }
+}

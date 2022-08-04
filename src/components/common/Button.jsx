@@ -4,8 +4,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { main, sub, gray03, gray04, text_white } from '../../../styles/Colors';
-import { Headline1, Subhead3, Subhead4 } from '../../../styles/FontStyle';
+import { main, sub, gray03, gray04, text_white } from '@styles/Colors';
+import { Headline1, Subhead3, Subhead4 } from '@styles/FontStyle';
 
 const DefaultLayout = css`
   /* default css properties */

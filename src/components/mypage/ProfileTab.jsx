@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Tag from '../common/Tag';
+import Tag from '@common/Tag';
 
 import {
   Headline2,
@@ -13,11 +13,11 @@ import {
   Subhead3,
   Subhead4,
   Body3,
-} from '../../../styles/FontStyle';
+} from '@styles/FontStyle';
 
-import { gray04, gray06, text_black } from '../../../styles/Colors';
+import { gray04, gray06, text_black } from '@styles/Colors';
 
-import icon_naver from '../../../public/icon_naver.png';
+import icon_naver from '@public/icon_naver.png';
 
 const Layout = styled.div`
   margin: 42px 300px 160px;

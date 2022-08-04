@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import { Body1 } from '../../../styles/FontStyle';
+import { Body1 } from '@styles/FontStyle';
 
-import { gray04, tag_etc } from '../../../styles/Colors';
+import { gray04, tag_etc } from '@styles/Colors';
 
 const Layout = styled.div`
   width: 68px;

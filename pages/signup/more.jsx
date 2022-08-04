@@ -9,17 +9,11 @@ import {
   semantic_red,
   gray07,
   main,
-} from '../../styles/Colors';
+} from '@styles/Colors';
 
-import {
-  Display1,
-  Subhead4,
-  Body1,
-  Body2,
-  Body3,
-} from '../../styles/FontStyle';
+import { Display1, Subhead4, Body1, Body2, Body3 } from '@styles/FontStyle';
 
-import Button from '../../src/components/common/ButtonContainer';
+import Button from '@common/ButtonContainer';
 
 const Layout = styled.div`
   margin: 122px 635px 136px;

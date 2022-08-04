@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import BoardGroup from '../../src/components/community/BoardGroup';
-import Banner from '../../src/components/community/Banner';
-import QnA from '../../src/components/community/QnA';
+import BoardGroup from '@community/BoardGroup';
+import Banner from '@community/Banner';
+import QnA from '@community/QnA';
 
 const Layout = styled.div`
   display: flex;

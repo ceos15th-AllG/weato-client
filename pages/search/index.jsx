@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
-import Button from '../../src/components/common/ButtonContainer';
-import NewsletterResult from '../../src/components/search/NewsletterResult';
-import CommunityResult from '../../src/components/search/CommunityResult';
-import Pagenator from '../../src/components/common/Pagenator';
+import Button from '@common/ButtonContainer';
+import NewsletterResult from '@search/NewsletterResult';
+import CommunityResult from '@search/CommunityResult';
+import Pagenator from '@common/Pagenator';
 
-import { Display1, Body4 } from '../../styles/FontStyle';
+import { Display1, Body4 } from '@styles/FontStyle';
 
-import { main, text_black } from '../../styles/Colors';
+import { main, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
   margin: 0px 300px 167px;

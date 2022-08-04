@@ -4,17 +4,12 @@ import styled from '@emotion/styled';
 
 import Link from 'next/link';
 
-import BoardRow from './BoardRow';
-import Pagenator from '../common/Pagenator';
+import BoardRow from '@mypage/BoardRow';
+import Pagenator from '@common/Pagenator';
 
-import {
-  Display1,
-  Headline1,
-  Subhead4,
-  Body3,
-} from '../../../styles/FontStyle';
+import { Display1, Headline1, Subhead4, Body3 } from '@styles/FontStyle';
 
-import { gray04, gray06, text_black } from '../../../styles/Colors';
+import { gray04, gray06, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
   margin: 42px 300px 151px;

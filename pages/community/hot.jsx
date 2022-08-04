@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
-import { Subhead4 } from '../../styles/FontStyle';
+import { Subhead4 } from '@styles/FontStyle';
 
-import { text_black } from '../../styles/Colors';
+import { text_black } from '@styles/Colors';
 
-import TabBar from '../../src/components/community/TabBar';
-import BoardRow from '../../src/components/community/BoardRow';
-import BoardCard from '../../src/components/community/BoardCard';
-import Pagenator from '../../src/components/common/Pagenator';
+import TabBar from '@community/TabBar';
+import BoardRow from '@community/BoardRow';
+import BoardCard from '@community/BoardCard';
+import Pagenator from '@common/Pagenator';
 
 const Layout = styled.div`
   margin: 39px 300px 67px;
