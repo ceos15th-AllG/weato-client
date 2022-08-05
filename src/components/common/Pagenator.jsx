@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import Link from 'next/link';
+
 import { Headline1 } from '@styles/FontStyle';
 
 import { gray05, text_black, tag_etc } from '@styles/Colors';
@@ -31,15 +33,40 @@ const CurrentPage = styled.span`
   color : ${text_black};
 `;
 
-function Pagenator({ current }) {
+const makeRange = (current) => {
+  let array = [];
+
+  const start = current - ((current - 1) % 5);
+  const end = start + 4;
+
+  for (let i = start; i <= end; ++i) {
+    array.push(i);
+  }
+
+  return array;
+};
+
+function Pagenator(props) {
+  const range = makeRange(props.page);
+
   return (
     <Layout>
       <Arrow>&#xE000;</Arrow>
-      <Page>1</Page>
-      <Page>2</Page>
-      <CurrentPage>3</CurrentPage>
-      <Page>4</Page>
-      <Page>5</Page>
+      {range.map((pageNum, index) =>
+        pageNum == props.page ? (
+          <CurrentPage key={index}>
+            <Link href={`${props.path}?tag=${props.tag}&page=${pageNum}`}>
+              <a>{pageNum}</a>
+            </Link>
+          </CurrentPage>
+        ) : (
+          <Page key={index}>
+            <Link href={`${props.path}?tag=${props.tag}&page=${pageNum}`}>
+              <a>{pageNum}</a>
+            </Link>
+          </Page>
+        )
+      )}
       <Arrow>&#xE001;</Arrow>
     </Layout>
   );
