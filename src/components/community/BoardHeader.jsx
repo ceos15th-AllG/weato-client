@@ -33,15 +33,18 @@ const More = styled.span`
   color : ${text_black};
 `;
 
-function BoardHeader({ title, link }) {
+function BoardHeader(props) {
   return (
     <Layout>
-      <Title>{title}</Title>
-      <More>
-        <Link href={`/community/${link}`}>
-          <a>더보기 &#xE001;</a>
-        </Link>
-      </More>
+      <Title>{props.title}</Title>
+
+      {props.link ? (
+        <More>
+          <Link href={`/community/${props.link}`}>
+            <a>더보기 &#xE001;</a>
+          </Link>
+        </More>
+      ) : undefined}
     </Layout>
   );
 }

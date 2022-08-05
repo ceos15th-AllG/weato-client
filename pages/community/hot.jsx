@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { useRouter } from 'next/router';
+
 import { Subhead4 } from '@styles/FontStyle';
 
 import { text_black } from '@styles/Colors';
@@ -50,7 +52,8 @@ const BottomRow = styled.div`
   justify-content: center;
 `;
 
-function Hot() {
+function Hot(props) {
+  const router = useRouter();
   const contents = [
     {
       id: '0',
@@ -103,15 +106,16 @@ function Hot() {
     {
       id: '0',
       title: '아토피 이제 괜찮아졌어요',
-      content: '이 부분은 내용입니다.',
+      content:
+        '아토피를 앓은 지도 12년 째... 지겨웠던 아토피와의 싸움이 그래도 나아지기 시작하네요\n1주일에 3번 30분씩 밖에서 뛰고 온 지 1달 쯤 지나니까 확실히 피부 발진이 줄어든 게 느껴집니다.',
       view: '200',
       like: '200',
     },
     {
       id: '1',
-      title: '아토피 이제 괜찮아졌어요',
+      title: '나아진 경험 공유해요!',
       content:
-        '이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. 이 부분은 내용입니다. ',
+        '아토피를 앓은 지도 12년 째... 지겨웠던 아토피와의 싸움이 그래도 나아지기 시작하네요\n1주일에 3번 30분씩 밖에서 뛰고 온 지 1달 쯤 지나니까 확실히 피부 발진이 줄어든 게 느껴집니다.',
       view: '200',
       like: '200',
     },
@@ -135,7 +139,7 @@ function Hot() {
           ))}
 
           <BottomRow>
-            <Pagenator currnet={3} />
+            <Pagenator path={router.pathname} {...props} />
           </BottomRow>
         </Board>
         <BoardRecommend>
@@ -154,5 +158,24 @@ function Hot() {
     </Layout>
   );
 }
+
+{
+  /* <Pagenator path={router.pathname} {...props} /> */
+}
+export const getServerSideProps = async (context) => {
+  const query = context.query;
+
+  let defaultPage = 1;
+
+  if (Object.keys(query).length !== 0 && query.hasOwnProperty('page')) {
+    defaultPage = query.page;
+  }
+
+  return {
+    props: {
+      page: defaultPage,
+    },
+  };
+};
 
 export default Hot;

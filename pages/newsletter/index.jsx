@@ -51,6 +51,9 @@ function Newsletter(props) {
   );
 }
 
+{
+  /* <Pagenator path={router.pathname} {...props} /> */
+}
 export const getServerSideProps = async (context) => {
   const query = context.query;
 

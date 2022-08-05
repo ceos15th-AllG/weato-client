@@ -89,7 +89,7 @@ const LI = styled.li`
   list-style: disc outside none;
 `;
 
-function NewsletterForm() {
+function NewsletterForm({ content }) {
   return (
     <Layout>
       <H1>샤워, 목욕...세면 습관으로 아토피 관리</H1>

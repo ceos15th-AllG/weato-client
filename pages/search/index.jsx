@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { useRouter } from 'next/router';
+
 import Button from '@common/ButtonContainer';
 import NewsletterResult from '@search/NewsletterResult';
 import CommunityResult from '@search/CommunityResult';
@@ -55,7 +57,9 @@ const PagenatorBox = styled.div`
   justify-content: center;
 `;
 
-const Search = ({ keyword, category }) => {
+const Search = (props) => {
+  const router = useRouter();
+
   const newsletterLength = 3;
   const communityLength = 5;
 
@@ -110,56 +114,61 @@ const Search = ({ keyword, category }) => {
   return (
     <Layout>
       <Title>
-        &apos;{keyword}&apos;
-        {category === 'all' ? ' 에 대한 검색결과' : undefined}
-        {category === 'newsletter' ? ' 에 대한 뉴스레터 검색결과' : undefined}
-        {category === 'community' ? ' 에 대한 커뮤니티 검색결과' : undefined}
+        &apos;{props.keyword}&apos;
+        {props.category === 'all' ? ' 에 대한 검색결과' : undefined}
+        {props.category === 'newsletter'
+          ? ' 에 대한 뉴스레터 검색결과'
+          : undefined}
+        {props.category === 'community'
+          ? ' 에 대한 커뮤니티 검색결과'
+          : undefined}
       </Title>
 
-      {category === 'all' || category === 'newsletter' ? (
+      {props.category === 'all' || props.category === 'newsletter' ? (
         <>
           <SubtitleBox>
             <SubTitle>
-              &apos;{keyword}&apos; 에 대한 뉴스레터입니다. ({newsletterLength})
+              &apos;{props.keyword}&apos; 에 대한 뉴스레터입니다. (
+              {newsletterLength})
             </SubTitle>
           </SubtitleBox>
           <NewsletterResult />
         </>
       ) : undefined}
-      {category === 'all' ? (
+      {props.category === 'all' ? (
         <ButtonBox>
           <Button
             text="더보기"
             btnType="4"
-            href={`/search?keyword=${keyword}&category=newsletter`}
+            href={`/search?keyword=${props.keyword}&category=newsletter`}
           />
         </ButtonBox>
       ) : undefined}
 
-      {category === 'all' || category === 'community' ? (
+      {props.category === 'all' || props.category === 'community' ? (
         <>
           <SubtitleBox>
             <SubTitle>
-              &apos;{keyword}&apos; 에 대한 커뮤니티 글입니다. (
+              &apos;{props.keyword}&apos; 에 대한 커뮤니티 글입니다. (
               {communityLength})
             </SubTitle>
           </SubtitleBox>
           <CommunityResult communityData={communityData} />
         </>
       ) : undefined}
-      {category === 'all' ? (
+      {props.category === 'all' ? (
         <ButtonBox>
           <Button
             text="더보기"
             btnType="4"
-            href={`/search?keyword=${keyword}&category=community`}
+            href={`/search?keyword=${props.keyword}&category=community`}
           />
         </ButtonBox>
       ) : undefined}
 
-      {category === 'newsletter' || category === 'community' ? (
+      {props.category === 'newsletter' || props.category === 'community' ? (
         <PagenatorBox>
-          <Pagenator />
+          <Pagenator path={router.pathname} {...props} />
         </PagenatorBox>
       ) : undefined}
     </Layout>
@@ -170,6 +179,7 @@ export const getServerSideProps = async (context) => {
   const query = context.query;
   let defaultKeyword = '빈 검색어';
   let defaultCategory = 'all';
+  let defaultPage = 1;
 
   if (Object.keys(query).length !== 0 && query.hasOwnProperty('keyword')) {
     defaultKeyword = query.keyword;
@@ -179,10 +189,15 @@ export const getServerSideProps = async (context) => {
     defaultCategory = query.category;
   }
 
+  if (Object.keys(query).length !== 0 && query.hasOwnProperty('page')) {
+    defaultPage = query.page;
+  }
+
   return {
     props: {
       keyword: defaultKeyword,
       category: defaultCategory,
+      page: defaultPage,
     },
   };
 };
