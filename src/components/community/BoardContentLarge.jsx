@@ -72,9 +72,9 @@ function BoardContentLarge({ posts }) {
   return (
     <Layout>
       {posts.map(({ id, category, title, comments, tag, view, date }) => (
-        <Link href="/community/post/sample">
-          <a>
-            <Box key={id}>
+        <Box key={id}>
+          <Link href="/community/post/sample">
+            <a>
               <Box>
                 <Tag text={category} />
                 <Title>
@@ -89,9 +89,9 @@ function BoardContentLarge({ posts }) {
                 </Box>
                 <Date>{date}</Date>
               </Box>
-            </Box>
-          </a>
-        </Link>
+            </a>
+          </Link>
+        </Box>
       ))}
     </Layout>
   );

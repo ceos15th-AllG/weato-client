@@ -59,9 +59,9 @@ function BoardContentSmall({ posts }) {
   return (
     <Layout>
       {posts.map(({ id, title, view, date }) => (
-        <Link href="/community/post/sample">
-          <a>
-            <Box key={id}>
+        <Box key={id}>
+          <Link href="/community/post/sample">
+            <a>
               <Title>{title}</Title>
               <Box>
                 <Box>
@@ -70,9 +70,9 @@ function BoardContentSmall({ posts }) {
                 </Box>
                 <Date>{date}</Date>
               </Box>
-            </Box>
-          </a>
-        </Link>
+            </a>
+          </Link>
+        </Box>
       ))}
     </Layout>
   );
