@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 
+import { useRouter } from 'next/router';
+
 import Image from 'next/image';
 
 import banner_login from '@public/banner_login.png';
+import icon_naver_n from '@public/icon_naver_n.png';
 
 import { main, text_black } from '@styles/Colors';
 
@@ -42,34 +45,35 @@ const NaverLoginBtn = styled.div`
   width: 315px;
   height: 84px;
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0px 52px;
+
   border-radius: 4px;
 
+  span {
+    ${Headline2};
+
+    padding-top: 3px;
+
+    color: white;
+  }
+
   background-color: #03c75a;
-  color: white;
 `;
 
 // import { useEffect, useState } from 'react';
 // import axios from 'axios';
-import useSWR from 'swr';
+// import useSWR from 'swr';
 
-const BASE_URL =
-  'http://ec2-3-37-94-86.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/naver';
+function Login(props) {
+  const router = useRouter();
+  // const REQUEST_PATH = `http://3.37.94.86/oauth2/authorization/naver/`;
+  const REDIRECT_URI = `http://localhost:3000/login`;
+  const REQUEST_PATH = `http://3.37.94.86/oauth2/authorization/naver?redirect_uri=${REDIRECT_URI}`;
 
-const fetcher = async (url) => {
-  const res = await fetch(url);
-  const data = await res.json();
-
-  if (res.status !== 200) {
-    console.log(data.message);
-    throw new Error(data.message);
-  }
-  console.log(data);
-  console.log(data.json());
-
-  return data.json();
-};
-
-export default function Login() {
   return (
     <Layout>
       <Row>
@@ -83,10 +87,34 @@ export default function Login() {
 
           <MidText>회원가입 | 로그인</MidText>
 
-          {/* <NaverLoginBtn onClick={() => fetcher(BASE_URL)} /> */}
-          <NaverLoginBtn onClick={() => alert()} />
+          <NaverLoginBtn onClick={() => router.push(REQUEST_PATH)}>
+            <Image src={icon_naver_n} width={25.41} height={25.2} />
+            <span>네이버 로그인</span>
+          </NaverLoginBtn>
         </Column>
       </Row>
     </Layout>
   );
 }
+
+export const getServerSideProps = async (context) => {
+  const query = context.query;
+
+  // 토큰 일치하지 않을 시.. -> 로그인 상태 아님
+  if (Object.keys(query).length === 0 || !query.hasOwnProperty('token')) {
+    return {
+      props: {
+        login: false,
+        token: null,
+      },
+    };
+  }
+
+  return {
+    props: {
+      token: query.token,
+    },
+  };
+};
+
+export default Login;
