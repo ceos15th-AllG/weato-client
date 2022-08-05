@@ -92,6 +92,7 @@ function FooterBar() {
               <a
                 href="https://docs.google.com/forms/d/11lNkZerluc-NxiFOx4iZOByeC3p7tZTn9mduHX-3Yl4/viewform?chromeless=1&edit_requested=true"
                 target="_blank"
+                rel="noreferrer"
               >
                 FAQ
               </a>
@@ -111,17 +112,21 @@ function FooterBar() {
 
       <FooterContactBox>
         <FooterIconLayout>
-          <a href="https://www.instagram.com/allg.weato/" target="_blank">
+          <a
+            href="https://www.instagram.com/allg.weato/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Image src={icon_instagram} width="40" height="40" alt="" />
           </a>
         </FooterIconLayout>
         <FooterIconLayout>
-          <a href="https://twitter.com" target="_blank">
+          <a href="https://twitter.com" target="_blank" rel="noreferrer">
             <Image src={icon_twitter} width="40" height="40" alt="" />
           </a>
         </FooterIconLayout>
         <FooterIconLayout>
-          <a href="https://facebook.com" target="_blank">
+          <a href="https://facebook.com" target="_blank" rel="noreferrer">
             <Image src={icon_facebook} width="40" height="40" alt="" />
           </a>
         </FooterIconLayout>
