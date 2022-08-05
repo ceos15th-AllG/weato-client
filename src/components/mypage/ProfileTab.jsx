@@ -92,9 +92,9 @@ const InfoData = styled.div`
 
 function ProfileTab() {
   const profileData = {
-    nickname: '푸들푸들',
+    nickname: '아토랑',
     birth: '1997-11-28',
-    email: 'chammal97@naver.com',
+    email: 'abcedf000@naver.com',
     account: 'naver',
   };
 

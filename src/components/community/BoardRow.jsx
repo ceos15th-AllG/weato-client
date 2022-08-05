@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Subhead3, Body1, Body3, Tag1 } from '@styles/FontStyle';
 
@@ -76,27 +77,31 @@ const SmallBox = styled.div`
 
 function BoardRow({ category, title, view, like, name, level }) {
   return (
-    <Layout>
-      <SmallText>{category}</SmallText>
-      <Title>{title}</Title>
-      <Row>
-        <Box>
-          <Image src={profile_sample} width={24} height={24} alt="" />
-          <Level>{level}</Level>
-          <Name>{name}</Name>
-        </Box>
-        <Box>
-          <SmallBox>
-            <Image src={icon_gray_views} width={20} height={13.69} alt="" />
-            <SmallText>{view}</SmallText>
-          </SmallBox>
-          <SmallBox>
-            <Image src={icon_color_heart} width={16} height={14} alt="" />
-            <SmallText>{like}</SmallText>
-          </SmallBox>
-        </Box>
-      </Row>
-    </Layout>
+    <Link href="/community/post/sample">
+      <a>
+        <Layout>
+          <SmallText>{category}</SmallText>
+          <Title>{title}</Title>
+          <Row>
+            <Box>
+              <Image src={profile_sample} width={24} height={24} alt="" />
+              <Level>{level}</Level>
+              <Name>{name}</Name>
+            </Box>
+            <Box>
+              <SmallBox>
+                <Image src={icon_gray_views} width={20} height={13.69} alt="" />
+                <SmallText>{view}</SmallText>
+              </SmallBox>
+              <SmallBox>
+                <Image src={icon_color_heart} width={16} height={14} alt="" />
+                <SmallText>{like}</SmallText>
+              </SmallBox>
+            </Box>
+          </Row>
+        </Layout>
+      </a>
+    </Link>
   );
 }
 

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Tag from '@community/PostTag';
 
@@ -71,22 +72,26 @@ function BoardContentLarge({ posts }) {
   return (
     <Layout>
       {posts.map(({ id, category, title, comments, tag, view, date }) => (
-        <Box key={id}>
-          <Box>
-            <Tag text={category} />
-            <Title>
-              {title} [{comments}]
-            </Title>
-          </Box>
-          <Box>
-            <Hashtag>#{tag}</Hashtag>
-            <Box>
-              <Image src={icon_views} width={17.54} height={12} alt="" />
-              <Views>{view}</Views>
+        <Link href="/community/post/sample">
+          <a>
+            <Box key={id}>
+              <Box>
+                <Tag text={category} />
+                <Title>
+                  {title} [{comments}]
+                </Title>
+              </Box>
+              <Box>
+                <Hashtag>#{tag}</Hashtag>
+                <Box>
+                  <Image src={icon_views} width={17.54} height={12} alt="" />
+                  <Views>{view}</Views>
+                </Box>
+                <Date>{date}</Date>
+              </Box>
             </Box>
-            <Date>{date}</Date>
-          </Box>
-        </Box>
+          </a>
+        </Link>
       ))}
     </Layout>
   );

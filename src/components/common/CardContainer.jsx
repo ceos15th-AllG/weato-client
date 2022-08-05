@@ -5,12 +5,23 @@ import Link from 'next/link';
 const CardContainer = (props) => {
   if (!props.href) {
     return (
-      <Card
-        onClick={props.onClick}
-        text={props.text}
-        date={props.date}
-        tag={props.tag}
-      />
+      <Link href="/newsletter/sample">
+        <a>
+          <Card
+            onClick={props.onClick}
+            text={props.text}
+            date={props.date}
+            tag={props.tag}
+          />
+        </a>
+      </Link>
+      /* 임시로 배포 용도로 링크 걸어놓음... */
+      // <Card
+      //   onClick={props.onClick}
+      //   text={props.text}
+      //   date={props.date}
+      //   tag={props.tag}
+      // />
     );
   }
 
