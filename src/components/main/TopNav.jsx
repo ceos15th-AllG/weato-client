@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,6 +17,7 @@ import { main, gray04, text_black } from '@styles/Colors';
 
 import icon_search from '@public/icon_search.png';
 import logo_horizontal from '@public/logo_horizontal.png';
+import { loginState } from 'states';
 
 const NavbarLayout = styled.div`
   position: fixed;
@@ -80,6 +82,9 @@ const TopNav = () => {
   const router = useRouter();
 
   const [isActive, setIsActive] = useState(false);
+  const login = useRecoilValue(loginState);
+
+  console.log(login);
 
   const onClickModalOn = () => {
     setIsActive(true);

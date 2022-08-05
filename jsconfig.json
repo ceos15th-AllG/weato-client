@@ -10,7 +10,8 @@
       "@mypage/*": ["src/components/mypage/*"],
       "@newsletter/*": ["src/components/newsletter/*"],
       "@search/*": ["src/components/search/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@states/*": ["states/*"]
     }
   }
 }

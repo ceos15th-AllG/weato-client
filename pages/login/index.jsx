@@ -70,8 +70,7 @@ const NaverLoginBtn = styled.div`
 
 function Login(props) {
   const router = useRouter();
-  // const REQUEST_PATH = `http://3.37.94.86/oauth2/authorization/naver/`;
-  const REDIRECT_URI = `http://localhost:3000/login`;
+  const REDIRECT_URI = `http://localhost:3000/login/auth`;
   const REQUEST_PATH = `http://3.37.94.86/oauth2/authorization/naver?redirect_uri=${REDIRECT_URI}`;
 
   return (
@@ -96,25 +95,5 @@ function Login(props) {
     </Layout>
   );
 }
-
-export const getServerSideProps = async (context) => {
-  const query = context.query;
-
-  // 토큰 일치하지 않을 시.. -> 로그인 상태 아님
-  if (Object.keys(query).length === 0 || !query.hasOwnProperty('token')) {
-    return {
-      props: {
-        login: false,
-        token: null,
-      },
-    };
-  }
-
-  return {
-    props: {
-      token: query.token,
-    },
-  };
-};
 
 export default Login;
