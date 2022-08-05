@@ -48,8 +48,8 @@ export default function Success() {
       </SubText>
 
       <ButtonBox>
-        <Button text="지금 입력하기" btnType="5" />
-        <Button text="나중에 작성하기" btnType="5" disabled />
+        <Button text="지금 입력하기" btnType="5" href="/signup/more" />
+        <Button text="나중에 작성하기" btnType="5" disabled href="/" />
       </ButtonBox>
     </Layout>
   );

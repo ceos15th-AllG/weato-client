@@ -247,7 +247,7 @@ export default function More() {
         </ContentItem>
 
         <ContentItem>
-          <Button text="저장하기" btnType="6" />
+          <Button text="저장하기" btnType="6" href="/" />
         </ContentItem>
       </Content>
     </Layout>

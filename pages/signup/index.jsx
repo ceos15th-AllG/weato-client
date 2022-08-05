@@ -2,6 +2,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import Link from 'next/link';
+
 import { sub, gray05, text_black, semantic_red, gray07 } from '@styles/Colors';
 
 import { Display1, Subhead4, Body1, Body2, Body3 } from '@styles/FontStyle';
@@ -221,7 +223,7 @@ export default function Signup() {
         </ContentItem>
 
         <ContentItem>
-          <Button text="가입하기" btnType="6" />
+          <Button text="가입하기" btnType="6" href="/signup/success" />
         </ContentItem>
       </Content>
     </Layout>

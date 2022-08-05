@@ -22,7 +22,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     redirect: {
-      destination: '/',
+      destination: '/signup',
       permanent: false,
     },
     props: {},
