@@ -111,13 +111,19 @@ function FooterBar() {
 
       <FooterContactBox>
         <FooterIconLayout>
-          <Image src={icon_instagram} width="40" height="40" alt="" />
+          <a href="https://www.instagram.com/allg.weato/" target="_blank">
+            <Image src={icon_instagram} width="40" height="40" alt="" />
+          </a>
         </FooterIconLayout>
         <FooterIconLayout>
-          <Image src={icon_twitter} width="40" height="40" alt="" />
+          <a href="https://twitter.com" target="_blank">
+            <Image src={icon_twitter} width="40" height="40" alt="" />
+          </a>
         </FooterIconLayout>
         <FooterIconLayout>
-          <Image src={icon_facebook} width="40" height="40" alt="" />
+          <a href="https://facebook.com" target="_blank">
+            <Image src={icon_facebook} width="40" height="40" alt="" />
+          </a>
         </FooterIconLayout>
       </FooterContactBox>
     </FooterLayout>
