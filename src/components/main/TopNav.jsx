@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,6 +21,7 @@ import { loginState } from 'states';
 const NavbarLayout = styled.div`
   position: fixed;
   top: 0px;
+  left: 0px;
   z-index: 1000;
 
   display: flex;
@@ -65,6 +65,12 @@ const NavbarItem = styled.li`
       `${props.currentPath.startsWith(props.menu) ? main : 'transparent'}`};
   color: ${(props) =>
     `${props.currentPath.startsWith(props.menu) ? main : text_black}`};
+
+  transition: 0.3s ease;
+
+  /* &:hover {
+    border-bottom: 5px solid ${main};
+  } */
 `;
 
 const NavbarRightGroup = styled.div`
@@ -82,9 +88,9 @@ const TopNav = () => {
   const router = useRouter();
 
   const [isActive, setIsActive] = useState(false);
-  const login = useRecoilValue(loginState);
+  // const login = useRecoilValue(loginState);
 
-  console.log(login);
+  // console.log(login);
 
   const onClickModalOn = () => {
     setIsActive(true);

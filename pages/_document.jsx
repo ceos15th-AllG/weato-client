@@ -1,4 +1,12 @@
+import styled from '@emotion/styled';
+
 import { Html, Head, Main, NextScript } from 'next/document';
+
+const Body = styled.body`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export default function Document() {
   return (
@@ -10,10 +18,10 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-      <body>
+      <Body>
         <Main />
         <NextScript />
-      </body>
+      </Body>
     </Html>
   );
 }

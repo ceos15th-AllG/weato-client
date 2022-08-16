@@ -1,5 +1,11 @@
+import styled from '@emotion/styled';
+
+const Layout = styled.div`
+  width: 100%;
+`;
+
 function ContentLayout({ children }) {
-  return <div>{children}</div>;
+  return <Layout>{children}</Layout>;
 }
 
 export default ContentLayout;

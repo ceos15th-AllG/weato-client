@@ -28,6 +28,10 @@ const Item = styled.span`
 
   border-bottom: 5px solid
     ${(props) => `${props.tag === props.selected ? main : 'transparent'}`};
+
+  /* &:hover {
+    border-bottom: 5px solid ${main};
+  } */
 `;
 
 export default function TabGroup({ selected }) {
