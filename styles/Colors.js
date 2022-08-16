@@ -1,0 +1,19 @@
+export const main = '#52b0a0';
+export const sub = '#ffaa97';
+export const gray01 = '#f5f5f5';
+export const gray02 = '#eeeeee';
+export const gray03 = '#c0c0c0';
+export const gray04 = '#aaaaaa';
+export const gray05 = '#999999';
+export const gray06 = '#797979';
+export const gray07 = '#5a5a5a';
+export const text_black = '#1b1b1b';
+export const text_white = '#ffffff';
+export const semantic_red = '#ff5858';
+
+export const tag_medicine = '#f5c1c1';
+export const tag_sleep = '#ecd9ff';
+export const tag_water = '#d0ecfc';
+export const tag_food = '#fbe5c4';
+export const tag_env = '#d6f5d1';
+export const tag_etc = '#dfdfdf';
