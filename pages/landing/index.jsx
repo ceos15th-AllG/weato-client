@@ -1,6 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { css, keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import Reveal, { Fade } from 'react-awesome-reveal';
+
+// config({ ssrFadeout: true });
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -42,7 +45,6 @@ const Section_1 = styled.section`
 `;
 
 const Section_2 = styled.section`
-  /* width: 100%; */
   height: 700px;
 
   display: flex;
@@ -100,7 +102,20 @@ const Section_3 = styled.section`
     align-items: center;
   }
 
+  .line-section {
+    position: absolute;
+    top: 130px;
+    left: 655px;
+
+    width: 610px;
+    height: 177.5px;
+
+    border-bottom: 4px dashed ${main};
+  }
+
   .circle-section {
+    position: relative;
+    z-index: 10;
     width: 355px;
     height: 355px;
 
@@ -114,6 +129,7 @@ const Section_3 = styled.section`
     color: ${main};
     font-weight: 700;
     font-size: 36px;
+    background-color: white;
 
     transition: 0.3s all ease-in-out;
 
@@ -337,7 +353,6 @@ const MockupArea = styled.div`
     position: relative;
     overflow: visible;
     left: 0%;
-    /* left: -62.2%; */
     top: 254px;
     height: 100%;
 
@@ -354,9 +369,9 @@ const MockupArea = styled.div`
   .fourth-mockup-container {
     position: absolute;
     top: 512px;
-    left: 187px;
+    left: 47px;
 
-    width: 1282px;
+    width: 1808px;
   }
 
   .fifth-mockup-container {
@@ -386,14 +401,26 @@ const MockupArea = styled.div`
   }
 `;
 
+const RevealAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
 const Landing = () => {
   return (
     <Layout>
       <Section_1>
         <MockupArea>
-          <div className="first-mockup-container">
-            <Image src={mockup_1} />
-          </div>
+          <Fade triggerOnce duration={1000} delay={500}>
+            <div className="first-mockup-container">
+              <Image src={mockup_1} />
+            </div>
+          </Fade>
         </MockupArea>
       </Section_1>
 
@@ -413,36 +440,45 @@ const Landing = () => {
 
       <Section_3>
         <div className="box">
-          <div className="content">
-            <section className="circle-section">편리성</section>
-            <section className="text-section">
-              직접 정보를 찾지 말고
-              <br />
-              뉴스레터를 통해
-              <br />
-              편하게 정보를 받아보세요.
-            </section>
-          </div>
-          <div className="content">
-            <section className="circle-section">신뢰성</section>
-            <section className="text-section">
-              공신력 있는 기사, 논문 등을
-              <br />
-              참조해 만든 뉴스레터로
-              <br />
-              안심하고 읽어보세요.
-            </section>
-          </div>
-          <div className="content">
-            <section className="circle-section">맞춤형</section>
-            <section className="text-section">
-              선택 태그 별 뉴스레터와
-              <br />
-              유사 병력 회원의 경험 정보 게시글로
-              <br />
-              보다 적합한 정보를 얻어보세요.
-            </section>
-          </div>
+          <Fade triggerOnce duration={1000} delay={2500}>
+            <section className="line-section"></section>
+          </Fade>
+          <Fade triggerOnce duration={1000} delay={1000}>
+            <div className="content">
+              <section className="circle-section">편리성</section>
+              <section className="text-section">
+                직접 정보를 찾지 말고
+                <br />
+                뉴스레터를 통해
+                <br />
+                편하게 정보를 받아보세요.
+              </section>
+            </div>
+          </Fade>
+          <Fade triggerOnce duration={1000} delay={1300}>
+            <div className="content">
+              <section className="circle-section">신뢰성</section>
+              <section className="text-section">
+                공신력 있는 기사, 논문 등을
+                <br />
+                참조해 만든 뉴스레터로
+                <br />
+                안심하고 읽어보세요.
+              </section>
+            </div>
+          </Fade>
+          <Fade triggerOnce duration={1000} delay={1900}>
+            <div className="content">
+              <section className="circle-section">맞춤형</section>
+              <section className="text-section">
+                선택 태그 별 뉴스레터와
+                <br />
+                유사 병력 회원의 경험 정보 게시글로
+                <br />
+                보다 적합한 정보를 얻어보세요.
+              </section>
+            </div>
+          </Fade>
         </div>
       </Section_3>
 
@@ -492,9 +528,11 @@ const Landing = () => {
               <Image src={card_4} />
             </div>
           </div>
-          <div className="second-mockup-container">
-            <Image src={mockup_2} />
-          </div>
+          <Fade triggerOnce duration={1000} delay={1000}>
+            <div className="second-mockup-container">
+              <Image src={mockup_2} />
+            </div>
+          </Fade>
         </MockupArea>
       </Section_4>
 
@@ -514,43 +552,58 @@ const Landing = () => {
           </div>
         </div>
         <MockupArea>
-          <div className="fourth-mockup-container">
-            <Image src={mockup_3} />
-          </div>
-          <div className="fifth-mockup-container">
-            <Image src={mockup_4} />
-          </div>
-          <div className="sixth-mockup-container">
-            <Image src={comment_1} />
-          </div>
-          <div className="seventh-mockup-container">
-            <Image src={comment_2} />
-          </div>
+          <Fade triggerOnce duration={1000} delay={1000}>
+            <div className="fourth-mockup-container">
+              <Image src={mockup_3} />
+            </div>
+          </Fade>
+          <Fade triggerOnce duration={1000} delay={1300}>
+            <div className="fifth-mockup-container">
+              <Image src={mockup_4} />
+            </div>
+          </Fade>
+          <Fade triggerOnce duration={1000} delay={2500}>
+            <div className="sixth-mockup-container">
+              <Image src={comment_1} />
+            </div>
+          </Fade>
+          <Fade triggerOnce duration={1000} delay={2800}>
+            <div className="seventh-mockup-container">
+              <Image src={comment_2} />
+            </div>
+          </Fade>
         </MockupArea>
       </Section_5>
 
-      <FooterSection>
-        <FooterBox>
-          <FooterTitle>지금 바로 위아토를 만나보세요!</FooterTitle>
-          <Link href={'/'}>
-            <a>
-              <Button>위아토 바로가기</Button>
-            </a>
-          </Link>
-        </FooterBox>
-        <FooterRow>
-          <FooterText>
-            <strong>https://weato.net/</strong>
-          </FooterText>
-          <Column>
+      <Reveal
+        triggerOnce
+        keyframes={RevealAnimation}
+        duration={1500}
+        // delay={500}
+      >
+        <FooterSection>
+          <FooterBox>
+            <FooterTitle>지금 바로 위아토를 만나보세요!</FooterTitle>
+            <Link href={'/'}>
+              <a>
+                <Button>위아토 바로가기</Button>
+              </a>
+            </Link>
+          </FooterBox>
+          <FooterRow>
             <FooterText>
-              <strong>CEOS 15TH ALL.G Team</strong>
-              <br />
-              박재민 박성호 정주연 조아라 최어진 백지훈
+              <strong>https://weato.net/</strong>
             </FooterText>
-          </Column>
-        </FooterRow>
-      </FooterSection>
+            <Column>
+              <FooterText>
+                <strong>CEOS 15TH ALL.G Team</strong>
+                <br />
+                박재민 박성호 정주연 조아라 최어진 백지훈
+              </FooterText>
+            </Column>
+          </FooterRow>
+        </FooterSection>
+      </Reveal>
     </Layout>
   );
 };
