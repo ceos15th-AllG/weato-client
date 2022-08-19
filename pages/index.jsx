@@ -182,33 +182,31 @@ function Home(props) {
   );
 }
 
-export const getServerSideProps = async (context) => {
-  // const access_token = `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYwMTExNjkxLCJpYXQiOjE2NTk2Nzk2OTF9.MC1yvok5zZ0F2AxTOnwrYhy3xMmk7WqIEabBD0m4j0H1gpTd7BDcNMZDqnIDE-gwxJzRqC2zVeLAE-iaMm8kRw`;
-  // axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-
-  try {
-    const res = await axios.get('http://3.37.94.86/api/newsletters');
-
-    if (res.status === 200) {
-      return {
-        props: {
-          data: res.data,
-        },
-      };
-    }
-    return {
-      props: {
-        data: null,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {
-        data: null,
-      },
-    };
-  }
-};
+// export const getServerSideProps = async (context) => {
+// const access_token = `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYwMTExNjkxLCJpYXQiOjE2NTk2Nzk2OTF9.MC1yvok5zZ0F2AxTOnwrYhy3xMmk7WqIEabBD0m4j0H1gpTd7BDcNMZDqnIDE-gwxJzRqC2zVeLAE-iaMm8kRw`;
+// axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+// try {
+//   const res = await axios.get('http://3.37.94.86/api/newsletters');
+//   if (res.status === 200) {
+//     return {
+//       props: {
+//         data: res.data,
+//       },
+//     };
+//   }
+//   return {
+//     props: {
+//       data: null,
+//     },
+//   };
+// } catch (error) {
+//   console.log(error);
+//   return {
+//     props: {
+//       data: null,
+//     },
+//   };
+// }
+// };
 
 export default Home;

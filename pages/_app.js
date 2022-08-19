@@ -7,6 +7,7 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyle from '@styles/GlobalStyle';
 
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import ScreenLayout from '@main/ScreenLayout';
 import ContentLayout from '@main/ContentLayout';
@@ -18,6 +19,8 @@ const MARGIN = styled.div`
 `;
 
 const App = ({ Component, pageProps }) => {
+  const router = useRouter();
+
   return (
     <RecoilRoot>
       <ScreenLayout>
@@ -27,13 +30,18 @@ const App = ({ Component, pageProps }) => {
 
         <Global styles={GlobalStyle} />
 
-        <TopNav />
-
-        <ContentLayout>
-          <MARGIN />
+        {router.asPath.startsWith('/landing') ? (
           <Component {...pageProps} />
-          <Footerbar />
-        </ContentLayout>
+        ) : (
+          <>
+            <TopNav />
+            <ContentLayout>
+              <MARGIN />
+              <Component {...pageProps} />
+              <Footerbar />
+            </ContentLayout>
+          </>
+        )}
       </ScreenLayout>
     </RecoilRoot>
   );
