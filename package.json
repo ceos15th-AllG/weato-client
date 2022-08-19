@@ -16,7 +16,6 @@
     "react": "18.2.0",
     "react-awesome-reveal": "^4.0.0",
     "react-dom": "18.2.0",
-    "react-reveal": "^1.2.2",
     "react-scroll-percentage": "^4.2.0",
     "recoil": "^0.7.4",
     "sharp": "^0.30.7",
