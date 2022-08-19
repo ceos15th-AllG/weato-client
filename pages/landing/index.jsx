@@ -343,7 +343,7 @@ const MockupArea = styled.div`
 
     display: flex;
 
-    /* animation: ${CardLoopAnimation} 15s infinite linear; */
+    animation: ${CardLoopAnimation} 15s infinite linear;
   }
 
   .third-mockup-item {
