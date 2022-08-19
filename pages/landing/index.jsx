@@ -418,7 +418,7 @@ const Landing = () => {
         <MockupArea>
           <Fade triggerOnce duration={1000} delay={500}>
             <div className="first-mockup-container">
-              <Image src={mockup_1} />
+              <Image alt="" src={mockup_1} />
             </div>
           </Fade>
         </MockupArea>
@@ -501,36 +501,36 @@ const Landing = () => {
         <MockupArea>
           <div className="third-mockup-container">
             <div className="third-mockup-item">
-              <Image src={card_2} />
+              <Image alt="" src={card_2} />
             </div>
             <div className="third-mockup-item">
-              <Image src={card_3} />
+              <Image alt="" src={card_3} />
             </div>
             <div className="third-mockup-item">
-              <Image src={card_4} />
+              <Image alt="" src={card_4} />
             </div>
             <div className="third-mockup-item">
-              <Image src={card_2} />
+              <Image alt="" src={card_2} />
             </div>
             <div className="third-mockup-item">
-              <Image src={card_3} />
+              <Image alt="" src={card_3} />
             </div>
             <div className="third-mockup-item">
-              <Image src={card_4} />
+              <Image alt="" src={card_4} />
             </div>
             <div className="third-mockup-item">
-              <Image src={card_2} />
+              <Image alt="" src={card_2} />
             </div>
             <div className="third-mockup-item">
-              <Image src={card_3} />
+              <Image alt="" src={card_3} />
             </div>
             <div className="third-mockup-item">
-              <Image src={card_4} />
+              <Image alt="" src={card_4} />
             </div>
           </div>
           <Fade triggerOnce duration={1000} delay={1000}>
             <div className="second-mockup-container">
-              <Image src={mockup_2} />
+              <Image alt="" src={mockup_2} />
             </div>
           </Fade>
         </MockupArea>
@@ -554,22 +554,22 @@ const Landing = () => {
         <MockupArea>
           <Fade triggerOnce duration={1000} delay={1000}>
             <div className="fourth-mockup-container">
-              <Image src={mockup_3} />
+              <Image alt="" src={mockup_3} />
             </div>
           </Fade>
           <Fade triggerOnce duration={1000} delay={1300}>
             <div className="fifth-mockup-container">
-              <Image src={mockup_4} />
+              <Image alt="" src={mockup_4} />
             </div>
           </Fade>
           <Fade triggerOnce duration={1000} delay={2500}>
             <div className="sixth-mockup-container">
-              <Image src={comment_1} />
+              <Image alt="" src={comment_1} />
             </div>
           </Fade>
           <Fade triggerOnce duration={1000} delay={2800}>
             <div className="seventh-mockup-container">
-              <Image src={comment_2} />
+              <Image alt="" src={comment_2} />
             </div>
           </Fade>
         </MockupArea>
