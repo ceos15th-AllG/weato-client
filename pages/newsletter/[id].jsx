@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 
 import axios from 'axios';
 
+import Head from 'next/head';
+
 import { useScrollPercentage } from 'react-scroll-percentage';
 
 import ProgressBar from '@newsletter/ProgressBar';
@@ -135,24 +137,38 @@ const NewsletterForm = styled.div`
   }
 `;
 
+const dict = {
+  DRUG: '약품',
+  SLEEP: '수면',
+  CLEANING: '세면',
+  FOOD: '음식',
+  ENVIRONMENT: '환경',
+  OTHERWISE: '기타',
+  ALL: '전체',
+};
+
 function Newsletter(props) {
   const [ref, percentage] = useScrollPercentage({
     // rootMargin: '100px',
     threshold: 0.48,
   });
 
-  const { newsletterId, newsletterData } = props;
+  const { newsletterData } = props;
 
   const sampleNewsletterData =
     "<header class='header'>샤워, 목욕, 세면, 습관으로 아토피 관리</header ><span class='header-subscription'>본 뉴스레터는 전문기자의 기사를 기반으로 작성되었습니다.</span><date class='header-date'>2022-05-25</date><span class='content-text'>기온이 높아지면서 찾아오기 시작한 여름.<br />땀이 나기 쉬운 환경의 계절이 함께 오면서 관리에 대해 신경써야 될 시간이 다가와 우려하시는 분들도 있을 것 같습니다.</span><span class='content-text'>그래서 세면에 대한 글을 통해 기존에 관리하시던 분들에게는 리마인더 역할을, 접한지 얼마 안 되는 분들에게는 정보를 제공하고자 합니다.</span><div class='content-line'></div><header class='content-header'>💦 간단하게 샤워로</header><span class='content-text'>과거에 잦은 샤워와 세면은 피부 건조를 일으킬 수 있어 제한하는 것을 권했지만,<br />오히려 최근 오염된 피부가 주는 악영향이 더 크므로 잦은 샤워를 권하고 있습니다.</span><span class='content-text'>전문가들은 아토피 환자들에게 <a class='content-a'>다음과 같은 내용들의 샤워 습관</a>을 권했습니다.</span><ul class='content-list'><li class='content-listitem'>미지근한 온도의 물</li><li class='content-listitem'>너무 길지 않게 15분 이내로 샤워 진행할 것</li><li class='content-listitem'>샤워 후 3분 이내에 전신에 보습제를 바를 것</li></ul><div class='content-line'></div><header class='content-header'>🛁 좀 더 세밀하게 목욕으로</header><span class='content-text'>목욕도 샤워와 마찬가지로 과거 연구에서는 피부 손상을 촉진시킨다고 생각해 목욕 횟수를 일주일에 1번으로 줄이는 것으로 치료를 권했습니다.</span><span class='content-text'>최근 연구는 이러한 내용과는 반대로 오히려 <a class='content-a'>목욕을 통한 위생 유지</a>가 아토피 증상 완화에 매우 중요하다는 결과가 나왔습니다. 과거의 연구 결과에 영향을 미친 것은 목욕 그 자체가 아닌 (지나치게 뜨거운 물, 때밀이 사용, 피부를 문질러 닦는 목욕 습관, 자극성 바디 소프 사용)인 것으로 지목되고 있네요. 이러한 아토피 환자들에게 권해지는 목욕 방법은 다음과 같습니다.</span><ul class='content-list'><li class='content-listitem'>하루 1회의 목욕을 권장</li><li class='content-listitem'>땀이 많이 나는 여름에는 하루 2회까지도 권장</li><li class='content-listitem'>중성이나 약산성의 저자극성 세정제를 사용 권장</li><li class='content-listitem'>때를 미는 등의 피부를 자극하는 목욕 습관은 피할 것</li><li class='content-listitem'>목욕 끝난 후 10분 내 바로 보습제를 전신에 바를 것</li></ul><div class='content-line'></div><span class='content-text'>샤워도, 목욕도 피부를 세정해주는 효과는 있지만 둘 다 모두 마무리 후 보습제를 통한 보습을 중요하게 언급하고 있는 만큼, 마무리 후 보습에도 신경을 써야 하겠습니다. 마지막으로 최근 아토피 환자 분들을 위해 <a class='content-a'>충남 수안보 온천이 제공하는 혜택</a>에 대해 간단히 말씀드리며 참고가 되기를 바랍니다.</span><ul class='content-list'><li class='content-listitem'>대한 아토피 협회와 공무원 연금 공단이 수안보 온천에 대해 협약 체결</li><li class='content-listitem'>전국 아토피 환자들에게 저렴한 비용으로 수안보 온천 이용</li></ul>";
 
   return (
     <Layout ref={ref}>
+      <Head>
+        <title>뉴스레터 - {newsletterData.title}</title>
+      </Head>
+
       <ProgressBar percentage={percentage * 100} />
 
       <Content>
         <ContentHeader>
-          뉴스레터 &#xE001; {newsletterData.tagType}
+          뉴스레터 &#xE001; {dict[newsletterData.tagType]}
         </ContentHeader>
 
         <NewsletterForm
@@ -162,8 +178,8 @@ function Newsletter(props) {
       </Content>
 
       <ButtonRow>
-        <Button value={200} btnType="heart" />
-        <Button value={200} btnType="save" />
+        <Button value={newsletterData.likeCount} btnType="heart" />
+        <Button value={newsletterData.bookmarkCount} btnType="save" />
       </ButtonRow>
     </Layout>
   );
@@ -191,9 +207,12 @@ export const getServerSideProps = async (context) => {
   } catch (error) {
     console.log(error);
     return {
+      redirect: {
+        permanent: false,
+        destination: '/404',
+      },
       props: {
         newsletterId: query.id,
-        newsletterData: null,
       },
     };
   }
