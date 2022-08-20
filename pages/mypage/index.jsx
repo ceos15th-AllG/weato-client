@@ -20,7 +20,7 @@ function Mypage(props) {
     email: 'abcdef000@naver.com',
   };
 
-  console.log(props.userData);
+  // console.log(props.userData);
 
   return (
     <Layout>
