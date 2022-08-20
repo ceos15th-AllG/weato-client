@@ -69,7 +69,7 @@ const Section_2 = styled.section`
   }
 
   span > strong {
-    font-weight: 300;
+    font-weight: 500;
     color: ${main};
   }
 `;
