@@ -258,7 +258,7 @@ const FooterSection = styled.footer`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 
   background-color: ${main};
 `;
@@ -267,8 +267,6 @@ const FooterBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  margin-top: 186px;
 `;
 
 const FooterTitle = styled.span`
@@ -276,7 +274,7 @@ const FooterTitle = styled.span`
   font-weight: 700;
   font-size: 60px;
 
-  margin-bottom: 39px;
+  margin-bottom: 48px;
 `;
 
 const Button = styled.div`
@@ -590,18 +588,6 @@ const Landing = () => {
               </a>
             </Link>
           </FooterBox>
-          <FooterRow>
-            <FooterText>
-              <strong>https://weato.net/</strong>
-            </FooterText>
-            <Column>
-              <FooterText>
-                <strong>CEOS 15TH ALL.G Team</strong>
-                <br />
-                박재민 박성호 정주연 조아라 최어진 백지훈
-              </FooterText>
-            </Column>
-          </FooterRow>
         </FooterSection>
       </Reveal>
     </Layout>
