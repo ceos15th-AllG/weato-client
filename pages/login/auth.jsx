@@ -1,4 +1,4 @@
-import { loginState } from 'states';
+// import { loginState } from 'states';
 
 const Auth = () => {
   return <h1>소셜 로그인 시도 중....</h1>;

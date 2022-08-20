@@ -2,7 +2,7 @@
 import { Global } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { RecoilRoot } from 'recoil';
+// import { RecoilRoot } from 'recoil';
 
 import GlobalStyle from '@styles/GlobalStyle';
 
@@ -22,7 +22,7 @@ const App = ({ Component, pageProps }) => {
   const router = useRouter();
 
   return (
-    <RecoilRoot>
+    <>
       <ScreenLayout>
         <Head>
           <meta
@@ -47,7 +47,7 @@ const App = ({ Component, pageProps }) => {
           </>
         )}
       </ScreenLayout>
-    </RecoilRoot>
+    </>
   );
 };
 

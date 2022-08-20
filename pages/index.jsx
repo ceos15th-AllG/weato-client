@@ -70,8 +70,6 @@ const ButtonRow = styled.div`
 `;
 
 function Home(props) {
-  console.log(props.data);
-
   const newsletterData = [
     {
       text: '새로운 대안, JAK 억제제?',
