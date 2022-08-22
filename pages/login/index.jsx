@@ -64,14 +64,10 @@ const NaverLoginBtn = styled.div`
   background-color: #03c75a;
 `;
 
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import useSWR from 'swr';
-
 function Login(props) {
   const router = useRouter();
-  // const REDIRECT_URI = `http://localhost:3000/login/auth`;
-  const REDIRECT_URI = `http://weato.net/login/auth`;
+  const REDIRECT_URI = `http://localhost:3000/login/auth`;
+  // const REDIRECT_URI = `http://weato.net/login/auth`;
   const REQUEST_PATH = `http://3.37.94.86/oauth2/authorization/naver?redirect_uri=${REDIRECT_URI}`;
 
   return (
