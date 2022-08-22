@@ -72,55 +72,13 @@ const CommentArea = styled.section`
   flex-direction: column;
 `;
 
-function PostComment() {
-  const comment = {
-    commentLength: 20,
-    comments: [
-      {
-        id: 0,
-        name: '토피토피',
-        level: '새싹',
-        content:
-          '좋은 경험 공유 감사드려요~ 저도 아토피 10년차라 그런지 힘들다는 말투에서 공감 갔어요... 이번에는 꼭 나아질 거에요!',
-        like: '18',
-        date: '3일전',
-        reply: false,
-      },
-      {
-        id: 1,
-        name: '아토랑',
-        level: '새싹',
-        content: '감사합니다, 토피토피님!',
-        like: '2',
-        date: '1일전',
-        reply: true,
-      },
-      {
-        id: 2,
-        name: '아토랑',
-        level: '새싹',
-        content: '토피토피님도 곧 나아지길 겁니다!',
-        like: '5',
-        date: '1일전',
-        reply: true,
-      },
-      {
-        id: 3,
-        name: '토피토피',
-        level: '새싹',
-        content:
-          '좋은 경험 공유 감사드려요~ 저도 아토피 10년차라 그런지 힘들다는 말투에서 공감 갔어요... 이번에는 꼭 나아질 거에요! 그런데 저는 이게 궁금해지네요.... 댓글이 얼마나 길어질 수 있을지 작성하다가 궁금해지기도 했구요... 이렇게 문장 중간에\n\n\n줄바꿈 문자가 들어가면 어떻게 될까요??',
-        like: '3',
-        date: '3일전',
-        reply: false,
-      },
-    ],
-  };
+function PostComment(props) {
+  const { comment } = props;
 
   return (
     <Layout>
       <Row>
-        <CommentLength>댓글 {comment.commentLength}</CommentLength>
+        <CommentLength>댓글 {comment.length}</CommentLength>
       </Row>
 
       <Form>
@@ -137,19 +95,17 @@ function PostComment() {
       </Form>
 
       <CommentArea>
-        {comment.comments.map(
-          ({ id, name, level, content, like, date, reply }) => (
-            <CommentRow
-              key={id}
-              name={name}
-              level={level}
-              content={content}
-              like={like}
-              date={date}
-              reply={reply}
-            />
-          )
-        )}
+        {comment.map(({ author, content, createdAt, likeCounter, index }) => (
+          <CommentRow
+            key={index}
+            name={author}
+            level={`새싹`}
+            content={content}
+            like={likeCounter}
+            date={createdAt}
+            reply={false}
+          />
+        ))}
       </CommentArea>
     </Layout>
   );
