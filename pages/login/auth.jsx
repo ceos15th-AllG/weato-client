@@ -1,18 +1,42 @@
+import styled from '@emotion/styled';
+
+import { useEffect } from 'react';
+
+import { useRouter } from 'next/router';
+
+import { main } from '@styles/Colors';
+
 // import { loginState } from 'states';
+
+const Layout = styled.div`
+  height: calc(100vh - 340px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-size: 36px;
+    font-weight: 700;
+    color: ${main};
+  }
+`;
 
 const Auth = (props) => {
   const { token } = props;
+  const router = useRouter();
 
-  if (!token) {
-    return <h1>토큰 에러...</h1>;
-  }
+  useEffect(() => {
+    localStorage.setItem('access_token', token);
+    console.log(`new access token : `, localStorage.getItem('access_token'));
+
+    router.push(`/signup`);
+  }, []);
 
   return (
-    <>
-      <h1>새롭게 얻은 토큰 정보</h1>
-      <span>{token}</span>
-      <hr />
-    </>
+    <Layout>
+      <span>로그인 정보를 저장 중입니다...</span>
+    </Layout>
   );
 };
 
@@ -21,21 +45,13 @@ export const getServerSideProps = async (context) => {
 
   if (Object.keys(query).length === 0 || !query.hasOwnProperty('token')) {
     return {
-      props: {
-        token: null,
+      redirect: {
+        destination: '/login',
+        permanent: false,
       },
+      props: {},
     };
   }
-
-  // const [login, setLogin] = useRecoilState(loginState);
-
-  // return {
-  //   // redirect: {
-  //   //   destination: '/signup',
-  //   //   permanent: false,
-  //   // },
-  //   props: {},
-  // };
 
   return {
     props: {
