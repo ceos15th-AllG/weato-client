@@ -2,6 +2,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { useState, useEffect } from 'react';
+
 import Link from 'next/link';
 
 import { sub, gray05, text_black, semantic_red, gray07 } from '@styles/Colors';
@@ -9,6 +11,7 @@ import { sub, gray05, text_black, semantic_red, gray07 } from '@styles/Colors';
 import { Display1, Subhead4, Body1, Body2, Body3 } from '@styles/FontStyle';
 
 import Button from '@common/ButtonContainer';
+import ButtonGroup from '@signup/ButtonGroup';
 
 const Layout = styled.div`
   margin: 76px 635px 140px;
@@ -71,6 +74,8 @@ const InputField = styled.input`
 `;
 
 const InputWarning = styled.span`
+  height: 24px;
+
   ${Body2}
 
   margin-top : 8px;
@@ -151,6 +156,56 @@ const PolicyButton = styled.span`
 `;
 
 export default function Signup() {
+  const [nickname, setNickname] = useState('');
+
+  const [email, setEmail] = useState('');
+  const [tags, setTags] = useState([
+    {
+      text: '약품',
+      active: false,
+    },
+    {
+      text: '세면',
+      active: false,
+    },
+    {
+      text: '환경',
+      active: false,
+    },
+    {
+      text: '수면',
+      active: false,
+    },
+    {
+      text: '음식',
+      active: false,
+    },
+    {
+      text: '기타',
+      active: false,
+    },
+  ]);
+
+  const onChangeNickname = (event) => {
+    setNickname(event.target.value);
+  };
+
+  const onChangeEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const toggleActive = (id) => {
+    setTags(
+      tags.map((tag, index) =>
+        index === id ? { ...tag, active: !tag.active } : tag
+      )
+    );
+  };
+
+  // useEffect(() => {
+  //   console.log(`new access token : `, localStorage.getItem('access_token'));
+  // }, []);
+
   return (
     <Layout>
       <TopText>회원가입</TopText>
@@ -159,19 +214,31 @@ export default function Signup() {
         <ContentItem>
           <InputHeader>닉네임 *</InputHeader>
           <Input>
-            <InputField placeholder="2자 이상 10자 이하로 입력해주세요" />
+            <InputField
+              placeholder="2자 이상 10자 이하로 입력해주세요"
+              value={nickname}
+              onChange={onChangeNickname}
+            />
             <Button text="중복 확인" btnType="3" />
           </Input>
-          <InputWarning>이미 사용중인 닉네임입니다.</InputWarning>
+          <InputWarning>
+            {nickname !== '' ? `이미 사용중인 닉네임입니다.` : ` `}
+          </InputWarning>
         </ContentItem>
 
         <ContentItem>
           <InputHeader>뉴스레터를 받을 이메일 주소 *</InputHeader>
           <Input>
-            <InputField placeholder="xxxxxxx@gmail.com" />
+            <InputField
+              placeholder="xxxxxxx@gmail.com"
+              value={email}
+              onChange={onChangeEmail}
+            />
             <Button text="인증하기" btnType="3" />
           </Input>
-          <InputWarning>이미 사용중인 닉네임입니다.</InputWarning>
+          <InputWarning>
+            {email !== '' ? `xxxxxxxx@gmail.com` : ` `}
+          </InputWarning>
         </ContentItem>
 
         <ContentItem>
@@ -181,24 +248,10 @@ export default function Signup() {
               선호하는 태그에 맞춰 뉴스레터를 빠르게 받아보실 수 있습니다.
             </TagSubHeader>
           </TagRow>
-          <Row
-            css={css`
-              margin-bottom: 19px;
-            `}
-          >
-            <Button text="약품" btnType="8" />
-            <Button text="세면" btnType="8" />
-            <Button text="환경" btnType="8" />
-          </Row>
-          <Row
-            css={css`
-              padding-bottom: 19px;
-            `}
-          >
-            <Button text="수면" btnType="8" />
-            <Button text="음식" btnType="8" />
-            <Button text="기타" btnType="8" />
-          </Row>
+
+          <TagRow>
+            <ButtonGroup tags={tags} toggleActive={toggleActive} />
+          </TagRow>
         </ContentItem>
 
         <ContentItem

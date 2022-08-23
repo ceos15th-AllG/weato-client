@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const ButtonContainer = (props) => {
   if (!props.href) {
-    return <Button onClick={props.onClick} {...props} />;
+    return <Button {...props} />;
   }
 
   return (

@@ -5,10 +5,11 @@
       "@public/*": ["public/*"],
       "@pages/*": ["pages/*"],
       "@common/*": ["src/components/common/*"],
-      "@community/*": ["src/components/community/*"],
       "@main/*": ["src/components/main/*"],
+      "@signup/*": ["src/components/signup/*"],
       "@mypage/*": ["src/components/mypage/*"],
       "@newsletter/*": ["src/components/newsletter/*"],
+      "@community/*": ["src/components/community/*"],
       "@search/*": ["src/components/search/*"],
       "@styles/*": ["styles/*"],
       "@states/*": ["states/*"]
