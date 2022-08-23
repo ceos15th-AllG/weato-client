@@ -49,13 +49,15 @@ const Email = styled.span`
 `;
 
 function HeaderBox({ userData }) {
+  const { name, email, gender } = userData;
+
   return (
     <Layout>
       <Image src={profile_sample_large} width={180} height={180} alt="" />
       <Column>
-        <Level>{userData.level}</Level>
-        <Name>{userData.name}</Name>
-        <Email>{userData.email}</Email>
+        <Level>새싹</Level>
+        <Name>{name}</Name>
+        <Email>{email}</Email>
       </Column>
     </Layout>
   );

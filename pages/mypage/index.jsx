@@ -7,6 +7,7 @@ import TabBar from '@mypage/TabBar';
 import ProfileTab from '@mypage/ProfileTab';
 import BookmarksTab from '@mypage/BookmarksTab';
 import CommunityTab from '@mypage/CommunityTab';
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 
 const Layout = styled.div`
   display: flex;
@@ -14,31 +15,28 @@ const Layout = styled.div`
 `;
 
 function Mypage(props) {
-  const userData = {
-    level: '새싹',
-    name: '아토랑',
-    email: 'abcdef000@naver.com',
-  };
-
-  // console.log(props.userData);
+  const { tab, tag, userData, userProfile } = props;
 
   return (
     <Layout>
       <HeaderBox userData={userData} />
-      <TabBar selected={props.tab} />
+      <TabBar selected={tab} />
 
-      {props.tab === 'profile' ? <ProfileTab /> : undefined}
-      {props.tab === 'bookmarks' ? <BookmarksTab tag={props.tag} /> : undefined}
-      {props.tab === 'community' ? <CommunityTab /> : undefined}
+      {tab === 'profile' ? <ProfileTab userProfile={userProfile} /> : undefined}
+      {tab === 'bookmarks' ? <BookmarksTab tag={tag} /> : undefined}
+      {tab === 'community' ? <CommunityTab /> : undefined}
     </Layout>
   );
 }
 
 export const getServerSideProps = async (context) => {
   const query = context.query;
+
   let defaultTab = 'profile';
   let defaultTag = 'all';
   let defaultUserData = null;
+  let defaultUserProfile = null;
+
   const koreanTags = {
     all: '전체',
     medicine: '약품',
@@ -49,29 +47,39 @@ export const getServerSideProps = async (context) => {
     etc: '기타',
   };
 
-  // const access_token = `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYwMTExNjkxLCJpYXQiOjE2NTk2Nzk2OTF9.MC1yvok5zZ0F2AxTOnwrYhy3xMmk7WqIEabBD0m4j0H1gpTd7BDcNMZDqnIDE-gwxJzRqC2zVeLAE-iaMm8kRw`;
-  // axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+  const access_token = `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxMzUwNjE4LCJpYXQiOjE2NjA5MTg2MTh9.zAZVUEvNFngArcveTVSFqR0Cxy1Xsgy5YMQtZN29iE5W1fzES-5GNH2si_9lbNI_7itWCjmrZDsNIJtD0Bofzg`;
+  axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
 
-  try {
-    // const res = await axios.get('https://api.github.com/users/poodlepoodle');
-    const res = await axios.get('http://3.37.94.86/api/posts');
-
-    if (res.status === 200) {
-      defaultUserData = res.data;
-      // return { props: { user } };
-    }
-    // return { props: {} };
-  } catch (error) {
-    console.log(error);
-    // return { props: {} };
-  }
-
+  // props 준비 - Tab 쿼리
   if (Object.keys(query).length !== 0 && query.hasOwnProperty('tab')) {
     defaultTab = query.tab;
   }
 
+  // props 준비 - Tag 쿼리
   if (Object.keys(query).length !== 0 && query.hasOwnProperty('tag')) {
     defaultTag = query.tag;
+  }
+
+  // props 준비 - 유저 데이터 api
+  try {
+    const res = await axios.get(`http://3.37.94.86/api/members`);
+
+    if (res.status === 200) {
+      defaultUserData = res.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  // props 준비 - 유저 데이터 api
+  try {
+    const res = await axios.get(`http://3.37.94.86/api/members/1/profile`);
+
+    if (res.status === 200) {
+      defaultUserProfile = res.data;
+    }
+  } catch (error) {
+    console.log(error);
   }
 
   return {
@@ -79,6 +87,7 @@ export const getServerSideProps = async (context) => {
       tab: defaultTab,
       tag: koreanTags[defaultTag],
       userData: defaultUserData,
+      userProfile: defaultUserProfile,
     },
   };
 };

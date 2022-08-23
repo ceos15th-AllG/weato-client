@@ -90,18 +90,15 @@ const InfoData = styled.div`
   display: flex;
 `;
 
-function ProfileTab() {
-  const profileData = {
-    nickname: '아토랑',
-    birth: '1997-11-28',
-    email: 'abcedf000@naver.com',
-    account: 'naver',
-  };
-
-  const atopyData = {
-    since: '5',
-    severity: '3',
-    favorTags: ['약품', '세면'],
+function ProfileTab({ userProfile }) {
+  const dict = {
+    DRUG: '약품',
+    SLEEP: '수면',
+    CLEANING: '세면',
+    FOOD: '음식',
+    ENVIRONMENT: '환경',
+    OTHERWISE: '기타',
+    ALL: '전체',
   };
 
   return (
@@ -126,23 +123,25 @@ function ProfileTab() {
         <SubHeader>기본 정보</SubHeader>
         <InfoBox>
           <InfoName>닉네임</InfoName>
-          <InfoData>{profileData.nickname}</InfoData>
+          <InfoData>{userProfile.nickname}</InfoData>
         </InfoBox>
         <InfoBox>
           <InfoName>생년월일</InfoName>
           <InfoData>
-            {profileData.birth.split('-')[0]}년{' '}
-            {profileData.birth.split('-')[1]}월{' '}
-            {profileData.birth.split('-')[2]}일
+            {userProfile.birthyear.split('-')[0]}년{' '}
+            {userProfile.birthyear.split('-')[1]}월{' '}
+            {userProfile.birthyear.split('-')[2]}일
           </InfoData>
         </InfoBox>
         <InfoBox>
           <InfoName>이메일</InfoName>
-          <InfoData>{profileData.email}</InfoData>
+          <InfoData>{userProfile.newsletterEmail}</InfoData>
         </InfoBox>
         <InfoBox>
           <InfoName>사용중인 계정</InfoName>
-          <Image src={icon_naver} width={42} height={42} alt="" />
+          {userProfile.providerType === 'NAVER' ? (
+            <Image src={icon_naver} width={42} height={42} alt="" />
+          ) : undefined}
         </InfoBox>
       </Column>
 
@@ -154,23 +153,23 @@ function ProfileTab() {
         <SubHeader>아토피 정보</SubHeader>
         <InfoBox>
           <InfoName>병력</InfoName>
-          <InfoData>{atopyData.since}년</InfoData>
+          <InfoData>{userProfile.medicalHistory}년</InfoData>
         </InfoBox>
         <InfoBox>
           <InfoName>증상 정도</InfoName>
-          <InfoData>{atopyData.severity}</InfoData>
+          <InfoData>{userProfile.symptomDegree}</InfoData>
         </InfoBox>
         <InfoBox>
           <InfoName>선호 태그</InfoName>
           <InfoData>
-            {atopyData.favorTags.map((tag, index) => (
+            {userProfile.managementTypeList.map((tag, index) => (
               <div
                 key={index}
                 css={css`
                   margin-right: 16px;
                 `}
               >
-                <Tag text={tag} />
+                <Tag text={dict[tag]} />
               </div>
             ))}
           </InfoData>
