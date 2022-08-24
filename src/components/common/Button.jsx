@@ -12,6 +12,8 @@ const DefaultLayout = css`
   flex-direction: center;
   justify-content: center;
   align-items: center;
+
+  transition: 0.15s all ease;
 `;
 
 const ButtonLayout1 = styled.div`
