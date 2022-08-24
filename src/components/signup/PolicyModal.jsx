@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import Image from 'next/image';
 
 import Button from '@common/ButtonContainer';
 
-import { Headline2, Body4 } from '@styles/FontStyle';
+import { Headline2 } from '@styles/FontStyle';
 
-import { main, text_black, text_white } from '@styles/Colors';
+import { text_black } from '@styles/Colors';
 
 import icon_quit_black from '@public/signup/icon_quit_black.png';
 
@@ -23,12 +23,12 @@ const Layout = styled.div`
   width: 650px;
   height: 715px;
 
+  border-radius: 10px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
-  border: 1px solid black;
 
   background-color: white;
 `;
@@ -65,7 +65,6 @@ const ContentBox = styled.div`
   overflow-y: scroll;
 
   padding: 0px 49px;
-  margin-bottom: 32px;
 
   .header {
     font-size: 16px;
@@ -137,6 +136,10 @@ const ContentBox = styled.div`
       border: 1px solid black;
     }
   }
+
+  span:last-child {
+    margin-bottom: 32px;
+  }
 `;
 
 const QuitBox = styled.div`
@@ -148,9 +151,25 @@ const QuitBox = styled.div`
   right: 43.55px;
 `;
 
-const PolicyModal = ({ setModalActive }) => {
-  const onClick = (event) => {
-    setModalActive(false);
+const ButtonRow = styled.div`
+  height: 100px;
+  display: flex;
+`;
+
+const PolicyModal = ({ setModalActive, setCheck }) => {
+  const [confirm, setConfirm] = useState(false);
+  const scrollRef = useRef(null);
+
+  const onCheck = (event) => {
+    if (confirm) {
+      setCheck(true);
+      setModalActive(false);
+    }
+  };
+  const handleScroll = (event) => {
+    if (!confirm && event.currentTarget.scrollTop > 1920) {
+      setConfirm(true);
+    }
   };
 
   return (
@@ -167,7 +186,7 @@ const PolicyModal = ({ setModalActive }) => {
         <div className="header">이용약관</div>
       </TopBox>
 
-      <ContentBox>
+      <ContentBox ref={scrollRef} onScroll={handleScroll}>
         <span className="header">[민감정보(건강정보) 수집 및 이용약관]</span>
         <span className="text">
           All.G는 개인 민감정보보호법 제23조(민감정보 처리제한), 동법 시행령 제
@@ -372,7 +391,14 @@ const PolicyModal = ({ setModalActive }) => {
         </span>
       </ContentBox>
 
-      <Button text={'확인'} btnType={'6'} onClick={onClick} />
+      <ButtonRow>
+        <Button
+          text={'확인'}
+          btnType={'6'}
+          onClick={onCheck}
+          disabled={!confirm}
+        />
+      </ButtonRow>
     </Layout>
   );
 };
