@@ -4,7 +4,9 @@ import styled from '@emotion/styled';
 
 import { useState, useEffect } from 'react';
 
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+import axios from 'axios';
 
 import { sub, gray05, text_black, semantic_red, gray07 } from '@styles/Colors';
 
@@ -12,6 +14,9 @@ import { Display1, Subhead4, Body1, Body2, Body3 } from '@styles/FontStyle';
 
 import Button from '@common/ButtonContainer';
 import ButtonGroup from '@signup/ButtonGroup';
+import CheckBox from '@common/CheckBox';
+import Modal from '@common/Modal';
+import PolicyModal from '@signup/PolicyModal';
 
 const Layout = styled.div`
   margin: 76px 635px 140px;
@@ -133,15 +138,6 @@ const PolicySubRow = styled.div`
   align-items: center;
 `;
 
-const TempCheckbox = styled.div`
-  width: 28px;
-  height: 28px;
-
-  border-radius: 4px;
-
-  background-color: ${sub};
-`;
-
 const PolicyText = styled.span`
   margin-left: 32px;
 
@@ -156,8 +152,8 @@ const PolicyButton = styled.span`
 `;
 
 export default function Signup() {
+  const router = useRouter();
   const [nickname, setNickname] = useState('');
-
   const [email, setEmail] = useState('');
   const [tags, setTags] = useState([
     {
@@ -185,15 +181,20 @@ export default function Signup() {
       active: false,
     },
   ]);
+  const [modalActive, setModalActive] = useState(false);
+
+  const [nicknameValid, setNicknameValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(false);
+  const [tagValid, setTagValid] = useState(false);
+  const [check, setCheck] = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
   const onChangeNickname = (event) => {
     setNickname(event.target.value);
   };
-
   const onChangeEmail = (event) => {
     setEmail(event.target.value);
   };
-
   const toggleActive = (id) => {
     setTags(
       tags.map((tag, index) =>
@@ -201,10 +202,58 @@ export default function Signup() {
       )
     );
   };
+  const offCheckBox = () => {
+    setCheck(false);
+  };
+  const onClickModalOn = () => {
+    setModalActive(true);
+  };
+  const onConfirm = (event) => {
+    if (confirm) {
+      alert('가입!');
+    }
+  };
+  const validateNickname = (nickname) => {
+    const access_token = localStorage.getItem('access_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
 
-  // useEffect(() => {
-  //   console.log(`new access token : `, localStorage.getItem('access_token'));
-  // }, []);
+    alert(access_token);
+
+    // try {
+    //   const res = await axios.get(
+    //     `http://3.37.94.86/api/newsletters/${query.id}`
+    //   );
+
+    //   if (res.status === 200) {
+    //     return {
+    //       props: {
+    //         newsletterId: query.id,
+    //         newsletterData: res.data,
+    //       },
+    //     };
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   return {
+    //     redirect: {
+    //       permanent: false,
+    //       destination: '/404',
+    //     },
+    //     props: {
+    //       newsletterId: query.id,
+    //     },
+    //   };
+    // }
+  };
+
+  useEffect(() => {
+    // console.log(`new access token : `, localStorage.getItem('access_token'));
+    if (nicknameValid && emailValid && tagValid && check) {
+      setConfirm(true);
+    } else {
+      setConfirm(false);
+    }
+  }, [nicknameValid, emailValid, tagValid, check]);
 
   return (
     <Layout>
@@ -219,7 +268,7 @@ export default function Signup() {
               value={nickname}
               onChange={onChangeNickname}
             />
-            <Button text="중복 확인" btnType="3" />
+            <Button text="중복 확인" btnType="3" onClick={validateNickname} />
           </Input>
           <InputWarning>
             {nickname !== '' ? `이미 사용중인 닉네임입니다.` : ` `}
@@ -262,23 +311,28 @@ export default function Signup() {
           <PolicyHeader>서비스 정책</PolicyHeader>
           <PolicyRow>
             <PolicySubRow>
-              <TempCheckbox />
+              <CheckBox active={check} toggleCheckBox={offCheckBox} />
               <PolicyText>서비스 이용약관에 모두 동의합니다. (필수)</PolicyText>
             </PolicySubRow>
-            <PolicyButton
-              onClick={(event) => {
-                alert(event);
-              }}
-            >
+            <PolicyButton onClick={onClickModalOn}>
               <u>약관보기</u>
             </PolicyButton>
           </PolicyRow>
         </ContentItem>
 
         <ContentItem>
-          <Button text="가입하기" btnType="6" href="/signup/success" />
+          <Button
+            text="가입하기"
+            btnType="6"
+            disabled={!confirm}
+            onClick={onConfirm}
+          />
         </ContentItem>
       </Content>
+
+      <Modal active={modalActive} background>
+        <PolicyModal setModalActive={setModalActive} setCheck={setCheck} />
+      </Modal>
     </Layout>
   );
 }

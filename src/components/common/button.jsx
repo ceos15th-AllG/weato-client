@@ -12,6 +12,8 @@ const DefaultLayout = css`
   flex-direction: center;
   justify-content: center;
   align-items: center;
+
+  transition: 0.5s all ease-in-out;
 `;
 
 const ButtonLayout1 = styled.div`
@@ -116,6 +118,8 @@ const ButtonLayout8 = styled.div`
 
       border: 1px solid ${gray04};
     `}
+
+  transition: 0.15s all ease;
 `;
 
 const Button = (props) => {

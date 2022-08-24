@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import ModalBase from '@search/ModalBase';
+import Modal from '@common/Modal';
 import SearchModal from '@search/SearchModal';
 
 import { Subhead3, Subhead4 } from '@styles/FontStyle';
@@ -141,9 +141,9 @@ const TopNav = () => {
         </NavbarRightGroup>
       </NavbarLayout>
 
-      <ModalBase active={isActive}>
+      <Modal active={isActive}>
         <SearchModal setIsActive={setIsActive} router={router} />
-      </ModalBase>
+      </Modal>
     </>
   );
 };
