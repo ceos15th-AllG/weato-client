@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { useRouter } from 'next/router';
+
 import Button from '@common/ButtonContainer';
 
 const Layout = styled.div`
@@ -35,6 +37,8 @@ const ErrorText = styled.span`
 `;
 
 const Error400 = () => {
+  const router = useRouter();
+
   return (
     <Box>
       <ErrorCode>400</ErrorCode>
@@ -43,12 +47,20 @@ const Error400 = () => {
         <br />
         요청하신 페이지가 사라졌거나, 잘못된 경로를 이용하셨어요.
       </ErrorText>
-      <Button text="홈으로 이동" btnType="4" />
+      <Button
+        text="이전 페이지로 이동"
+        btnType="4"
+        onClick={() => {
+          router.back();
+        }}
+      />
     </Box>
   );
 };
 
 const Error404 = () => {
+  const router = useRouter();
+
   return (
     <Box>
       <ErrorCode>404</ErrorCode>
@@ -57,12 +69,20 @@ const Error404 = () => {
         <br />
         요청하신 페이지가 사라졌거나, 잘못된 경로를 이용하셨어요.
       </ErrorText>
-      <Button text="홈으로 이동" btnType="4" />
+      <Button
+        text="이전 페이지로 이동"
+        btnType="4"
+        onClick={() => {
+          router.back();
+        }}
+      />
     </Box>
   );
 };
 
 const Error500 = () => {
+  const router = useRouter();
+
   return (
     <Box>
       <ErrorCode>500</ErrorCode>
@@ -71,7 +91,13 @@ const Error500 = () => {
         <br />웹 사이트가 유지 관리 중이거나 프로그래밍 오류가 발생한 것으로
         보입니다.
       </ErrorText>
-      <Button text="홈으로 이동" btnType="4" />
+      <Button
+        text="이전 페이지로 이동"
+        btnType="4"
+        onClick={() => {
+          router.back();
+        }}
+      />
     </Box>
   );
 };
