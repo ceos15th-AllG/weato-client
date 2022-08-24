@@ -19,6 +19,14 @@ const Background = styled.div`
   right: 0;
   bottom: 0;
   z-index: 1100;
+
+  ${(props) =>
+    props.background
+      ? css`
+          animation: ${ModalOpenAnimation} 0.3s forwards ease-in-out;
+          background-color: #00000060;
+        `
+      : css``}
 `;
 
 const ModalOpenAnimation = keyframes`
@@ -47,13 +55,13 @@ const Content = styled.div`
         `}
 `;
 
-const Modal = ({ active, children }) => {
+const Modal = ({ active, children, background }) => {
   if (!active) return null;
 
   return (
     <>
       <Layout>
-        <Background />
+        <Background background={background} />
         <Content active={active}>{children}</Content>
       </Layout>
     </>
