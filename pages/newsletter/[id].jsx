@@ -210,13 +210,7 @@ export const getServerSideProps = async (context) => {
   try {
     const res = await axios.get(
       `https://www.weato.kro.kr/api/newsletters/${query.id}`
-      // `/api/newsletters/${query.id}`
     );
-    // const res = await axios({
-    //     method: 'get',
-    //     url: `/api/coupon/${code}`,
-    //     data: { status: 'USED', selection: checkedItems },
-    //   });
 
     if (res.status === 200) {
       return {
@@ -229,10 +223,6 @@ export const getServerSideProps = async (context) => {
   } catch (error) {
     console.log(error);
     return {
-      // redirect: {
-      //   permanent: false,
-      //   destination: '/404',
-      // },
       props: {
         newsletterId: query.id,
       },
