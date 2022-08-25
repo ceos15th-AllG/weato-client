@@ -202,13 +202,21 @@ function Newsletter(props) {
 export const getServerSideProps = async (context) => {
   const query = context.query;
 
-  const access_token = `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxMzUwNjE4LCJpYXQiOjE2NjA5MTg2MTh9.zAZVUEvNFngArcveTVSFqR0Cxy1Xsgy5YMQtZN29iE5W1fzES-5GNH2si_9lbNI_7itWCjmrZDsNIJtD0Bofzg`;
-  axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+  if (typeof window !== 'undefined') {
+    const access_token = localStorage.getItem('access_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+  }
 
   try {
     const res = await axios.get(
-      `http://3.37.94.86/api/newsletters/${query.id}`
+      `https://www.weato.kro.kr/api/newsletters/${query.id}`
+      // `/api/newsletters/${query.id}`
     );
+    // const res = await axios({
+    //     method: 'get',
+    //     url: `/api/coupon/${code}`,
+    //     data: { status: 'USED', selection: checkedItems },
+    //   });
 
     if (res.status === 200) {
       return {
@@ -221,10 +229,10 @@ export const getServerSideProps = async (context) => {
   } catch (error) {
     console.log(error);
     return {
-      redirect: {
-        permanent: false,
-        destination: '/404',
-      },
+      // redirect: {
+      //   permanent: false,
+      //   destination: '/404',
+      // },
       props: {
         newsletterId: query.id,
       },

@@ -42,11 +42,15 @@ function Community(props) {
 export const getServerSideProps = async (context) => {
   const query = context.query;
 
-  const access_token = `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxMzUwNjE4LCJpYXQiOjE2NjA5MTg2MTh9.zAZVUEvNFngArcveTVSFqR0Cxy1Xsgy5YMQtZN29iE5W1fzES-5GNH2si_9lbNI_7itWCjmrZDsNIJtD0Bofzg`;
-  axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+  if (typeof window !== 'undefined') {
+    const access_token = localStorage.getItem('access_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+  }
 
   try {
-    const res = await axios.get(`http://3.37.94.86/api/posts/${query.id}`);
+    const res = await axios.get(
+      `https://www.weato.kro.kr/api/posts/${query.id}`
+    );
 
     if (res.status === 200) {
       return {

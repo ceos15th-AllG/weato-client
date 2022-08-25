@@ -2,13 +2,20 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
 
-import { sub, gray05, text_black, semantic_red, gray07 } from '@styles/Colors';
+import {
+  main,
+  sub,
+  gray05,
+  text_black,
+  semantic_red,
+  gray07,
+} from '@styles/Colors';
 
 import { Display1, Subhead4, Body1, Body2, Body3 } from '@styles/FontStyle';
 
@@ -85,7 +92,11 @@ const InputWarning = styled.span`
 
   margin-top : 8px;
 
-  color: ${semantic_red};
+  color: red;
+
+  opacity: ${(props) => (!props.valid ? 1 : 0)};
+
+  transition: all 0.3s ease-in-out;
 `;
 
 const TagRow = styled.div`
@@ -153,8 +164,11 @@ const PolicyButton = styled.span`
 
 export default function Signup() {
   const router = useRouter();
+
   const [nickname, setNickname] = useState('');
+  const [nicknameValid, setNicknameValid] = useState(false);
   const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
   const [tags, setTags] = useState([
     {
       text: '약품',
@@ -182,19 +196,31 @@ export default function Signup() {
     },
   ]);
   const [modalActive, setModalActive] = useState(false);
-
-  const [nicknameValid, setNicknameValid] = useState(false);
-  const [emailValid, setEmailValid] = useState(false);
   const [tagValid, setTagValid] = useState(false);
   const [check, setCheck] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
-  const onChangeNickname = (event) => {
+  const onChangeNickname = useCallback((event) => {
     setNickname(event.target.value);
-  };
-  const onChangeEmail = (event) => {
-    setEmail(event.target.value);
-  };
+
+    if (event.target.value.length < 2 || event.target.value.length > 10) {
+      setNicknameValid(false);
+    } else {
+      setNicknameValid(true);
+    }
+  }, []);
+  const onChangeEmail = useCallback((event) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailCurrent = event.target.value;
+    setEmail(emailCurrent);
+
+    if (!emailRegex.test(emailCurrent)) {
+      setEmailValid(false);
+    } else {
+      setEmailValid(true);
+    }
+  }, []);
   const toggleActive = (id) => {
     setTags(
       tags.map((tag, index) =>
@@ -208,46 +234,57 @@ export default function Signup() {
   const onClickModalOn = () => {
     setModalActive(true);
   };
-  const onConfirm = (event) => {
-    if (confirm) {
-      alert('가입!');
+  const validateNickname = async (nickname) => {
+    if (!nicknameValid) {
+      return;
     }
-  };
-  const validateNickname = (nickname) => {
+
     const access_token = localStorage.getItem('access_token');
     axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+    // axios.defaults.withCredentials = true;
 
-    alert(access_token);
+    try {
+      const res = await axios.get(
+        `https://www.weato.kro.kr/api/members/validation?nickname=weato`
+      );
 
-    // try {
-    //   const res = await axios.get(
-    //     `http://3.37.94.86/api/newsletters/${query.id}`
-    //   );
+      if (res.data === false) {
+        alert(`닉네임 ${res.data}은 사용 가능합니다!!`);
+      } else {
+        alert(`닉네임 ${res.data}은 이미 존재합니다...`);
+      }
+    } catch (error) {
+      alert(error);
+      alert('요청이 불가능하네요...');
+    }
+  };
+  const onConfirm = (event) => {
+    if (confirm) {
+      alert('가입 완료!');
 
-    //   if (res.status === 200) {
-    //     return {
-    //       props: {
-    //         newsletterId: query.id,
-    //         newsletterData: res.data,
-    //       },
-    //     };
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   return {
-    //     redirect: {
-    //       permanent: false,
-    //       destination: '/404',
-    //     },
-    //     props: {
-    //       newsletterId: query.id,
-    //     },
-    //   };
-    // }
+      // post 요청 보내고 잘 받아지면...
+
+      router.push(`/signup/success`);
+    }
   };
 
+  // 선호 태그 입력 1개 이상인지 체크
   useEffect(() => {
-    // console.log(`new access token : `, localStorage.getItem('access_token'));
+    let flag = false;
+    for (let tag of tags) {
+      if (tag.active) {
+        flag = true;
+      }
+    }
+
+    if (flag) {
+      setTagValid(true);
+    } else {
+      setTagValid(false);
+    }
+  }, [tags]);
+
+  useEffect(() => {
     if (nicknameValid && emailValid && tagValid && check) {
       setConfirm(true);
     } else {
@@ -268,10 +305,15 @@ export default function Signup() {
               value={nickname}
               onChange={onChangeNickname}
             />
-            <Button text="중복 확인" btnType="3" onClick={validateNickname} />
+            <Button
+              text="중복 확인"
+              btnType="3"
+              disabled={!nicknameValid}
+              onClick={validateNickname}
+            />
           </Input>
-          <InputWarning>
-            {nickname !== '' ? `이미 사용중인 닉네임입니다.` : ` `}
+          <InputWarning valid={nicknameValid}>
+            2자 이상 10자 이하로 입력해주세요
           </InputWarning>
         </ContentItem>
 
@@ -279,15 +321,13 @@ export default function Signup() {
           <InputHeader>뉴스레터를 받을 이메일 주소 *</InputHeader>
           <Input>
             <InputField
-              placeholder="xxxxxxx@gmail.com"
+              placeholder="aaaa@bb.cc"
               value={email}
               onChange={onChangeEmail}
             />
-            <Button text="인증하기" btnType="3" />
+            <Button text="인증하기" btnType="3" disabled={!emailValid} />
           </Input>
-          <InputWarning>
-            {email !== '' ? `xxxxxxxx@gmail.com` : ` `}
-          </InputWarning>
+          <InputWarning valid={emailValid}>aaaa@bb.cc</InputWarning>
         </ContentItem>
 
         <ContentItem>
