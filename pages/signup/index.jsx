@@ -167,6 +167,7 @@ export default function Signup() {
 
   const [nickname, setNickname] = useState('');
   const [nicknameValid, setNicknameValid] = useState(false);
+  const [nicknameUnique, setNicknameUnique] = useState(false);
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [tags, setTags] = useState([
@@ -195,13 +196,14 @@ export default function Signup() {
       active: false,
     },
   ]);
-  const [modalActive, setModalActive] = useState(false);
   const [tagValid, setTagValid] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
   const [check, setCheck] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
   const onChangeNickname = useCallback((event) => {
     setNickname(event.target.value);
+    setNicknameUnique(false);
 
     if (event.target.value.length < 2 || event.target.value.length > 10) {
       setNicknameValid(false);
@@ -234,37 +236,64 @@ export default function Signup() {
   const onClickModalOn = () => {
     setModalActive(true);
   };
-  const validateNickname = async (nickname) => {
+  const validateNickname = async (event) => {
     if (!nicknameValid) {
       return;
     }
 
     const access_token = localStorage.getItem('access_token');
     axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-    // axios.defaults.withCredentials = true;
 
     try {
       const res = await axios.get(
-        `https://www.weato.kro.kr/api/members/validation?nickname=weato`
+        `https://www.weato.kro.kr/api/members/validation?nickname=${nickname}`
       );
 
       if (res.data === false) {
-        alert(`닉네임 ${res.data}은 사용 가능합니다!!`);
+        setNicknameUnique(true);
       } else {
-        alert(`닉네임 ${res.data}은 이미 존재합니다...`);
+        alert(`닉네임 ${nickname}은 이미 존재합니다...`);
       }
     } catch (error) {
       alert(error);
-      alert('요청이 불가능하네요...');
+      alert('서버 요청이 불가능하네요...');
     }
   };
-  const onConfirm = (event) => {
-    if (confirm) {
-      alert('가입 완료!');
+  const onConfirm = async (event) => {
+    if (!confirm) {
+      return;
+    }
 
-      // post 요청 보내고 잘 받아지면...
+    // post 요청 보내고 잘 받아지면...
+    const access_token = localStorage.getItem('access_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+
+    try {
+      const getMember = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members`,
+      });
+      const memberId = getMember.data.id;
+      const postForm = await axios({
+        method: 'post',
+        url: `https://www.weato.kro.kr/api/members/${memberId}`,
+        data: {
+          nickname: nickname,
+          // imageUrl: 'string',
+          newsletterEmail: email,
+          drug: tags[0].active,
+          cleaning: tags[1].active,
+          environment: tags[2].active,
+          sleep: tags[3].active,
+          food: tags[4].active,
+          etc: tags[5].active,
+        },
+      });
 
       router.push(`/signup/success`);
+    } catch (error) {
+      alert(error);
+      alert('서버 요청이 불가능하네요...');
     }
   };
 
@@ -283,14 +312,13 @@ export default function Signup() {
       setTagValid(false);
     }
   }, [tags]);
-
   useEffect(() => {
-    if (nicknameValid && emailValid && tagValid && check) {
+    if (nicknameValid && nicknameUnique && emailValid && tagValid && check) {
       setConfirm(true);
     } else {
       setConfirm(false);
     }
-  }, [nicknameValid, emailValid, tagValid, check]);
+  }, [nicknameValid, nicknameUnique, emailValid, tagValid, check]);
 
   return (
     <Layout>
@@ -305,12 +333,16 @@ export default function Signup() {
               value={nickname}
               onChange={onChangeNickname}
             />
-            <Button
-              text="중복 확인"
-              btnType="3"
-              disabled={!nicknameValid}
-              onClick={validateNickname}
-            />
+            {nicknameValid && nicknameUnique ? (
+              <Button text="사용 가능" btnType="3" disabled />
+            ) : (
+              <Button
+                text="중복 확인"
+                btnType="3"
+                disabled={!nicknameValid}
+                onClick={validateNickname}
+              />
+            )}
           </Input>
           <InputWarning valid={nicknameValid}>
             2자 이상 10자 이하로 입력해주세요
@@ -325,7 +357,7 @@ export default function Signup() {
               value={email}
               onChange={onChangeEmail}
             />
-            <Button text="인증하기" btnType="3" disabled={!emailValid} />
+            {/* <Button text="인증하기" btnType="3" disabled={!emailValid} /> */}
           </Input>
           <InputWarning valid={emailValid}>aaaa@bb.cc</InputWarning>
         </ContentItem>

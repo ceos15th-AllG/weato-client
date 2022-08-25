@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { useRouter } from 'next/router';
+
 import { Display1, Body5 } from '@styles/FontStyle';
 import { text_black } from '@styles/Colors';
 import Button from '@common/ButtonContainer';
@@ -36,13 +38,14 @@ const ButtonBox = styled.div`
   justify-content: space-between;
 `;
 
-export default function Success() {
+function Success({ memberData }) {
   return (
     <Layout>
       <TopText>회원가입 성공!</TopText>
 
       <SubText>
-        OOO님의 아토피 정보를 추가로 입력하시면
+        {!memberData ? `회원` : memberData.name}님의 아토피 정보를 추가로
+        입력하시면
         <br />
         더욱 다양하고 정확한 정보를 얻을 수 있어요!
       </SubText>
@@ -54,3 +57,35 @@ export default function Success() {
     </Layout>
   );
 }
+
+export const getServerSideProps = async () => {
+  if (typeof window !== 'undefined') {
+    const access_token = localStorage.getItem('access_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+  }
+
+  try {
+    const res = await axios.get(`https://www.weato.kro.kr/api/members`);
+
+    if (res.status === 200) {
+      return {
+        props: {
+          memberData: res.data,
+        },
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      // redirect: {
+      //   permanent: false,
+      //   destination: '/404',
+      // },
+      props: {
+        memberData: null,
+      },
+    };
+  }
+};
+
+export default Success;

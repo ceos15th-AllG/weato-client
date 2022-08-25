@@ -35,7 +35,7 @@ const Auth = (props) => {
 
   return (
     <Layout>
-      <span>로그인 정보를 저장 중입니다...</span>
+      <span>회원가입 페이지로 연결 중입니다...</span>
     </Layout>
   );
 };

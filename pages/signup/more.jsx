@@ -2,6 +2,12 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { useState, useEffect, useCallback } from 'react';
+
+import { useRouter } from 'next/router';
+
+import axios from 'axios';
+
 import {
   sub,
   gray05,
@@ -13,6 +19,8 @@ import {
 
 import { Display1, Subhead4, Body1, Body2, Body3 } from '@styles/FontStyle';
 
+import RadioButton from '@common/RadioButton';
+import ButtonGroup from '@signup/ButtonGroup';
 import Button from '@common/ButtonContainer';
 
 const Layout = styled.div`
@@ -99,20 +107,16 @@ const ButtonRow = styled.div`
   align-items: center;
 `;
 
+const RadioButtonRow = styled.div`
+  display: flex;
+
+  margin-right: 63px;
+`;
+
 const SeverityRow = styled.div`
   display: flex;
   justify-content: left;
   align-items: center;
-`;
-
-const TempRadioBtn = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-
-  margin-right: 32px;
-
-  background-color: ${sub};
 `;
 
 const SeverityText = styled.span`
@@ -122,6 +126,199 @@ const SeverityText = styled.span`
 `;
 
 export default function More() {
+  const router = useRouter();
+
+  const [since, setSince] = useState('');
+  const [sinceValid, setSinceValid] = useState(false);
+  const [repeat, setRepeat] = useState([
+    {
+      text: 'O',
+      active: false,
+    },
+    {
+      text: 'X',
+      active: false,
+    },
+  ]);
+  const [repeatValid, setRepeatValid] = useState(false);
+  const [family, setFamily] = useState([
+    {
+      text: 'O',
+      active: false,
+    },
+    {
+      text: 'X',
+      active: false,
+    },
+  ]);
+  const [familyValid, setFamilyValid] = useState(false);
+  const [tags, setTags] = useState([
+    {
+      text: '보습제',
+      active: false,
+    },
+    {
+      text: '스테로이드제',
+      active: false,
+    },
+    {
+      text: '식단관리',
+      active: false,
+    },
+    {
+      text: '약물치료',
+      active: false,
+    },
+    {
+      text: '세면 습관 관리',
+      active: false,
+    },
+    {
+      text: '연고치료',
+      active: false,
+    },
+    {
+      text: '광선치료',
+      active: false,
+    },
+    {
+      text: '한방치료',
+      active: false,
+    },
+    {
+      text: '기타치료',
+      active: false,
+    },
+  ]);
+  const [tagValid, setTagValid] = useState(false);
+  const [severity, setSeverity] = useState([
+    {
+      text: '1(경미) - 보습제, 피부연화제 등만 적용',
+      active: false,
+    },
+    {
+      text: '2(경도~중등도) - 약~중간 효능의 스테로이드제 등 국소 면역 억제제 적용',
+      active: false,
+    },
+    {
+      text: '3(중등~중증) - 중간~높은 효능의 스테로이드제 등 국소 면역 억제제 적용',
+      active: false,
+    },
+    {
+      text: '4(중증 이상) - 국소 치료에도 반응하지 않는 경우',
+      active: false,
+    },
+  ]);
+  const [severityValid, setSeverityValid] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+
+  const onChangeSince = useCallback((event) => {
+    setSince(event.target.value);
+
+    if (event.target.value !== '') {
+      setSinceValid(true);
+    } else {
+      setSinceValid(false);
+    }
+  }, []);
+  const toggleRepeatActive = (id) => {
+    setRepeat(
+      repeat.map((item, index) =>
+        index === id ? { ...item, active: true } : { ...item, active: false }
+      )
+    );
+    setRepeatValid(true);
+  };
+  const toggleFamilyActive = (id) => {
+    setFamily(
+      family.map((item, index) =>
+        index === id ? { ...item, active: true } : { ...item, active: false }
+      )
+    );
+    setFamilyValid(true);
+  };
+  const toggleTagsActive = (id) => {
+    setTags(
+      tags.map((tag, index) =>
+        index === id ? { ...tag, active: !tag.active } : tag
+      )
+    );
+  };
+  const toggleSeverityActive = (id) => {
+    setSeverity(
+      severity.map((item, index) =>
+        index === id ? { ...item, active: true } : { ...item, active: false }
+      )
+    );
+    setSeverityValid(true);
+  };
+  const onConfirm = async (event) => {
+    if (!confirm) {
+      return;
+    }
+
+    // post 요청 보내고 잘 받아지면...
+    const access_token = localStorage.getItem('access_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+
+    try {
+      const getMember = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members`,
+      });
+      const memberId = getMember.data.id;
+      const postForm = await axios({
+        method: 'post',
+        url: `https://www.weato.kro.kr/api/members/${memberId}/additional-info`,
+        data: {
+          years: Number.parseInt(since),
+          recurrence: repeat[0].active,
+          familyHistory: family[0].active,
+          moisturizer: tags[0].active,
+          steroid: tags[1].active,
+          diet: tags[2].active,
+          drug: tags[3].active,
+          cleaning: tags[4].active,
+          ointment: tags[5].active,
+          laser: tags[6].active,
+          orientalMedicine: tags[7].active,
+          etc: tags[8].active,
+          symptomDegree: 'SLIGHT',
+        },
+      });
+
+      router.push(`/`);
+    } catch (error) {
+      alert(error);
+      alert('서버 요청이 불가능하네요...');
+    }
+  };
+
+  // 현재 관리하는 방법 입력 1개 이상인지 체크
+  useEffect(() => {
+    let flag = false;
+    for (let tag of tags) {
+      if (tag.active) {
+        flag = true;
+      }
+    }
+
+    if (flag) {
+      setTagValid(true);
+    } else {
+      setTagValid(false);
+    }
+  }, [tags]);
+
+  // 전체 폼의 조건이 만족되었는지 감지
+  useEffect(() => {
+    if (sinceValid && repeatValid && familyValid && tagValid && severityValid) {
+      setConfirm(true);
+    } else {
+      setConfirm(false);
+    }
+  }, [sinceValid, repeatValid, familyValid, tagValid, severityValid]);
+
   return (
     <Layout>
       <TopText>추가 정보 입력하기</TopText>
@@ -134,7 +331,11 @@ export default function More() {
         >
           <Row>
             <RowText>병력*</RowText>
-            <InputField placeholder="00년" />
+            <InputField
+              placeholder="연 단위로 입력해주세요"
+              value={since}
+              onChange={onChangeSince}
+            />
           </Row>
         </ContentItem>
 
@@ -145,7 +346,17 @@ export default function More() {
         >
           <Row>
             <RowText>재발 여부*</RowText>
-            <div>라디오버튼있음여기</div>
+            {repeat.map(({ text, active }, index) => (
+              <RadioButtonRow key={index}>
+                <RadioButton
+                  text={text}
+                  active={active}
+                  toggleActive={() => {
+                    toggleRepeatActive(index);
+                  }}
+                />
+              </RadioButtonRow>
+            ))}
           </Row>
         </ContentItem>
 
@@ -156,7 +367,17 @@ export default function More() {
         >
           <Row>
             <RowText>가족력 여부*</RowText>
-            <div>라디오버튼있음여기</div>
+            {family.map(({ text, active }, index) => (
+              <RadioButtonRow key={index}>
+                <RadioButton
+                  text={text}
+                  active={active}
+                  toggleActive={() => {
+                    toggleFamilyActive(index);
+                  }}
+                />
+              </RadioButtonRow>
+            ))}
           </Row>
         </ContentItem>
 
@@ -171,34 +392,12 @@ export default function More() {
               현재 관리하고 있는 모든 방법에 체크해주세요.
             </TagSubHeader>
           </TagRow>
-          <ButtonRow
-            css={css`
-              margin-bottom: 19px;
-            `}
-          >
-            <Button text={'보습제'} btnType={'8'} />
-            <Button text={'스테로이드제'} btnType={'8'} />
-            <Button text={'식단관리'} btnType={'8'} />
-          </ButtonRow>
-          <ButtonRow
-            css={css`
-              margin-bottom: 19px;
-            `}
-          >
-            <Button text={'약물치료'} btnType={'8'} />
-            <Button text={'세면 습관 관리'} btnType={'8'} />
-            <Button text={'연고치료'} btnType={'8'} />
-          </ButtonRow>
-          <ButtonRow>
-            <Button text={'광선치료'} btnType={'8'} />
-            <Button text={'한방치료'} btnType={'8'} />
-            <Button text={'기타'} btnType={'8'} />
-          </ButtonRow>
+          <ButtonGroup tags={tags} toggleActive={toggleTagsActive} />
         </ContentItem>
 
         <ContentItem
           css={css`
-            margin-bottom: 98px;
+            margin-bottom: 78px;
           `}
         >
           <TagHeader
@@ -208,46 +407,31 @@ export default function More() {
           >
             증상 정도(1~4)*
           </TagHeader>
-          <SeverityRow
-            css={css`
-              margin-bottom: 20px;
-            `}
-          >
-            <TempRadioBtn />
-            <SeverityText>1(경미) - 보습제, 피부연화제 등만 적용</SeverityText>
-          </SeverityRow>
-          <SeverityRow
-            css={css`
-              margin-bottom: 20px;
-            `}
-          >
-            <TempRadioBtn />
-            <SeverityText>
-              2(경도~중등도) - 약~중간 효능의 스테로이드제 등 국소 면역 억제제
-              적용
-            </SeverityText>
-          </SeverityRow>
-          <SeverityRow
-            css={css`
-              margin-bottom: 20px;
-            `}
-          >
-            <TempRadioBtn />
-            <SeverityText>
-              3(중등~중증) - 중간~높은 효능의 스테로이드제 등 국소 면역 억제제
-              적용
-            </SeverityText>
-          </SeverityRow>
-          <SeverityRow>
-            <TempRadioBtn />
-            <SeverityText>
-              4(중증 이상) - 국소 치료에도 반응하지 않는 경우
-            </SeverityText>
-          </SeverityRow>
+          {severity.map(({ text, active }, index) => (
+            <SeverityRow
+              key={index}
+              css={css`
+                margin-bottom: 20px;
+              `}
+            >
+              <RadioButton
+                text={text}
+                active={active}
+                toggleActive={() => {
+                  toggleSeverityActive(index);
+                }}
+              />
+            </SeverityRow>
+          ))}
         </ContentItem>
 
         <ContentItem>
-          <Button text="저장하기" btnType="6" href="/" />
+          <Button
+            text="저장하기"
+            btnType="6"
+            disabled={!confirm}
+            onClick={onConfirm}
+          />
         </ContentItem>
       </Content>
     </Layout>

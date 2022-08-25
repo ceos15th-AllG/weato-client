@@ -16,7 +16,7 @@ import { main, gray04, text_black } from '@styles/Colors';
 
 import icon_search from '@public/icon_search.png';
 import logo_horizontal from '@public/logo_horizontal.png';
-import { loginState } from 'states';
+// import { loginState } from 'states';
 
 const NavbarLayout = styled.div`
   position: fixed;
