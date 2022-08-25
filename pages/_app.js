@@ -34,7 +34,7 @@ const App = ({ Component, pageProps }) => {
 
         <Global styles={GlobalStyle} />
 
-        {router.asPath.startsWith('/landing') ? (
+        {router.asPath.startsWith(`/landing`) ? (
           <Component {...pageProps} />
         ) : (
           <>
@@ -42,7 +42,7 @@ const App = ({ Component, pageProps }) => {
             <ContentLayout>
               <MARGIN />
               <Component {...pageProps} />
-              <Footerbar />
+              {router.asPath.startsWith(`/signup`) ? undefined : <Footerbar />}
             </ContentLayout>
           </>
         )}

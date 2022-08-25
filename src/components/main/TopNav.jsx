@@ -39,6 +39,27 @@ const NavbarLayout = styled.div`
   box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.07);
 `;
 
+const NavbarCenterLayout = styled.div`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 0px 300px;
+
+  width: 100%;
+  height: 100px;
+
+  background-color: white;
+
+  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.07);
+`;
+
 const NavbarContent = styled.ul`
   height: 100%;
 
@@ -86,6 +107,18 @@ const NavbarRightGroupItem = styled.div`
 
 const TopNav = () => {
   const router = useRouter();
+
+  if (router.pathname.startsWith(`/signup`)) {
+    return (
+      <NavbarCenterLayout>
+        <Link href="/">
+          <a>
+            <Image src={logo_horizontal} width={239.5} height={58} alt="" />
+          </a>
+        </Link>
+      </NavbarCenterLayout>
+    );
+  }
 
   const [isActive, setIsActive] = useState(false);
   // const login = useRecoilValue(loginState);
