@@ -199,7 +199,7 @@ const PolicyModal = ({ setModalActive, setCheck }) => {
         </span>
         <span className="text">
           본 개인 민감정보취급방침은 회사가 제공하는 Weato (이하
-          &ldquo;서비스&rdquo;)에 적용되며 다음과 같은 내용을 담고 있습니다.
+          &#8220;서비스&#8221;)에 적용되며 다음과 같은 내용을 담고 있습니다.
         </span>
 
         <span className="header">[민감정보 수집 및 이용 목적]</span>
@@ -352,7 +352,7 @@ const PolicyModal = ({ setModalActive, setCheck }) => {
             제3조 개인 민감정보 수집 및 이용에 대한 동의
           </li>
           <li className="listitem">
-            &ldquo;회사&rdquo;는 이용자들이 &ldquo;회사&rdquo;의 개인 민감정보
+            &#8220;회사&#8221;는 이용자들이 &#8220;회사&#8221;의 개인 민감정보
             보호정책 또는 이용약관의 내용에 대하여 「동의 합니다.」버튼을 클릭할
             수 있는 절차를 마련하여, 「동의합니다.」버튼을 클릭하면 개인
             민감정보 수집 및 이용에 대해 동의한 것으로 봅니다.
@@ -362,7 +362,7 @@ const PolicyModal = ({ setModalActive, setCheck }) => {
         <ul className="list">
           <li className="listitem">제4조 개인 민감정보의 처리 및 보유 기간</li>
           <li className="listitem">
-            &ldquo;회사&rdquo;는 이용자가 회원자격을 유지하고 있는 동안 수집된
+            &#8220;회사&#8221;는 이용자가 회원자격을 유지하고 있는 동안 수집된
             이용자의 개인정보를 보유·이용할 수 있으며, 이용자가 탈퇴하거나
             자격을 상실할 경우에는 이용자의 별도 요청이 없더라도 수집된
             회원정보를 삭제 및 파기합니다. 단, 이용자의 회원탈퇴 또는 회원자격
@@ -378,9 +378,9 @@ const PolicyModal = ({ setModalActive, setCheck }) => {
             보유 회원이 1년 이상 서비스를 이용하지 않고 연체나 채무불이행 상태가
             아닌 경우 해당 회원의 아이디는 "휴면회원"으로 처리됩니다.
             휴면회원으로 처리되면 회원 로그인을 비롯한 모든 서비스에 대한 이용이
-            정지되고, &ldquo;회사&rdquo;는 휴면회원의 개인정보를 제1항 및
+            정지되고, &#8220;회사&#8221;는 휴면회원의 개인정보를 제1항 및
             제2항에 따른 정보 보유의 대상이 아닌 한 다른 ID와 별도로 관리합니다.
-            &ldquo;회사&rdquo;는 휴면회원 처리 예정일 30일 전 해당 사실을 사전
+            &#8220;회사&#8221;는 휴면회원 처리 예정일 30일 전 해당 사실을 사전
             안내하며, 회원은 휴면회원 처리일 이후에 서비스에서 휴면상태
             해지신청을 하는 즉시 다시 정상적으로 서비스를 이용할 수 있습니다.
           </li>
@@ -388,7 +388,7 @@ const PolicyModal = ({ setModalActive, setCheck }) => {
 
         <span className="header">[동의거부의 권리]</span>
         <span className="text">
-          귀하께서는 &ldquo;Weato&rdquo;의 민감정보 수집 및 이용에 대한 동의
+          귀하께서는 &#8220;Weato&#8221;의 민감정보 수집 및 이용에 대한 동의
           거부권이 있으며 동의 거부 시에는 Weato 서비스 이용이 불가능합니다.
         </span>
       </ContentBox>

@@ -108,6 +108,15 @@ const NavbarRightGroupItem = styled.div`
 const TopNav = () => {
   const router = useRouter();
 
+  const [isActive, setIsActive] = useState(false);
+  // const login = useRecoilValue(loginState);
+
+  // console.log(login);
+
+  const onClickModalOn = () => {
+    setIsActive(true);
+  };
+
   if (router.pathname.startsWith(`/signup`)) {
     return (
       <NavbarCenterLayout>
@@ -119,15 +128,6 @@ const TopNav = () => {
       </NavbarCenterLayout>
     );
   }
-
-  const [isActive, setIsActive] = useState(false);
-  // const login = useRecoilValue(loginState);
-
-  // console.log(login);
-
-  const onClickModalOn = () => {
-    setIsActive(true);
-  };
 
   return (
     <>
