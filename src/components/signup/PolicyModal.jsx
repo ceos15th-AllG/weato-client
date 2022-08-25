@@ -167,7 +167,8 @@ const PolicyModal = ({ setModalActive, setCheck }) => {
     }
   };
   const handleScroll = (event) => {
-    if (!confirm && event.currentTarget.scrollTop > 1920) {
+    console.log(event.currentTarget.scrollTop);
+    if (!confirm && event.currentTarget.scrollTop > 1900) {
       setConfirm(true);
     }
   };
