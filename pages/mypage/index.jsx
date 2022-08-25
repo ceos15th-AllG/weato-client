@@ -7,7 +7,6 @@ import TabBar from '@mypage/TabBar';
 import ProfileTab from '@mypage/ProfileTab';
 import BookmarksTab from '@mypage/BookmarksTab';
 import CommunityTab from '@mypage/CommunityTab';
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 
 const Layout = styled.div`
   display: flex;
@@ -15,6 +14,10 @@ const Layout = styled.div`
 `;
 
 function Mypage(props) {
+  if (!props.userData) {
+    return <span>로딩 에러</span>;
+  }
+
   const { tab, tag, userData, userProfile } = props;
 
   return (
@@ -23,8 +26,8 @@ function Mypage(props) {
       <TabBar selected={tab} />
 
       {tab === 'profile' ? <ProfileTab userProfile={userProfile} /> : undefined}
-      {tab === 'bookmarks' ? <BookmarksTab tag={tag} /> : undefined}
-      {tab === 'community' ? <CommunityTab /> : undefined}
+      {/* {tab === 'bookmarks' ? <BookmarksTab tag={tag} /> : undefined} */}
+      {/* {tab === 'community' ? <CommunityTab /> : undefined} */}
     </Layout>
   );
 }
@@ -47,9 +50,6 @@ export const getServerSideProps = async (context) => {
     etc: '기타',
   };
 
-  const access_token = `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxMzUwNjE4LCJpYXQiOjE2NjA5MTg2MTh9.zAZVUEvNFngArcveTVSFqR0Cxy1Xsgy5YMQtZN29iE5W1fzES-5GNH2si_9lbNI_7itWCjmrZDsNIJtD0Bofzg`;
-  axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-
   // props 준비 - Tab 쿼리
   if (Object.keys(query).length !== 0 && query.hasOwnProperty('tab')) {
     defaultTab = query.tab;
@@ -62,24 +62,31 @@ export const getServerSideProps = async (context) => {
 
   // props 준비 - 유저 데이터 api
   try {
-    const res = await axios.get(`http://3.37.94.86/api/members`);
-
-    if (res.status === 200) {
-      defaultUserData = res.data;
-    }
+    // axios.defaults.headers.common[
+    //   'Authorization'
+    // ] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxODUwOTg2LCJpYXQiOjE2NjE0MTg5ODZ9.0AEJbNrMjFoR69sKIJ2MZTn5RSiYmNjl18ig-CScMffheE6IrLoedy-MBw19KFCVG55fsJ3_kDAVZnB3drsmKA`;
+    const getUser = await axios({
+      method: 'get',
+      url: `https://www.weato.kro.kr/api/members`,
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxODUwOTg2LCJpYXQiOjE2NjE0MTg5ODZ9.0AEJbNrMjFoR69sKIJ2MZTn5RSiYmNjl18ig-CScMffheE6IrLoedy-MBw19KFCVG55fsJ3_kDAVZnB3drsmKA`,
+      },
+    });
+    defaultUserData = getUser.data;
+    const memberId = getUser.data.id;
+    const getUserProfile = await axios({
+      method: 'get',
+      url: `https://www.weato.kro.kr/api/members/${memberId}/profile`,
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxODUwOTg2LCJpYXQiOjE2NjE0MTg5ODZ9.0AEJbNrMjFoR69sKIJ2MZTn5RSiYmNjl18ig-CScMffheE6IrLoedy-MBw19KFCVG55fsJ3_kDAVZnB3drsmKA`,
+      },
+    });
+    defaultUserProfile = getUserProfile.data;
   } catch (error) {
     console.log(error);
-  }
 
-  // props 준비 - 유저 데이터 api
-  try {
-    const res = await axios.get(`http://3.37.94.86/api/members/1/profile`);
-
-    if (res.status === 200) {
-      defaultUserProfile = res.data;
-    }
-  } catch (error) {
-    console.log(error);
+    defaultUserData = null;
+    defaultUserProfile = null;
   }
 
   return {

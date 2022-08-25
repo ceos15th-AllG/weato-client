@@ -288,6 +288,7 @@ export default function More() {
       });
 
       router.push(`/`);
+      // console.log(postForm.data);
     } catch (error) {
       alert(error);
       alert('서버 요청이 불가능하네요...');

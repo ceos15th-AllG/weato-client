@@ -90,7 +90,13 @@ const InfoData = styled.div`
   display: flex;
 `;
 
-function ProfileTab({ userProfile }) {
+function ProfileTab(props) {
+  if (!props.userProfile) {
+    return <span>로딩 에러</span>;
+  }
+
+  const { userProfile } = props;
+
   const dict = {
     DRUG: '약품',
     SLEEP: '수면',

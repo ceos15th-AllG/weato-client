@@ -102,9 +102,9 @@ function TabBar({ selected }) {
           </Box>
         </Row>
 
-        <Box>
+        {/* <Box>
           <InviteCode>추천인코드: 0429812</InviteCode>
-        </Box>
+        </Box> */}
       </Layout>
     );
   } else if (selected === 'bookmarks') {
@@ -138,9 +138,9 @@ function TabBar({ selected }) {
           </Box>
         </Row>
 
-        <Box>
+        {/* <Box>
           <InviteCode>추천인코드: 0429812</InviteCode>
-        </Box>
+        </Box> */}
       </Layout>
     );
   } else if (selected === 'community') {
@@ -174,9 +174,9 @@ function TabBar({ selected }) {
           </Box>
         </Row>
 
-        <Box>
+        {/* <Box>
           <InviteCode>추천인코드: 0429812</InviteCode>
-        </Box>
+        </Box> */}
       </Layout>
     );
   }

@@ -13,7 +13,7 @@ const DefaultLayout = css`
   justify-content: center;
   align-items: center;
 
-  transition: 0.5s all ease-in-out;
+  transition: 0.5s color ease-in-out, 0.5s background-color ease-in-out;
 `;
 
 const ButtonLayout1 = styled.div`
