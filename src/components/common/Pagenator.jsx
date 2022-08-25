@@ -33,13 +33,10 @@ const CurrentPage = styled.span`
   color : ${text_black};
 `;
 
-const makeRange = (current) => {
+const makeRange = (min, max) => {
   let array = [];
 
-  const start = current - ((current - 1) % 5);
-  const end = start + 4;
-
-  for (let i = start; i <= end; ++i) {
+  for (let i = min; i <= max; ++i) {
     array.push(i);
   }
 
@@ -47,23 +44,25 @@ const makeRange = (current) => {
 };
 
 function Pagenator(props) {
-  const range = makeRange(props.page);
+  const { min, max, current } = props;
+
+  const range = makeRange(min, max);
 
   return (
     <Layout>
       <Arrow>&#xE000;</Arrow>
       {range.map((pageNum, index) =>
-        pageNum == props.page ? (
+        pageNum === current ? (
           <CurrentPage key={index}>
-            <Link href={`${props.path}?tag=${props.tag}&page=${pageNum}`}>
-              <a>{pageNum}</a>
-            </Link>
+            {/* <Link href={`${props.path}?tag=${props.tag}&page=${pageNum}`}> */}
+            <a>{pageNum}</a>
+            {/* </Link> */}
           </CurrentPage>
         ) : (
           <Page key={index}>
-            <Link href={`${props.path}?tag=${props.tag}&page=${pageNum}`}>
-              <a>{pageNum}</a>
-            </Link>
+            {/* <Link href={`${props.path}?tag=${props.tag}&page=${pageNum}`}> */}
+            <a>{pageNum}</a>
+            {/* </Link> */}
           </Page>
         )
       )}

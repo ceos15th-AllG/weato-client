@@ -38,54 +38,24 @@ function Newsletter(props) {
     etc: '기타',
   };
 
-  console.log(props.newsletterData);
+  if (!props.newsletterData) {
+    return <span>로딩 에러</span>;
+  }
+  const { query, newsletterData } = props;
 
-  const newsletterData = [
-    {
-      text: '새로운 대안, JAK 억제제?',
-      date: '2022.06.08',
-      tag: '약품',
-    },
-    {
-      text: '아이, 어른 모두 아토피가 잠까지',
-      date: '2022.06.08',
-      tag: '수면',
-    },
-    {
-      text: '샤워, 목욕... 세면 습관으로 아토피 관리',
-      date: '2022.06.08',
-      tag: '세면',
-    },
-    {
-      text: '아토피... 안 먹으면서까지 관리?',
-      date: '2022.06.08',
-      tag: '음식',
-    },
-    {
-      text: '늘고 있는 미세먼지와 아토피',
-      date: '2022.06.08',
-      tag: '환경',
-    },
-    {
-      text: '설거지를 하는데 갑자기 증상이?',
-      date: '2022.06.08',
-      tag: '기타',
-    },
-    {
-      text: '장에 좋다는 유익균, 아토피에도 도움을?',
-      date: '2022.06.08',
-      tag: '음식',
-    },
-  ];
+  const tag = !query.tag ? '전체' : koreanTags[query.tag];
+  const page = !query.page ? 1 : query.page;
+
+  console.log(query);
 
   return (
     <Layout>
-      <TabGroup selected={koreanTags[props.tag]} />
+      <TabGroup selected={tag} />
 
-      <CardBox data={newsletterData} />
+      <CardBox data={newsletterData.data} />
 
       <Row>
-        <Pagenator path={router.pathname} {...props} />
+        <Pagenator min={1} max={5} current={1} />
       </Row>
     </Layout>
   );
@@ -94,17 +64,6 @@ function Newsletter(props) {
 export const getServerSideProps = async (context) => {
   const query = context.query;
 
-  let defaultTag = 'all';
-  let defaultPage = 1;
-  let defaultNewsletterData = null;
-
-  if (Object.keys(query).length !== 0 && query.hasOwnProperty('tag')) {
-    defaultTag = query.tag;
-  }
-  if (Object.keys(query).length !== 0 && query.hasOwnProperty('page')) {
-    defaultPage = query.page;
-  }
-
   try {
     axios.defaults.headers.common[
       'Authorization'
@@ -112,18 +71,15 @@ export const getServerSideProps = async (context) => {
 
     const res = await axios.get(`https://www.weato.kro.kr/api/newsletters`);
 
-    defaultNewsletterData = res.data;
+    return {
+      props: {
+        query: query,
+        newsletterData: res.data,
+      },
+    };
   } catch (error) {
     console.log(error);
   }
-
-  return {
-    props: {
-      tag: defaultTag,
-      page: defaultPage,
-      newsletterData: defaultNewsletterData,
-    },
-  };
 };
 
 export default Newsletter;

@@ -16,13 +16,13 @@ export default function CardBox(props) {
 
   return (
     <Layout>
-      {data.map(({ text, date, tag }, index) => (
+      {data.map(({ id, title, createdAt, tagType }, index) => (
         <Card
           key={index}
-          text={text}
-          date={date}
-          tag={tag}
-          href={`/newsletter/1`}
+          text={title}
+          date={createdAt}
+          tag={tagType}
+          href={`/newsletter/${id}`}
         />
       ))}
     </Layout>
