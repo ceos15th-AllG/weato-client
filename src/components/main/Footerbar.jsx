@@ -121,12 +121,20 @@ function FooterBar() {
           </a>
         </FooterIconLayout>
         <FooterIconLayout>
-          <a href="https://twitter.com" target="_blank" rel="noreferrer">
+          <a
+            href="https://twitter.com/weato4u"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Image src={icon_twitter} width="40" height="40" alt="" />
           </a>
         </FooterIconLayout>
         <FooterIconLayout>
-          <a href="https://facebook.com" target="_blank" rel="noreferrer">
+          <a
+            href="https://www.facebook.com/WEATO-109798558503314"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Image src={icon_facebook} width="40" height="40" alt="" />
           </a>
         </FooterIconLayout>
