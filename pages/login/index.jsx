@@ -66,8 +66,8 @@ const NaverLoginBtn = styled.div`
 
 function Login(props) {
   const router = useRouter();
-  // const REDIRECT_URI = `http://localhost:3000/login/auth`;
-  const REDIRECT_URI = `http://weato.net/login/auth`;
+  const REDIRECT_URI = `http://localhost:3000/login/auth`;
+  // const REDIRECT_URI = `http://weato.net/login/auth`;
   const REQUEST_PATH = `https://www.weato.kro.kr/oauth2/authorization/naver?redirect_uri=${REDIRECT_URI}`;
 
   return (
@@ -84,7 +84,7 @@ function Login(props) {
           <MidText>회원가입 | 로그인</MidText>
 
           <NaverLoginBtn onClick={() => router.push(REQUEST_PATH)}>
-            <Image src={icon_naver_n} width={25.41} height={25.2} />
+            <Image src={icon_naver_n} width={25.41} height={25.2} alt="" />
             <span>네이버 로그인</span>
           </NaverLoginBtn>
         </Column>

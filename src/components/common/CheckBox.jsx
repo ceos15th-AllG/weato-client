@@ -31,7 +31,7 @@ function CheckBox({ active, toggleCheckBox }) {
     <Layout onClick={toggleCheckBox}>
       {active ? (
         <div>
-          <Image src={icon_check} />
+          <Image src={icon_check} alt="" />
         </div>
       ) : undefined}
     </Layout>
