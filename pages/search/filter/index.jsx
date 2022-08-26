@@ -58,11 +58,12 @@ const PagenatorBox = styled.div`
 `;
 
 function Filter(props) {
+  const router = useRouter();
+
   if (!props.data) {
     return <span>로딩 에러...</span>;
   }
 
-  const router = useRouter();
   const { query } = props;
   const { keyword, category, page } = query;
   const { data, totalNum, min, max } = props.data;
