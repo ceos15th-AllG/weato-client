@@ -41,21 +41,26 @@ function Newsletter(props) {
   if (!props.newsletterData) {
     return <span>로딩 에러</span>;
   }
-  const { query, newsletterData } = props;
+  const { newsletterData } = props;
 
-  const tag = !query.tag ? '전체' : koreanTags[query.tag];
-  const page = !query.page ? 1 : query.page;
-
-  console.log(query);
+  const tag = !props.query.tag ? 'all' : props.query.tag;
+  const page = !props.query.page ? 1 : parseInt(props.query.page);
+  const query = { ...props.query, tag: tag, page: page };
 
   return (
     <Layout>
-      <TabGroup selected={tag} />
+      <TabGroup selected={koreanTags[tag]} />
 
       <CardBox data={newsletterData.data} />
 
       <Row>
-        <Pagenator min={1} max={5} current={1} />
+        <Pagenator
+          path={router.pathname}
+          query={query}
+          min={newsletterData.min}
+          max={newsletterData.max}
+          current={page}
+        />
       </Row>
     </Layout>
   );

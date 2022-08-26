@@ -44,29 +44,67 @@ const makeRange = (min, max) => {
 };
 
 function Pagenator(props) {
+  const { path, query } = props;
   const { min, max, current } = props;
-
   const range = makeRange(min, max);
 
   return (
     <Layout>
-      <Arrow>&#xE000;</Arrow>
+      {min < current ? (
+        <Link
+          href={{
+            pathname: path,
+            query: { ...query, page: current - 1 },
+          }}
+        >
+          <a>
+            <Arrow>&#xE000;</Arrow>
+          </a>
+        </Link>
+      ) : (
+        <Arrow>&#xE000;</Arrow>
+      )}
+
       {range.map((pageNum, index) =>
         pageNum === current ? (
           <CurrentPage key={index}>
-            {/* <Link href={`${props.path}?tag=${props.tag}&page=${pageNum}`}> */}
-            <a>{pageNum}</a>
-            {/* </Link> */}
+            <Link
+              href={{
+                pathname: path,
+                query: { ...query, page: pageNum },
+              }}
+            >
+              <a>{pageNum}</a>
+            </Link>
           </CurrentPage>
         ) : (
           <Page key={index}>
-            {/* <Link href={`${props.path}?tag=${props.tag}&page=${pageNum}`}> */}
-            <a>{pageNum}</a>
-            {/* </Link> */}
+            <Link
+              href={{
+                pathname: path,
+                query: { ...query, page: pageNum },
+              }}
+            >
+              <a>{pageNum}</a>
+            </Link>
           </Page>
         )
       )}
-      <Arrow>&#xE001;</Arrow>
+
+      {current < max ? (
+        <Link
+          href={{
+            pathname: path,
+            query: { ...query, page: current + 1 },
+          }}
+        >
+          <a>
+            <Arrow>&#xE001;</Arrow>
+          </a>
+        </Link>
+      ) : (
+        <Arrow>&#xE001;</Arrow>
+      )}
     </Layout>
   );
 }
