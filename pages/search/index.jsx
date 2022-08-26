@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import axios from 'axios';
+
+import CardBox from '@common/CardBox';
+import Row from '@search/BoardRow';
 import Button from '@common/ButtonContainer';
-import NewsletterResult from '@search/NewsletterResult';
-import CommunityResult from '@search/CommunityResult';
-import Pagenator from '@common/Pagenator';
 
 import { Display1, Body4 } from '@styles/FontStyle';
 
@@ -43,6 +45,11 @@ const SubTitle = styled.span`
   color : ${main};
 `;
 
+const RowBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const ButtonBox = styled.div`
   margin-top: 60px;
 
@@ -50,126 +57,76 @@ const ButtonBox = styled.div`
   justify-content: center;
 `;
 
-const PagenatorBox = styled.div`
-  margin: 73px 0px 210px;
-
-  display: flex;
-  justify-content: center;
-`;
-
 const Search = (props) => {
-  const router = useRouter();
+  if (!props.data) {
+    return <span>로딩 에러...</span>;
+  }
 
-  const newsletterLength = 3;
-  const communityLength = 5;
-
-  const communityData = [
-    {
-      id: '0',
-      category: '관리법',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-    {
-      id: '1',
-      category: '질문',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-    {
-      id: '2',
-      category: '관리법',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-    {
-      id: '3',
-      category: '질문',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-    {
-      id: '4',
-      category: '관리법',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-  ];
+  const { keyword, data } = props;
 
   return (
     <Layout>
-      <Title>
-        &apos;{props.keyword}&apos;
-        {props.category === 'all' ? ' 에 대한 검색결과' : undefined}
-        {props.category === 'newsletter'
-          ? ' 에 대한 뉴스레터 검색결과'
-          : undefined}
-        {props.category === 'community'
-          ? ' 에 대한 커뮤니티 검색결과'
-          : undefined}
-      </Title>
-
-      {props.category === 'all' || props.category === 'newsletter' ? (
-        <>
-          <SubtitleBox>
-            <SubTitle>
-              &apos;{props.keyword}&apos; 에 대한 뉴스레터입니다. (
-              {newsletterLength})
-            </SubTitle>
-          </SubtitleBox>
-          <NewsletterResult />
-        </>
-      ) : undefined}
-      {props.category === 'all' ? (
+      <Title>&apos;{keyword}&apos; 에 대한 검색결과</Title>
+      <SubtitleBox>
+        <SubTitle>
+          &apos;{keyword}&apos; 에 대한 뉴스레터입니다. ({data.numOfNewsletters}
+          )
+        </SubTitle>
+      </SubtitleBox>
+      <CardBox data={data.newslettersData} />
+      {data.newslettersData.length !== 0 ? (
         <ButtonBox>
           <Button
             text="더보기"
             btnType="4"
-            href={`/search?keyword=${props.keyword}&category=newsletter`}
+            href={`/search/filter?keyword=${keyword}&category=newsletter`}
           />
         </ButtonBox>
       ) : undefined}
 
-      {props.category === 'all' || props.category === 'community' ? (
-        <>
-          <SubtitleBox>
-            <SubTitle>
-              &apos;{props.keyword}&apos; 에 대한 커뮤니티 글입니다. (
-              {communityLength})
-            </SubTitle>
-          </SubtitleBox>
-          <CommunityResult communityData={communityData} />
-        </>
-      ) : undefined}
-      {props.category === 'all' ? (
+      <SubtitleBox>
+        <SubTitle>
+          &apos;{keyword}&apos; 에 대한 커뮤니티 글입니다. ({data.numOfPosts})
+        </SubTitle>
+      </SubtitleBox>
+      <RowBox>
+        {data.postsData.map(
+          (
+            {
+              id,
+              boardType,
+              title,
+              // createdAt,
+              views,
+              likeCounter,
+              author,
+              // commentsCounter,
+            },
+            index
+          ) => (
+            <Link key={index} href={`/community/post/${id}`}>
+              <a>
+                <Row
+                  category={boardType}
+                  title={title}
+                  view={views}
+                  like={likeCounter}
+                  name={author}
+                  level={`새싹`}
+                />
+              </a>
+            </Link>
+          )
+        )}
+      </RowBox>
+      {data.postsData.length !== 0 ? (
         <ButtonBox>
           <Button
             text="더보기"
             btnType="4"
-            href={`/search?keyword=${props.keyword}&category=community`}
+            href={`/search/filter?keyword=${keyword}&category=community`}
           />
         </ButtonBox>
-      ) : undefined}
-
-      {props.category === 'newsletter' || props.category === 'community' ? (
-        <PagenatorBox>
-          <Pagenator path={router.pathname} {...props} />
-        </PagenatorBox>
       ) : undefined}
     </Layout>
   );
@@ -177,27 +134,33 @@ const Search = (props) => {
 
 export const getServerSideProps = async (context) => {
   const query = context.query;
-  let defaultKeyword = '빈 검색어';
-  let defaultCategory = 'all';
-  let defaultPage = 1;
+  const keyword = !query.keyword ? '빈 검색어' : query.keyword.trim();
 
-  if (Object.keys(query).length !== 0 && query.hasOwnProperty('keyword')) {
-    defaultKeyword = query.keyword;
-  }
+  try {
+    axios.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxNzc4NTgyLCJpYXQiOjE2NjEzNDY1ODJ9.nX3hOm_LpPt5LEFisXvUHnTph3PKl7ZHDBhAP0KqaCKQRHuBnfGSJCrWYkPJzWbfY8OjY1qggyotLJixi7Qh8A`;
 
-  if (Object.keys(query).length !== 0 && query.hasOwnProperty('category')) {
-    defaultCategory = query.category;
-  }
+    const res = await axios.get(
+      `https://www.weato.kro.kr/api/search?keyword=${encodeURIComponent(
+        keyword
+      )}`
+    );
 
-  if (Object.keys(query).length !== 0 && query.hasOwnProperty('page')) {
-    defaultPage = query.page;
+    return {
+      props: {
+        keyword: keyword,
+        data: res.data,
+      },
+    };
+  } catch (error) {
+    console.log(error);
   }
 
   return {
     props: {
-      keyword: defaultKeyword,
-      category: defaultCategory,
-      page: defaultPage,
+      keyword: keyword,
+      data: null,
     },
   };
 };

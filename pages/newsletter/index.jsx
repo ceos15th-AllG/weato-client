@@ -41,24 +41,22 @@ function Newsletter(props) {
   if (!props.newsletterData) {
     return <span>로딩 에러</span>;
   }
-  const { newsletterData } = props;
-
-  const tag = !props.query.tag ? 'all' : props.query.tag;
-  const page = !props.query.page ? 1 : parseInt(props.query.page);
-  const query = { ...props.query, tag: tag, page: page };
+  const { query, newsletterData } = props;
+  const { data, min, max } = newsletterData;
+  const { tag, page } = query;
 
   return (
     <Layout>
       <TabGroup selected={koreanTags[tag]} />
 
-      <CardBox data={newsletterData.data} />
+      <CardBox data={data} />
 
       <Row>
         <Pagenator
           path={router.pathname}
           query={query}
-          min={newsletterData.min}
-          max={newsletterData.max}
+          min={min}
+          max={max}
           current={page}
         />
       </Row>
@@ -69,15 +67,15 @@ function Newsletter(props) {
 export const getServerSideProps = async (context) => {
   const query = context.query;
   const tag = !query.tag ? 'all' : query.tag;
-  const page = !query.page ? 1 : query.page;
+  const page = !query.page ? 1 : parseInt(query.page);
   const toAPITags = {
-    all: 'ALL',
-    medicine: 'DRUG',
-    sleep: 'SLEEP',
-    water: 'CLEANING',
-    food: 'FOOD',
-    env: 'ENVIRONMENT',
-    etc: 'OTHERWISE',
+    all: 'all',
+    medicine: 'drug',
+    sleep: 'sleep',
+    water: 'cleaning',
+    food: 'food',
+    env: 'environment',
+    etc: 'otherwise',
   };
 
   try {
@@ -91,7 +89,7 @@ export const getServerSideProps = async (context) => {
 
     return {
       props: {
-        query: query,
+        query: { ...query, tag: tag, page: page },
         newsletterData: res.data,
       },
     };
@@ -101,7 +99,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      query: query,
+      query: { ...query, tag: tag, page: page },
       newsletterData: null,
     },
   };

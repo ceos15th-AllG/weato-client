@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+import Link from 'next/link';
 import Image from 'next/image';
 
 import { Subhead3, Body1, Body3, Tag1 } from '@styles/FontStyle';
@@ -13,6 +14,8 @@ import icon_color_heart from '@public/icon_color_heart.png';
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
+
+  padding-top: 20px;
 `;
 
 const SmallText = styled.span`
@@ -30,7 +33,7 @@ const Title = styled.span`
 `;
 
 const Row = styled.div`
-  margin: 20px 0px;
+  margin-top: 20px;
   padding-bottom: 20px;
 
   display: flex;
@@ -73,9 +76,14 @@ const SmallBox = styled.div`
 `;
 
 function BoardRow({ category, title, view, like, name, level }) {
+  const categoryDict = {
+    MANAGEMENT: '관리법',
+    QUESTION: '질문',
+  };
+
   return (
     <Layout>
-      <SmallText>{category}</SmallText>
+      <SmallText>{categoryDict[category]}</SmallText>
       <Title>{title}</Title>
       <Row>
         <Box>
