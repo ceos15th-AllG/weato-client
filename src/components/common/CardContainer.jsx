@@ -16,13 +16,13 @@ const CardContainer = (props) => {
   };
 
   if (!href) {
-    return <Card text={text} date={date.slice(0, 10)} tag={dict[tag]} />;
+    return <Card text={text} date={date} tag={dict[tag]} />;
   }
 
   return (
     <Link href={href}>
       <a>
-        <Card text={text} date={date.slice(0, 10)} tag={dict[tag]} />
+        <Card text={text} date={date} tag={dict[tag]} />
       </a>
     </Link>
   );

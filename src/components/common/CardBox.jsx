@@ -21,7 +21,7 @@ export default function CardBox(props) {
         <Card
           key={index}
           text={title}
-          date={createdAt}
+          date={createdAt.slice(0, 10).replaceAll('-', '.')}
           tag={tagType}
           href={`/newsletter/${id}`}
         />
