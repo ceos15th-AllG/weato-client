@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import TabGroup from '@newsletter/TabGroup';
-import CardBox from '@newsletter/CardBox';
+import CardBox from '@common/CardBox';
 
 import Pagenator from '@common/Pagenator';
 
@@ -68,13 +68,26 @@ function Newsletter(props) {
 
 export const getServerSideProps = async (context) => {
   const query = context.query;
+  const tag = !query.tag ? 'all' : query.tag;
+  const page = !query.page ? 1 : query.page;
+  const toAPITags = {
+    all: 'ALL',
+    medicine: 'DRUG',
+    sleep: 'SLEEP',
+    water: 'CLEANING',
+    food: 'FOOD',
+    env: 'ENVIRONMENT',
+    etc: 'OTHERWISE',
+  };
 
   try {
     axios.defaults.headers.common[
       'Authorization'
     ] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxNzc4NTgyLCJpYXQiOjE2NjEzNDY1ODJ9.nX3hOm_LpPt5LEFisXvUHnTph3PKl7ZHDBhAP0KqaCKQRHuBnfGSJCrWYkPJzWbfY8OjY1qggyotLJixi7Qh8A`;
 
-    const res = await axios.get(`https://www.weato.kro.kr/api/newsletters`);
+    const res = await axios.get(
+      `https://www.weato.kro.kr/api/newsletters?tag=${toAPITags[tag]}&page=${page}`
+    );
 
     return {
       props: {
@@ -85,6 +98,13 @@ export const getServerSideProps = async (context) => {
   } catch (error) {
     console.log(error);
   }
+
+  return {
+    props: {
+      query: query,
+      newsletterData: null,
+    },
+  };
 };
 
 export default Newsletter;
