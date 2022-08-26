@@ -226,7 +226,7 @@ function New() {
     문단 내용
 </span>      
 `,
-      'content-a': `<a>링크</a>
+      'content-a': `<a href='' target='_blank'>링크</a>
 `,
       'content-strong': `<strong>강조문</strong>
 `,

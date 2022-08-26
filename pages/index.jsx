@@ -11,7 +11,7 @@ import Button from '@common/ButtonContainer';
 
 import banner from '@public/main_banner.png';
 
-const Layout = styled.div`
+const HomeLayout = styled.div`
   margin-bottom: 4px;
 `;
 
@@ -79,7 +79,7 @@ function Home(props) {
 
   return (
     <>
-      <Layout>
+      <HomeLayout>
         <div>
           <BannerLayout>
             <BannerContent>
@@ -106,7 +106,7 @@ function Home(props) {
             </ButtonRow>
           </HomeContent>
         </div>
-      </Layout>
+      </HomeLayout>
     </>
   );
 }
