@@ -2,12 +2,12 @@
 import { Global } from '@emotion/react';
 import styled from '@emotion/styled';
 
-// import { RecoilRoot } from 'recoil';
-
 import GlobalStyle from '@styles/GlobalStyle';
 
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+
+import ContextProvider from '@contexts/ContextProvider';
 
 import ScreenLayout from '@main/ScreenLayout';
 import ContentLayout from '@main/ContentLayout';
@@ -22,13 +22,9 @@ const App = ({ Component, pageProps }) => {
   const router = useRouter();
 
   return (
-    <>
+    <ContextProvider>
       <ScreenLayout>
         <Head>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
           <title>WEATO : 당신만을 위한 아토피 맞춤 정보 서비스</title>
         </Head>
 
@@ -47,7 +43,7 @@ const App = ({ Component, pageProps }) => {
           </>
         )}
       </ScreenLayout>
-    </>
+    </ContextProvider>
   );
 };
 

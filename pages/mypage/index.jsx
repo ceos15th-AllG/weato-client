@@ -69,7 +69,7 @@ export const getServerSideProps = async (context) => {
       method: 'get',
       url: `https://www.weato.kro.kr/api/members`,
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxODUwOTg2LCJpYXQiOjE2NjE0MTg5ODZ9.0AEJbNrMjFoR69sKIJ2MZTn5RSiYmNjl18ig-CScMffheE6IrLoedy-MBw19KFCVG55fsJ3_kDAVZnB3drsmKA`,
+        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxNzc4NTgyLCJpYXQiOjE2NjEzNDY1ODJ9.nX3hOm_LpPt5LEFisXvUHnTph3PKl7ZHDBhAP0KqaCKQRHuBnfGSJCrWYkPJzWbfY8OjY1qggyotLJixi7Qh8A`,
       },
     });
     defaultUserData = getUser.data;
@@ -78,7 +78,7 @@ export const getServerSideProps = async (context) => {
       method: 'get',
       url: `https://www.weato.kro.kr/api/members/${memberId}/profile`,
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxODUwOTg2LCJpYXQiOjE2NjE0MTg5ODZ9.0AEJbNrMjFoR69sKIJ2MZTn5RSiYmNjl18ig-CScMffheE6IrLoedy-MBw19KFCVG55fsJ3_kDAVZnB3drsmKA`,
+        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxNzc4NTgyLCJpYXQiOjE2NjEzNDY1ODJ9.nX3hOm_LpPt5LEFisXvUHnTph3PKl7ZHDBhAP0KqaCKQRHuBnfGSJCrWYkPJzWbfY8OjY1qggyotLJixi7Qh8A`,
       },
     });
     defaultUserProfile = getUserProfile.data;

@@ -12,7 +12,7 @@
       "@community/*": ["src/components/community/*"],
       "@search/*": ["src/components/search/*"],
       "@styles/*": ["styles/*"],
-      "@states/*": ["states/*"]
+      "@contexts/*": ["src/contexts/*"]
     }
   }
 }
