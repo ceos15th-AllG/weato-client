@@ -2,11 +2,13 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
+import Context from '@contexts/Context';
 
 import Modal from '@common/Modal';
 import SearchModal from '@search/SearchModal';
@@ -16,7 +18,6 @@ import { main, gray04, text_black } from '@styles/Colors';
 
 import icon_search from '@public/icon_search.png';
 import logo_horizontal from '@public/logo_horizontal.png';
-// import { loginState } from 'states';
 
 const NavbarLayout = styled.div`
   position: fixed;
@@ -107,14 +108,12 @@ const NavbarRightGroupItem = styled.div`
 
 const TopNav = () => {
   const router = useRouter();
+  const { login } = useContext(Context);
 
-  const [isActive, setIsActive] = useState(false);
-  // const login = useRecoilValue(loginState);
-
-  // console.log(login);
+  const [modalActive, setModalActive] = useState(false);
 
   const onClickModalOn = () => {
-    setIsActive(true);
+    setModalActive(true);
   };
 
   if (router.pathname.startsWith(`/signup`)) {
@@ -163,19 +162,22 @@ const TopNav = () => {
         </NavbarContent>
 
         <NavbarRightGroup>
-          <NavbarRightGroupItem css={Subhead3}>
-            <Link href="/login">
-              <a>회원가입 / 로그인</a>
-            </Link>
-          </NavbarRightGroupItem>
+          {!login ? (
+            <NavbarRightGroupItem css={Subhead3}>
+              <Link href="/login">
+                <a>회원가입 / 로그인</a>
+              </Link>
+            </NavbarRightGroupItem>
+          ) : undefined}
+
           <div onClick={onClickModalOn}>
             <Image src={icon_search} width="34" height="35.02" alt="" />
           </div>
         </NavbarRightGroup>
       </NavbarLayout>
 
-      <Modal active={isActive}>
-        <SearchModal setIsActive={setIsActive} router={router} />
+      <Modal active={modalActive}>
+        <SearchModal setIsActive={setModalActive} router={router} />
       </Modal>
     </>
   );

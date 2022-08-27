@@ -2,9 +2,11 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 
 import { useRouter } from 'next/router';
+
+import Context from '@contexts/Context';
 
 import axios from 'axios';
 
@@ -164,6 +166,7 @@ const PolicyButton = styled.span`
 
 export default function Signup() {
   const router = useRouter();
+  const { user } = useContext(Context);
 
   const [nickname, setNickname] = useState('');
   const [nicknameValid, setNicknameValid] = useState(false);
@@ -241,18 +244,16 @@ export default function Signup() {
       return;
     }
 
-    const access_token = localStorage.getItem('access_token');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-
     try {
-      const res = await axios.get(
-        `https://www.weato.kro.kr/api/members/validation?nickname=${nickname}`
-      );
+      const response = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members/validation?nickname=${nickname}`,
+      });
 
-      if (res.data === false) {
+      if (response.data === false) {
         setNicknameUnique(true);
       } else {
-        alert(`닉네임 ${nickname}은 이미 존재합니다...`);
+        alert(`닉네임 ${nickname}은 이미 존재합니다.`);
       }
     } catch (error) {
       alert(error);
@@ -264,22 +265,16 @@ export default function Signup() {
       return;
     }
 
-    // post 요청 보내고 잘 받아지면...
-    const access_token = localStorage.getItem('access_token');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-
     try {
-      const getMember = await axios({
-        method: 'get',
-        url: `https://www.weato.kro.kr/api/members`,
-      });
-      const memberId = getMember.data.id;
-      const postForm = await axios({
+      const access_token = localStorage.getItem('access_token');
+      const response = await axios({
         method: 'post',
-        url: `https://www.weato.kro.kr/api/members/${memberId}`,
+        url: `https://www.weato.kro.kr/api/members/${user.id}`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
         data: {
           nickname: nickname,
-          // imageUrl: 'string',
           newsletterEmail: email,
           drug: tags[0].active,
           cleaning: tags[1].active,
@@ -357,7 +352,7 @@ export default function Signup() {
               value={email}
               onChange={onChangeEmail}
             />
-            {/* <Button text="인증하기" btnType="3" disabled={!emailValid} /> */}
+            <Button text="인증하기" btnType="3" disabled={!emailValid} />
           </Input>
           <InputWarning valid={emailValid}>aaaa@bb.cc</InputWarning>
         </ContentItem>

@@ -2,11 +2,13 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
+
+import Context from '@contexts/Context';
 
 import {
   sub,
@@ -127,6 +129,7 @@ const SeverityText = styled.span`
 
 export default function More() {
   const router = useRouter();
+  const { user } = useContext(Context);
 
   const [since, setSince] = useState('');
   const [sinceValid, setSinceValid] = useState(false);
@@ -257,19 +260,14 @@ export default function More() {
       return;
     }
 
-    // post 요청 보내고 잘 받아지면...
-    const access_token = localStorage.getItem('access_token');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-
     try {
-      const getMember = await axios({
-        method: 'get',
-        url: `https://www.weato.kro.kr/api/members`,
-      });
-      const memberId = getMember.data.id;
-      const postForm = await axios({
+      const access_token = localStorage.getItem('access_token');
+      const response = await axios({
         method: 'post',
-        url: `https://www.weato.kro.kr/api/members/${memberId}/additional-info`,
+        url: `https://www.weato.kro.kr/api/members/${user.id}/additional-info`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
         data: {
           years: Number.parseInt(since),
           recurrence: repeat[0].active,
@@ -288,7 +286,6 @@ export default function More() {
       });
 
       router.push(`/`);
-      // console.log(postForm.data);
     } catch (error) {
       alert(error);
       alert('서버 요청이 불가능하네요...');
