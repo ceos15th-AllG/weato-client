@@ -69,30 +69,46 @@ const Date = styled.span`
 `;
 
 function BoardContentLarge({ posts }) {
+  const dict = {
+    MANAGEMENT: '관리법',
+    QUESTION: '질문',
+  };
+
   return (
     <Layout>
-      {posts.map(({ id, category, title, comments, tag, view, date }) => (
-        <Link href="/community/post/sample" key={id}>
-          <a>
-            <Box>
+      {posts.map(
+        ({
+          id,
+          title,
+          createdAt,
+          author,
+          commentsCounter,
+          views,
+          likeCounter,
+          boardType,
+        }) => (
+          <Link href={`/community/post/${id}`} key={id}>
+            <a>
               <Box>
-                <Tag text={category} />
-                <Title>
-                  {title} [{comments}]
-                </Title>
-              </Box>
-              <Box>
-                <Hashtag>#{tag}</Hashtag>
                 <Box>
-                  <Image src={icon_views} width={17.54} height={12} alt="" />
-                  <Views>{view}</Views>
+                  <Tag text={dict[boardType]} />
+                  <Title>
+                    {title} [{commentsCounter}]
+                  </Title>
                 </Box>
-                <Date>{date}</Date>
+                <Box>
+                  {/* <Hashtag>#{dict[boardType]}</Hashtag> */}
+                  <Box>
+                    <Image src={icon_views} width={17.54} height={12} alt="" />
+                    <Views>{views}</Views>
+                  </Box>
+                  <Date>{createdAt.slice(0, 10)}</Date>
+                </Box>
               </Box>
-            </Box>
-          </a>
-        </Link>
-      ))}
+            </a>
+          </Link>
+        )
+      )}
     </Layout>
   );
 }

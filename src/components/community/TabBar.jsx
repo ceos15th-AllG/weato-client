@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Link from 'next/link';
@@ -26,26 +24,18 @@ const Box = styled.div`
   align-items: center;
 `;
 
-const HeaderTextSelected = styled.span`
-  ${Headline1}
-
-  margin-top : 5px;
-  padding-bottom: 9px;
-
-  color: ${main};
-
-  border-bottom: 4px solid ${main};
-`;
-
 const HeaderText = styled.span`
   ${Headline1}
 
   margin-top : 5px;
+  margin-right: 123px;
   padding-bottom: 9px;
 
-  color: ${gray05};
+  color: ${({ menu, selected }) => (menu === selected ? main : gray05)};
+  border-bottom: 4px solid
+    ${({ menu, selected }) => (menu === selected ? main : `transparent`)};
 
-  border-bottom: 4px solid transparent;
+  transition: all 0.3s ease;
 `;
 
 const DropDown = styled.div`
@@ -63,139 +53,23 @@ const DropDown = styled.div`
 `;
 
 function TabBar({ selected }) {
-  if (selected === 'hot') {
-    return (
-      <Layout>
-        <Box>
-          <HeaderTextSelected css={css``}>
-            <Link href="/community/hot">
-              <a>핫토픽</a>
-            </Link>
-          </HeaderTextSelected>
-          <HeaderText
-            css={css`
-              margin-left: 123px;
-            `}
-          >
-            <Link href="/community/knowhow">
-              <a>나만의 관리법</a>
-            </Link>
-          </HeaderText>
-          <HeaderText
-            css={css`
-              margin-left: 132px;
-            `}
-          >
-            <Link href="/community/questions">
-              <a>질문</a>
-            </Link>
-          </HeaderText>
-        </Box>
-        <Box>
-          <Button text="글쓰기" btnType="7" href="/community/post/new" />
-          <DropDown>
-            <span>태그</span>
-          </DropDown>
-        </Box>
-      </Layout>
-    );
-  } else if (selected === 'knowhow') {
-    return (
-      <Layout>
-        <Box>
-          <HeaderText css={css``}>
-            <Link href="/community/hot">
-              <a>핫토픽</a>
-            </Link>
-          </HeaderText>
-          <HeaderTextSelected
-            css={css`
-              margin-left: 123px;
-            `}
-          >
-            <Link href="/community/knowhow">
-              <a>나만의 관리법</a>
-            </Link>
-          </HeaderTextSelected>
-          <HeaderText
-            css={css`
-              margin-left: 132px;
-            `}
-          >
-            <Link href="/community/questions">
-              <a>질문</a>
-            </Link>
-          </HeaderText>
-        </Box>
-        <Box>
-          <Button text="글쓰기" btnType="7" href="/community/post/new" />
-          <DropDown>
-            <span>태그</span>
-          </DropDown>
-        </Box>
-      </Layout>
-    );
-  } else if (selected === 'questions') {
-    return (
-      <Layout>
-        <Box>
-          <HeaderText css={css``}>
-            <Link href="/community/hot">
-              <a>핫토픽</a>
-            </Link>
-          </HeaderText>
-          <HeaderText
-            css={css`
-              margin-left: 123px;
-            `}
-          >
-            <Link href="/community/knowhow">
-              <a>나만의 관리법</a>
-            </Link>
-          </HeaderText>
-          <HeaderTextSelected
-            css={css`
-              margin-left: 132px;
-            `}
-          >
-            <Link href="/community/questions">
-              <a>질문</a>
-            </Link>
-          </HeaderTextSelected>
-        </Box>
-        <Box>
-          <Button text="글쓰기" btnType="7" href="/community/post/new" />
-          <DropDown>
-            <span>태그</span>
-          </DropDown>
-        </Box>
-      </Layout>
-    );
-  }
-
   return (
     <Layout>
       <Box>
-        <HeaderText css={css``}>
-          <Link href="/community/hot">
+        <HeaderText menu="hot" selected={selected}>
+          <Link href="/community/board?tab=hot">
             <a>핫토픽</a>
           </Link>
         </HeaderText>
-        <HeaderText
-          css={css`
-            margin-left: 123px;
-          `}
-        >
-          <Link href="/community/knowhow">
+
+        <HeaderText menu="knowhow" selected={selected}>
+          <Link href="/community/board?tab=knowhow">
             <a>나만의 관리법</a>
           </Link>
         </HeaderText>
-        <HeaderText
-          css={css`
-            margin-left: 132px;
-          `}
-        >
-          <Link href="/community/questions">
+
+        <HeaderText menu="questions" selected={selected}>
+          <Link href="/community/board?tab=questions">
             <a>질문</a>
           </Link>
         </HeaderText>

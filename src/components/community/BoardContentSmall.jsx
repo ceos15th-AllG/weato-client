@@ -24,7 +24,7 @@ const Box = styled.div`
 `;
 
 const Title = styled.span`
-  width: 180px;
+  width: 200px;
 
   ${Subhead3}
 
@@ -58,17 +58,17 @@ const Date = styled.span`
 function BoardContentSmall({ posts }) {
   return (
     <Layout>
-      {posts.map(({ id, title, view, date }) => (
-        <Link href="/community/post/sample" key={id}>
+      {posts.map(({ id, title, createdAt, commentsCounter, views }) => (
+        <Link href={`/community/post/${id}`} key={id}>
           <a>
             <Box>
               <Title>{title}</Title>
               <Box>
                 <Box>
                   <Image src={icon_views} width={17.54} height={12} alt="" />
-                  <Views>{view}</Views>
+                  <Views>{views}</Views>
                 </Box>
-                <Date>{date}</Date>
+                <Date>{createdAt.slice(0, 10)}</Date>
               </Box>
             </Box>
           </a>

@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import Link from 'next/link';
+
 import axios from 'axios';
 
 import PostContent from '@community/PostContent';
@@ -25,14 +27,32 @@ const ContentHeader = styled.header`
 
   color : ${text_black};
   border-bottom: 3px solid ${gray06};
+
+  strong {
+    margin: 0px 6px;
+    font-weight: 300;
+  }
 `;
 
 function Community(props) {
   const { postData } = props;
+  const toQueryTypes = { MANAGEMENT: 'knowhow', QUESTION: 'questions' };
+  const toKoreanTypes = { MANAGEMENT: '나만의 관리법', QUESTION: '질문' };
+
+  console.log(postData);
 
   return (
     <Layout>
-      <ContentHeader>커뮤니티 &#xE001; 나만의 관리법</ContentHeader>
+      <ContentHeader>
+        <Link href={`/community`}>
+          <a>커뮤니티</a>
+        </Link>
+        <strong>&#xE001;</strong>
+        <Link href={`/community/board?tab=${toQueryTypes['MANAGEMENT']}`}>
+          <a>{toKoreanTypes['MANAGEMENT']}</a>
+        </Link>
+      </ContentHeader>
+
       <PostContent post={postData} />
       <PostComment comment={postData.comments} />
     </Layout>
@@ -41,11 +61,6 @@ function Community(props) {
 
 export const getServerSideProps = async (context) => {
   const query = context.query;
-
-  if (typeof window !== 'undefined') {
-    const access_token = localStorage.getItem('access_token');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-  }
 
   try {
     const res = await axios.get(

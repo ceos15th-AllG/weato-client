@@ -16,7 +16,7 @@ const Layout = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 
-  margin-bottom: 60px;
+  margin-bottom: 72px;
 `;
 
 const Item = styled.span`
@@ -28,13 +28,25 @@ const Item = styled.span`
 
   border-bottom: 5px solid
     ${(props) => `${props.tag === props.selected ? main : 'transparent'}`};
+
+  transition: all 0.3s ease;
 `;
 
 export default function TabGroup({ selected }) {
+  const koreanTags = {
+    all: '전체',
+    medicine: '약품',
+    sleep: '수면',
+    water: '세면',
+    food: '음식',
+    env: '환경',
+    etc: '기타',
+  };
+
   return (
     <Layout>
       {tags.map((tag, index) => (
-        <Item key={index} tag={tag} selected={selected}>
+        <Item key={index} tag={tag} selected={koreanTags[selected]}>
           <Link href={`/mypage?tab=bookmarks&tag=${routes[index]}`}>
             <a>{tag}</a>
           </Link>

@@ -137,10 +137,6 @@ export const getServerSideProps = async (context) => {
   const keyword = !query.keyword ? '빈 검색어' : query.keyword.trim();
 
   try {
-    axios.defaults.headers.common[
-      'Authorization'
-    ] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxNzc4NTgyLCJpYXQiOjE2NjEzNDY1ODJ9.nX3hOm_LpPt5LEFisXvUHnTph3PKl7ZHDBhAP0KqaCKQRHuBnfGSJCrWYkPJzWbfY8OjY1qggyotLJixi7Qh8A`;
-
     const res = await axios.get(
       `https://www.weato.kro.kr/api/search?keyword=${encodeURIComponent(
         keyword

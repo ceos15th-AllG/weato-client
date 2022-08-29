@@ -1,10 +1,6 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Link from 'next/link';
-
-import Button from '@common/ButtonContainer';
 
 import { Headline1, Subhead3, Subhead4 } from '@styles/FontStyle';
 
@@ -20,6 +16,8 @@ const Layout = styled.div`
   justify-content: space-between;
 
   border-bottom: 2px solid ${gray02};
+
+  transition: all 0.3s ease;
 `;
 
 const Row = styled.div`
@@ -38,6 +36,7 @@ const Box = styled.div`
 const Menu = styled.span`
   height: 100%;
 
+  margin-right: 243px;
   padding-top: 10px;
 
   display: flex;
@@ -45,23 +44,11 @@ const Menu = styled.span`
 
   ${Headline1}
 
-  color: ${gray05};
-  border-bottom: 5px solid transparent;
-`;
+  color: ${({ menu, selected }) => (menu === selected ? main : gray05)};
+  border-bottom: 5px solid
+    ${({ menu, selected }) => (menu === selected ? main : `transparent`)};
 
-const MenuSelected = styled.span`
-  height: 100%;
-
-  padding-top: 10px;
-
-  display: flex;
-  align-items: center;
-
-  ${Headline1}
-
-  color: ${main};
-
-  border-bottom: 5px solid ${main};
+  transition: all 0.3s ease;
 `;
 
 const InviteCode = styled.span`
@@ -71,115 +58,33 @@ const InviteCode = styled.span`
 `;
 
 function TabBar({ selected }) {
-  if (selected === 'profile') {
-    return (
-      <Layout>
-        <Row>
-          <Box>
-            <MenuSelected>
-              <Link href="/mypage?tab=profile">
-                <a>프로필</a>
-              </Link>
-            </MenuSelected>
-            <Menu
-              css={css`
-                margin-left: 243px;
-              `}
-            >
-              <Link href="/mypage?tab=bookmarks">
-                <a>북마크</a>
-              </Link>
-            </Menu>
-            <Menu
-              css={css`
-                margin-left: 243px;
-              `}
-            >
-              <Link href="/mypage?tab=community">
-                <a>커뮤니티</a>
-              </Link>
-            </Menu>
-          </Box>
-        </Row>
+  return (
+    <Layout>
+      <Row>
+        <Box>
+          <Menu menu="profile" selected={selected}>
+            <Link href="/mypage?tab=profile">
+              <a>프로필</a>
+            </Link>
+          </Menu>
+          <Menu menu="bookmarks" selected={selected}>
+            <Link href="/mypage?tab=bookmarks">
+              <a>북마크</a>
+            </Link>
+          </Menu>
+          <Menu menu="community" selected={selected}>
+            <Link href="/mypage?tab=community">
+              <a>커뮤니티</a>
+            </Link>
+          </Menu>
+        </Box>
+      </Row>
 
-        {/* <Box>
+      {/* <Box>
           <InviteCode>추천인코드: 0429812</InviteCode>
         </Box> */}
-      </Layout>
-    );
-  } else if (selected === 'bookmarks') {
-    return (
-      <Layout>
-        <Row>
-          <Box>
-            <Menu>
-              <Link href="/mypage?tab=profile">
-                <a>프로필</a>
-              </Link>
-            </Menu>
-            <MenuSelected
-              css={css`
-                margin-left: 243px;
-              `}
-            >
-              <Link href="/mypage?tab=bookmarks">
-                <a>북마크</a>
-              </Link>
-            </MenuSelected>
-            <Menu
-              css={css`
-                margin-left: 243px;
-              `}
-            >
-              <Link href="/mypage?tab=community">
-                <a>커뮤니티</a>
-              </Link>
-            </Menu>
-          </Box>
-        </Row>
-
-        {/* <Box>
-          <InviteCode>추천인코드: 0429812</InviteCode>
-        </Box> */}
-      </Layout>
-    );
-  } else if (selected === 'community') {
-    return (
-      <Layout>
-        <Row>
-          <Box>
-            <Menu>
-              <Link href="/mypage?tab=profile">
-                <a>프로필</a>
-              </Link>
-            </Menu>
-            <Menu
-              css={css`
-                margin-left: 243px;
-              `}
-            >
-              <Link href="/mypage?tab=bookmarks">
-                <a>북마크</a>
-              </Link>
-            </Menu>
-            <MenuSelected
-              css={css`
-                margin-left: 243px;
-              `}
-            >
-              <Link href="/mypage?tab=community">
-                <a>커뮤니티</a>
-              </Link>
-            </MenuSelected>
-          </Box>
-        </Row>
-
-        {/* <Box>
-          <InviteCode>추천인코드: 0429812</InviteCode>
-        </Box> */}
-      </Layout>
-    );
-  }
+    </Layout>
+  );
 }
 
 export default TabBar;

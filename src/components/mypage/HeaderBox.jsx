@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 
+import { useContext } from 'react';
+
 import Image from 'next/image';
+
+import Context from '@contexts/Context';
 
 import { Display1, Tag1 } from '@styles/FontStyle';
 
@@ -48,16 +52,16 @@ const Email = styled.span`
   color : ${text_black};
 `;
 
-function HeaderBox({ userData }) {
-  const { name, email, gender } = userData;
+function HeaderBox() {
+  const { user } = useContext(Context);
 
   return (
     <Layout>
       <Image src={profile_sample_large} width={180} height={180} alt="" />
       <Column>
         <Level>새싹</Level>
-        <Name>{name}</Name>
-        <Email>{email}</Email>
+        <Name>{user.name}</Name>
+        <Email>{user.email}</Email>
       </Column>
     </Layout>
   );

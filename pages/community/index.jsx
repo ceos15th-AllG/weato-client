@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 
 import axios from 'axios';
+import cookie from 'cookie';
 
-import BoardGroup from '@community/BoardGroup';
+import HotTopic from '@community/HotTopic';
+import Knowhow from '@community/Knowhow';
+import Questions from '@community/Question';
 import Banner from '@community/Banner';
 import QnA from '@community/QnA';
 
@@ -18,6 +21,15 @@ const Row = styled.div`
   justify-content: space-between;
 `;
 
+const Board = styled.div`
+  width: 873px;
+  height: 723px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 const BannerBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -28,16 +40,24 @@ const BannerBox = styled.div`
 `;
 
 function Community(props) {
-  console.log(props);
-
   if (!props.data) {
     return <span>에러...</span>;
   }
 
+  const { data } = props;
+
   return (
     <Layout>
       <Row>
-        <BoardGroup />
+        <Board>
+          <Row>
+            <HotTopic posts={data.hotTopics} />
+          </Row>
+          <Row>
+            <Knowhow posts={data.question} />
+            <Questions posts={data.management} />
+          </Row>
+        </Board>
         <BannerBox>
           <Banner />
         </BannerBox>
@@ -51,15 +71,19 @@ function Community(props) {
 
 export async function getServerSideProps(context) {
   try {
-    axios.defaults.headers.common[
-      'Authorization'
-    ] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxNzc4NTgyLCJpYXQiOjE2NjEzNDY1ODJ9.nX3hOm_LpPt5LEFisXvUHnTph3PKl7ZHDBhAP0KqaCKQRHuBnfGSJCrWYkPJzWbfY8OjY1qggyotLJixi7Qh8A`;
+    const { access_token } = cookie.parse(context.req.headers.cookie);
 
-    const res = await axios.get(`https://www.weato.kro.kr/api/community`);
+    const response = await axios({
+      method: 'get',
+      url: `https://www.weato.kro.kr/api/community`,
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
 
     return {
       props: {
-        data: res.data,
+        data: response.data,
       },
     };
   } catch (error) {

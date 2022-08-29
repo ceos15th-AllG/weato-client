@@ -10,14 +10,7 @@ import axios from 'axios';
 
 import Context from '@contexts/Context';
 
-import {
-  sub,
-  gray05,
-  text_black,
-  semantic_red,
-  gray07,
-  main,
-} from '@styles/Colors';
+import { gray05, text_black } from '@styles/Colors';
 
 import { Display1, Subhead4, Body1, Body2, Body3 } from '@styles/FontStyle';
 
@@ -129,7 +122,7 @@ const SeverityText = styled.span`
 
 export default function More() {
   const router = useRouter();
-  const { user } = useContext(Context);
+  const { user, token } = useContext(Context);
 
   const [since, setSince] = useState('');
   const [sinceValid, setSinceValid] = useState(false);
@@ -261,12 +254,11 @@ export default function More() {
     }
 
     try {
-      const access_token = localStorage.getItem('access_token');
       const response = await axios({
         method: 'post',
         url: `https://www.weato.kro.kr/api/members/${user.id}/additional-info`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
         data: {
           years: Number.parseInt(since),

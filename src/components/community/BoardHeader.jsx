@@ -34,13 +34,15 @@ const More = styled.span`
 `;
 
 function BoardHeader(props) {
+  const { title, link } = props;
+
   return (
     <Layout>
-      <Title>{props.title}</Title>
+      <Title>{title}</Title>
 
-      {props.link ? (
+      {link ? (
         <More>
-          <Link href={`/community/${props.link}`}>
+          <Link href={`/community/board?tab=${link}`}>
             <a>더보기 &#xE001;</a>
           </Link>
         </More>

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import Context from '@contexts/Context';
 
 import axios from 'axios';
+import cookie from 'cookie';
 
 import {
   main,
@@ -166,7 +167,7 @@ const PolicyButton = styled.span`
 
 export default function Signup() {
   const router = useRouter();
-  const { user } = useContext(Context);
+  const { user, token } = useContext(Context);
 
   const [nickname, setNickname] = useState('');
   const [nicknameValid, setNicknameValid] = useState(false);
@@ -266,12 +267,11 @@ export default function Signup() {
     }
 
     try {
-      const access_token = localStorage.getItem('access_token');
       const response = await axios({
         method: 'post',
         url: `https://www.weato.kro.kr/api/members/${user.id}`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
         data: {
           nickname: nickname,

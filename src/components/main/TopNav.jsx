@@ -14,10 +14,12 @@ import Modal from '@common/Modal';
 import SearchModal from '@search/SearchModal';
 
 import { Subhead3, Subhead4 } from '@styles/FontStyle';
-import { main, gray04, text_black } from '@styles/Colors';
+import { main, gray04, gray05, text_black } from '@styles/Colors';
 
-import icon_search from '@public/icon_search.png';
 import logo_horizontal from '@public/logo_horizontal.png';
+import icon_search from '@public/icon_search.png';
+import default_profile from '@public/topnav/default_profile.png';
+import { userAgent } from 'next/server';
 
 const NavbarLayout = styled.div`
   position: fixed;
@@ -88,11 +90,8 @@ const NavbarItem = styled.li`
   color: ${(props) =>
     `${props.currentPath.startsWith(props.menu) ? main : text_black}`};
 
-  transition: 0.3s ease;
-
-  /* &:hover {
-    border-bottom: 5px solid ${main};
-  } */
+  transition: border-bottom 0.3s ease;
+  transition: color 0.3s ease;
 `;
 
 const NavbarRightGroup = styled.div`
@@ -101,14 +100,28 @@ const NavbarRightGroup = styled.div`
 `;
 
 const NavbarRightGroupItem = styled.div`
+  display: flex;
+  align-items: center;
+
   margin-right: 64px;
 
   color: ${gray04};
+
+  a {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const ProfileBox = styled.div`
+  width: 38px;
+  height: 38px;
+  margin-right: 12px;
 `;
 
 const TopNav = () => {
   const router = useRouter();
-  const { login } = useContext(Context);
+  const { login, user } = useContext(Context);
 
   const [modalActive, setModalActive] = useState(false);
 
@@ -168,7 +181,18 @@ const TopNav = () => {
                 <a>회원가입 / 로그인</a>
               </Link>
             </NavbarRightGroupItem>
-          ) : undefined}
+          ) : (
+            <NavbarRightGroupItem css={Subhead3}>
+              <Link href="/mypage">
+                <a>
+                  <ProfileBox>
+                    <Image src={default_profile} alt="" />
+                  </ProfileBox>
+                  <span className="profile-text">{user.name} 님</span>
+                </a>
+              </Link>
+            </NavbarRightGroupItem>
+          )}
 
           <div onClick={onClickModalOn}>
             <Image src={icon_search} width="34" height="35.02" alt="" />

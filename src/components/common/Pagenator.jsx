@@ -22,15 +22,9 @@ const Page = styled.span`
 
   ${Headline1}
 
-  color : ${gray05};
-`;
+  color : ${({ page, current }) => (page === current ? text_black : gray05)};
 
-const CurrentPage = styled.span`
-  margin: 0px 8px;
-
-  ${Headline1}
-
-  color : ${text_black};
+  transition: all 0.3s ease;
 `;
 
 const makeRange = (min, max) => {
@@ -65,31 +59,18 @@ function Pagenator(props) {
         <Arrow>&#xE000;</Arrow>
       )}
 
-      {range.map((pageNum, index) =>
-        pageNum === current ? (
-          <CurrentPage key={index}>
-            <Link
-              href={{
-                pathname: path,
-                query: { ...query, page: pageNum },
-              }}
-            >
-              <a>{pageNum}</a>
-            </Link>
-          </CurrentPage>
-        ) : (
-          <Page key={index}>
-            <Link
-              href={{
-                pathname: path,
-                query: { ...query, page: pageNum },
-              }}
-            >
-              <a>{pageNum}</a>
-            </Link>
-          </Page>
-        )
-      )}
+      {range.map((pageNum, index) => (
+        <Page key={index} page={pageNum} current={current}>
+          <Link
+            href={{
+              pathname: path,
+              query: { ...query, page: pageNum },
+            }}
+          >
+            <a>{pageNum}</a>
+          </Link>
+        </Page>
+      ))}
 
       {current < max ? (
         <Link

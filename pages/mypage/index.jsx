@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import axios from 'axios';
+import cookie from 'cookie';
 
 import HeaderBox from '@mypage/HeaderBox';
 import TabBar from '@mypage/TabBar';
@@ -14,19 +15,22 @@ const Layout = styled.div`
 `;
 
 function Mypage(props) {
-  if (!props.userData) {
+  if (!props.data) {
     return <span>로딩 에러</span>;
   }
 
-  const { tab, tag, userData, userProfile } = props;
+  const { data, query } = props;
+  const { tab, tag, page } = query;
 
   return (
     <Layout>
-      <HeaderBox userData={userData} />
+      <HeaderBox />
       <TabBar selected={tab} />
 
-      {tab === 'profile' ? <ProfileTab userProfile={userProfile} /> : undefined}
-      {/* {tab === 'bookmarks' ? <BookmarksTab tag={tag} /> : undefined} */}
+      {tab === 'profile' ? <ProfileTab userProfile={data} /> : undefined}
+      {tab === 'bookmarks' ? (
+        <BookmarksTab query={query} data={data} />
+      ) : undefined}
       {/* {tab === 'community' ? <CommunityTab /> : undefined} */}
     </Layout>
   );
@@ -35,66 +39,67 @@ function Mypage(props) {
 export const getServerSideProps = async (context) => {
   const query = context.query;
 
-  let defaultTab = 'profile';
-  let defaultTag = 'all';
-  let defaultUserData = null;
-  let defaultUserProfile = null;
+  const tab = !query.tab ? 'profile' : query.tab;
+  const tag = !query.tag ? 'all' : query.tag;
+  const page = !query.page ? 1 : parseInt(query.page);
 
-  const koreanTags = {
-    all: '전체',
-    medicine: '약품',
-    sleep: '수면',
-    water: '세면',
-    food: '음식',
-    env: '환경',
-    etc: '기타',
-  };
-
-  // props 준비 - Tab 쿼리
-  if (Object.keys(query).length !== 0 && query.hasOwnProperty('tab')) {
-    defaultTab = query.tab;
-  }
-
-  // props 준비 - Tag 쿼리
-  if (Object.keys(query).length !== 0 && query.hasOwnProperty('tag')) {
-    defaultTag = query.tag;
-  }
-
-  // props 준비 - 유저 데이터 api
   try {
-    // axios.defaults.headers.common[
-    //   'Authorization'
-    // ] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxODUwOTg2LCJpYXQiOjE2NjE0MTg5ODZ9.0AEJbNrMjFoR69sKIJ2MZTn5RSiYmNjl18ig-CScMffheE6IrLoedy-MBw19KFCVG55fsJ3_kDAVZnB3drsmKA`;
-    const getUser = await axios({
-      method: 'get',
-      url: `https://www.weato.kro.kr/api/members`,
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxNzc4NTgyLCJpYXQiOjE2NjEzNDY1ODJ9.nX3hOm_LpPt5LEFisXvUHnTph3PKl7ZHDBhAP0KqaCKQRHuBnfGSJCrWYkPJzWbfY8OjY1qggyotLJixi7Qh8A`,
-      },
-    });
-    defaultUserData = getUser.data;
-    const memberId = getUser.data.id;
-    const getUserProfile = await axios({
-      method: 'get',
-      url: `https://www.weato.kro.kr/api/members/${memberId}/profile`,
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxNzc4NTgyLCJpYXQiOjE2NjEzNDY1ODJ9.nX3hOm_LpPt5LEFisXvUHnTph3PKl7ZHDBhAP0KqaCKQRHuBnfGSJCrWYkPJzWbfY8OjY1qggyotLJixi7Qh8A`,
-      },
-    });
-    defaultUserProfile = getUserProfile.data;
+    const { id, access_token } = cookie.parse(context.req.headers.cookie);
+
+    if (tab === 'profile') {
+      const response = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members/${id}/profile`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+
+      return {
+        props: {
+          query: { ...query, tab: tab, tag: tag, page: page },
+          data: response.data,
+        },
+      };
+    } else if (tab === 'bookmarks') {
+      const response = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members/${id}/scraped`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+
+      return {
+        props: {
+          query: { ...query, tab: tab, tag: tag, page: page },
+          data: response.data,
+        },
+      };
+    } else if (tab === 'community') {
+      const response = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members/${id}/profile`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+
+      return {
+        props: {
+          query: { ...query, tab: tab, tag: tag, page: page },
+          data: response.data,
+        },
+      };
+    }
   } catch (error) {
     console.log(error);
-
-    defaultUserData = null;
-    defaultUserProfile = null;
   }
 
   return {
     props: {
-      tab: defaultTab,
-      tag: koreanTags[defaultTag],
-      userData: defaultUserData,
-      userProfile: defaultUserProfile,
+      query: { ...query, tab: tab, tag: tag, page: page },
+      data: null,
     },
   };
 };

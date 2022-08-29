@@ -79,10 +79,6 @@ export const getServerSideProps = async (context) => {
   };
 
   try {
-    axios.defaults.headers.common[
-      'Authorization'
-    ] = `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaGFtbWFsOTdAbmF2ZXIuY29tIiwiZXhwIjoxNjYxNzc4NTgyLCJpYXQiOjE2NjEzNDY1ODJ9.nX3hOm_LpPt5LEFisXvUHnTph3PKl7ZHDBhAP0KqaCKQRHuBnfGSJCrWYkPJzWbfY8OjY1qggyotLJixi7Qh8A`;
-
     const res = await axios.get(
       `https://www.weato.kro.kr/api/newsletters?tag=${toAPITags[tag]}&page=${page}`
     );

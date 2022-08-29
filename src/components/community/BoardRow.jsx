@@ -12,7 +12,7 @@ import icon_gray_views from '@public/icon_gray_views.png';
 import icon_color_heart from '@public/icon_color_heart.png';
 
 const Layout = styled.div`
-  width: 762px;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -75,27 +75,42 @@ const SmallBox = styled.div`
   align-items: center;
 `;
 
-function BoardRow({ category, title, view, like, name, level }) {
+function BoardRow(props) {
+  const {
+    id,
+    title,
+    createdAt,
+    author,
+    commentsCounter,
+    views,
+    likeCounter,
+    boardType,
+  } = props;
+  const dict = {
+    MANAGEMENT: '관리법',
+    QUESTION: '질문',
+  };
+
   return (
-    <Link href="/community/post/sample">
+    <Link href={`/community/post/${id}`}>
       <a>
         <Layout>
-          <SmallText>{category}</SmallText>
+          <SmallText>{dict[boardType]}</SmallText>
           <Title>{title}</Title>
           <Row>
             <Box>
               <Image src={profile_sample} width={24} height={24} alt="" />
-              <Level>{level}</Level>
-              <Name>{name}</Name>
+              <Level>새싹</Level>
+              <Name>{author}</Name>
             </Box>
             <Box>
               <SmallBox>
                 <Image src={icon_gray_views} width={20} height={13.69} alt="" />
-                <SmallText>{view}</SmallText>
+                <SmallText>{views}</SmallText>
               </SmallBox>
               <SmallBox>
                 <Image src={icon_color_heart} width={16} height={14} alt="" />
-                <SmallText>{like}</SmallText>
+                <SmallText>{likeCounter}</SmallText>
               </SmallBox>
             </Box>
           </Row>
