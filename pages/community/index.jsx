@@ -40,6 +40,7 @@ const BannerBox = styled.div`
 `;
 
 function Community(props) {
+  console.log(props);
   if (!props.data) {
     return <span>에러...</span>;
   }
@@ -91,9 +92,11 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: {
-      data: null,
+    redirect: {
+      destination: '/login',
+      permanent: false,
     },
+    props: {},
   };
 }
 

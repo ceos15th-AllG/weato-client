@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
+import cookie from 'cookie';
 
 import CardBox from '@common/CardBox';
 import Row from '@search/BoardRow';
@@ -137,16 +138,23 @@ export const getServerSideProps = async (context) => {
   const keyword = !query.keyword ? '빈 검색어' : query.keyword.trim();
 
   try {
-    const res = await axios.get(
-      `https://www.weato.kro.kr/api/search?keyword=${encodeURIComponent(
+    const { access_token } = cookie.parse(context.req.headers.cookie);
+    const response = await axios({
+      method: 'get',
+      url: `https://www.weato.kro.kr/api/search?keyword=${encodeURIComponent(
         keyword
-      )}`
-    );
+      )}`,
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    console.log(response.data);
 
     return {
       props: {
         keyword: keyword,
-        data: res.data,
+        data: response.data,
       },
     };
   } catch (error) {
@@ -154,10 +162,11 @@ export const getServerSideProps = async (context) => {
   }
 
   return {
-    props: {
-      keyword: keyword,
-      data: null,
+    redirect: {
+      destination: '/login',
+      permanent: false,
     },
+    props: {},
   };
 };
 

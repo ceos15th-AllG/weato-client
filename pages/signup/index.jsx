@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 import Context from '@contexts/Context';
 
 import axios from 'axios';
-import cookie from 'cookie';
 
 import {
   main,
@@ -248,7 +247,12 @@ export default function Signup() {
     try {
       const response = await axios({
         method: 'get',
-        url: `https://www.weato.kro.kr/api/members/validation?nickname=${nickname}`,
+        url: `https://www.weato.kro.kr/api/members/validation?nickname=${encodeURIComponent(
+          nickname
+        )}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.data === false) {
@@ -294,14 +298,7 @@ export default function Signup() {
 
   // 선호 태그 입력 1개 이상인지 체크
   useEffect(() => {
-    let flag = false;
-    for (let tag of tags) {
-      if (tag.active) {
-        flag = true;
-      }
-    }
-
-    if (flag) {
+    if (tags.filter((tag) => tag.active).length > 0) {
       setTagValid(true);
     } else {
       setTagValid(false);

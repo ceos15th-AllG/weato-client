@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
+import cookie from 'cookie';
 
 import CardBox from '@common/CardBox';
 import Row from '@search/BoardRow';
@@ -147,30 +148,40 @@ export const getServerSideProps = async (context) => {
   const page = !query.page ? 1 : parseInt(query.page);
 
   try {
+    const { access_token } = cookie.parse(context.req.headers.cookie);
+
     if (category === 'newsletter') {
-      const res = await axios.get(
-        `https://www.weato.kro.kr/api/newsletters/search?keyword=${encodeURIComponent(
+      const response = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/newsletters/search?keyword=${encodeURIComponent(
           keyword
-        )}&page=${page}`
-      );
+        )}&page=${page}`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
 
       return {
         props: {
           query: { ...query, keyword: keyword, category: category, page: page },
-          data: res.data,
+          data: response.data,
         },
       };
     } else if (category === 'community') {
-      const res = await axios.get(
-        `https://www.weato.kro.kr/api/posts/search?keyword=${encodeURIComponent(
+      const response = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/posts/search?keyword=${encodeURIComponent(
           keyword
-        )}&page=${page}`
-      );
+        )}&page=${page}`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
 
       return {
         props: {
           query: { ...query, keyword: keyword, category: category, page: page },
-          data: res.data,
+          data: response.data,
         },
       };
     }
@@ -179,10 +190,11 @@ export const getServerSideProps = async (context) => {
   }
 
   return {
-    props: {
-      query: { ...query, keyword: keyword, category: category, page: page },
-      data: null,
+    redirect: {
+      destination: '/login',
+      permanent: false,
     },
+    props: {},
   };
 };
 

@@ -97,10 +97,11 @@ export const getServerSideProps = async (context) => {
   }
 
   return {
-    props: {
-      query: { ...query, tab: tab, tag: tag, page: page },
-      data: null,
+    redirect: {
+      destination: '/login',
+      permanent: false,
     },
+    props: {},
   };
 };
 

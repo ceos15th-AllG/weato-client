@@ -6,11 +6,12 @@ import axios from 'axios';
 
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Context from '@contexts/Context';
 
 import ProgressBar from '@newsletter/ProgressBar';
-import Button from '@newsletter/ButtonContainer';
+import ActionButton from '@common/ActionButton';
 
 import { Display1, Subhead3, Headline1, Body2 } from '@styles/FontStyle';
 import {
@@ -22,6 +23,7 @@ import {
   text_black,
   tag_etc,
 } from '@styles/Colors';
+import { Router } from 'next/router';
 
 const Layout = styled.div`
   display: flex;
@@ -174,8 +176,14 @@ const toQueryTags = {
 };
 
 function Newsletter(props) {
+  const router = useRouter();
+  const { newsletterId, newsletterData } = props;
   const [percentage, setPercentage] = useState(0.0);
-  const { login, user } = useContext(Context);
+  const { login, user, token } = useContext(Context);
+  const [like, setLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [scrap, setScrap] = useState(false);
+  const [scrapCount, setScrapCount] = useState(0);
 
   const getScrollPercentage = () => {
     const scroll = document.documentElement.scrollTop;
@@ -192,30 +200,55 @@ function Newsletter(props) {
     window.addEventListener('scroll', getScrollPercentage);
     return () => window.removeEventListener('scroll', getScrollPercentage);
   }, []);
+  useEffect(() => {
+    setLikeCount(newsletterData.likeCount);
+    setScrapCount(newsletterData.bookmarkCount);
+  }, []);
 
-  // const validateNickname = async (event) => {
-  //   if (!nicknameValid) {
-  //     return;
-  //   }
+  const onClickLike = async (event) => {
+    if (!login) {
+      router.push(`/login`);
+      return;
+    }
 
-  //   try {
-  //     const response = await axios({
-  //       method: 'get',
-  //       url: `https://www.weato.kro.kr/api/members/validation?nickname=${nickname}`,
-  //     });
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/likes`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  //     if (response.data === false) {
-  //       setNicknameUnique(true);
-  //     } else {
-  //       alert(`닉네임 ${nickname}은 이미 존재합니다.`);
-  //     }
-  //   } catch (error) {
-  //     alert(error);
-  //     alert('서버 요청이 불가능하네요...');
-  //   }
-  // };
+      setLikeCount(response.data.likecount);
+      // alert('좋아요 완료');
+    } catch (error) {
+      // alert(error);
+    }
+    setLike(!like);
+  };
+  const onClickScrap = async (event) => {
+    if (!login) {
+      router.push(`/login`);
+      return;
+    }
 
-  const { newsletterData } = props;
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/bookmark`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setScrapCount(response.data.bookmarkCount);
+      // alert('스크랩 완료');
+    } catch (error) {
+      // alert(error);
+    }
+    setScrap(!scrap);
+  };
 
   return (
     <Layout>
@@ -242,8 +275,18 @@ function Newsletter(props) {
       </Content>
 
       <ButtonRow>
-        <Button value={newsletterData.likeCount} btnType="heart" />
-        <Button value={newsletterData.bookmarkCount} btnType="save" />
+        <ActionButton
+          btnType="like"
+          value={likeCount}
+          onClick={onClickLike}
+          active={like}
+        />
+        <ActionButton
+          btnType="scrap"
+          value={scrapCount}
+          onClick={onClickScrap}
+          active={scrap}
+        />
       </ButtonRow>
     </Layout>
   );

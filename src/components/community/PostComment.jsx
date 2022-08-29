@@ -2,7 +2,13 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { useState, useEffect, useContext } from 'react';
+
+import axios from 'axios';
+
 import Image from 'next/image';
+
+import Context from '@contexts/Context';
 
 import Button from '@common/ButtonContainer';
 import CommentRow from '@community/CommentRow';
@@ -17,8 +23,6 @@ const Layout = styled.div`
 
   display: flex;
   flex-direction: column;
-
-  /* background-color: #fa555533; */
 `;
 
 const Row = styled.div`
@@ -64,7 +68,7 @@ const Input = styled.input`
   border: none;
 
   background-color: transparent;
-  color: ${gray05};
+  color: ${text_black};
 `;
 
 const CommentArea = styled.section`
@@ -73,15 +77,69 @@ const CommentArea = styled.section`
 `;
 
 function PostComment(props) {
-  const { comment } = props;
+  const { user, token } = useContext(Context);
+  const { id } = props;
+  const [comments, setComments] = useState([]);
+  const [myComment, setMyComment] = useState('');
+  const [submit, setSubmit] = useState(false);
+
+  const onChangeComment = (event) => {
+    setMyComment(event.target.value);
+  };
+
+  useEffect(() => {
+    if (myComment !== '') {
+      setSubmit(true);
+    } else {
+      setSubmit(false);
+    }
+  }, [myComment]);
+  useEffect(() => {
+    setComments(props.comment);
+  }, []);
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!submit) {
+      return;
+    }
+
+    try {
+      const submitComment = await axios({
+        method: 'post',
+        url: `https://www.weato.kro.kr/api/posts/${id}/comments`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
+        data: {
+          content: myComment.trim(),
+        },
+      });
+
+      const getNewComments = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/posts/${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setComments(getNewComments.data.comments);
+      setMyComment('');
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   return (
     <Layout>
       <Row>
-        <CommentLength>댓글 {comment.length}</CommentLength>
+        <CommentLength>댓글 {comments.length}</CommentLength>
       </Row>
 
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Box
           css={css`
             width: 100%;
@@ -89,21 +147,27 @@ function PostComment(props) {
           `}
         >
           <Image src={profile_guest} width={32} height={32} alt="" />
-          <Input placeholder="댓글 추가" />
+          <Input
+            placeholder="댓글 추가"
+            value={myComment}
+            onChange={onChangeComment}
+          />
         </Box>
-        <Button text="등록" btnType="2" />
+        <Button text="등록" btnType="2" disabled={!submit} onClick={onSubmit} />
       </Form>
 
       <CommentArea>
-        {comment.map(({ author, content, createdAt, likeCounter, index }) => (
+        {comments.map(({ author, content, createdAt, likeCounter }, index) => (
           <CommentRow
             key={index}
+            commentId={index}
             name={author}
             level={`새싹`}
             content={content}
             like={likeCounter}
-            date={createdAt}
+            date={createdAt.slice(0, 10)}
             reply={false}
+            liked={false}
           />
         ))}
       </CommentArea>

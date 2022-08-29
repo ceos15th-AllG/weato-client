@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 
 import axios from 'axios';
+import cookie from 'cookie';
 
 import PostContent from '@community/PostContent';
 import PostComment from '@community/PostComment';
@@ -35,11 +36,9 @@ const ContentHeader = styled.header`
 `;
 
 function Community(props) {
-  const { postData } = props;
+  const { postId, postData } = props;
   const toQueryTypes = { MANAGEMENT: 'knowhow', QUESTION: 'questions' };
   const toKoreanTypes = { MANAGEMENT: '나만의 관리법', QUESTION: '질문' };
-
-  console.log(postData);
 
   return (
     <Layout>
@@ -53,8 +52,8 @@ function Community(props) {
         </Link>
       </ContentHeader>
 
-      <PostContent post={postData} />
-      <PostComment comment={postData.comments} />
+      <PostContent id={postId} post={postData} />
+      <PostComment id={postId} comment={postData.comments} />
     </Layout>
   );
 }
@@ -63,30 +62,32 @@ export const getServerSideProps = async (context) => {
   const query = context.query;
 
   try {
-    const res = await axios.get(
-      `https://www.weato.kro.kr/api/posts/${query.id}`
-    );
+    const { access_token } = cookie.parse(context.req.headers.cookie);
+    const response = await axios({
+      method: 'get',
+      url: `https://www.weato.kro.kr/api/posts/${query.id}`,
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
 
-    if (res.status === 200) {
-      return {
-        props: {
-          postId: query.id,
-          postData: res.data,
-        },
-      };
-    }
-  } catch (error) {
-    console.log(error);
     return {
-      // redirect: {
-      //   permanent: false,
-      //   destination: '/404',
-      // },
       props: {
         postId: query.id,
+        postData: response.data,
       },
     };
+  } catch (error) {
+    console.log(error);
   }
+
+  return {
+    redirect: {
+      destination: '/login',
+      permanent: false,
+    },
+    props: {},
+  };
 };
 
 export default Community;

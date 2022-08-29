@@ -75,7 +75,16 @@ const Content = styled.span`
   color : ${text_black};
 `;
 
-function CommentRow({ name, level, content, like, date, reply }) {
+function CommentRow({
+  commentId,
+  name,
+  level,
+  content,
+  like,
+  date,
+  reply,
+  liked,
+}) {
   return (
     <Layout reply={reply}>
       {/* <ReplyBlock>
@@ -88,7 +97,12 @@ function CommentRow({ name, level, content, like, date, reply }) {
           <Date>{date}</Date>
         </Box>
         <Box>
-          <Image src={icon_color_heart} width={20} height={18} alt="" />
+          <Image
+            src={liked ? icon_color_heart : icon_blank_heart}
+            width={20}
+            height={18}
+            alt=""
+          />
           <LikeText>{like}</LikeText>
         </Box>
       </Row>

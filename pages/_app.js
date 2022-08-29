@@ -26,35 +26,6 @@ const App = ({ Component, pageProps }) => {
       <ScreenLayout>
         <Head>
           <title>WEATO : 당신만을 위한 아토피 맞춤 정보 서비스</title>
-
-          {/* Facebook Meta Tags */}
-          {/* <meta property="og:url" content="https://www.weato.net" />
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content="WEATO" />
-          <meta
-            property="og:description"
-            content="당신만을 위한 아토피 맞춤 정보 서비스"
-          />
-          <meta
-            property="og:image"
-            content="https://user-images.githubusercontent.com/6462456/187125688-b9860df0-000f-4c09-bebe-381c17067dce.png"
-          /> */}
-
-          {/* Twitter Meta Tags */}
-          {/* <meta name="twitter:card" content="summary_large_image" />
-          <meta property="twitter:domain" content="weato.net" />
-          <meta property="twitter:url" content="https://www.weato.net" />
-          <meta name="twitter:title" content="WEATO" />
-          <meta
-            name="twitter:description"
-            content="당신만을 위한 아토피 맞춤 정보 서비스"
-          />
-          <meta
-            name="twitter:image"
-            content="https://user-images.githubusercontent.com/6462456/187125688-b9860df0-000f-4c09-bebe-381c17067dce.png"
-          /> */}
-
-          {/* Meta Tags Generated via https://www.opengraph.xyz */}
         </Head>
 
         <Global styles={GlobalStyle} />

@@ -17,16 +17,17 @@ const Layout = styled.div`
 function BookmarksTab({ query, data }) {
   const router = useRouter();
   const { tag, page } = query;
+  const { min, max, result } = data;
 
   return (
     <Layout>
       <TabGroup selected={tag} />
-      <CardBox data={data.scrapedPosts} />
+      <CardBox data={result} />
       <Pagenator
         path={router.pathname}
         query={query}
-        min={1}
-        max={5}
+        min={min}
+        max={max}
         current={page}
       />
     </Layout>

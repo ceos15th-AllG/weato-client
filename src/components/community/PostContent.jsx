@@ -2,11 +2,17 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { useState, useEffect, useContext } from 'react';
+
+import axios from 'axios';
+
 import Image from 'next/image';
+
+import Context from '@contexts/Context';
 
 import PostTag from '@community/PostTag';
 import Tag from '@common/Tag';
-import HeartButton from '@community/ButtonContainer';
+import ActionButton from '@common/ActionButton';
 
 import { Subhead4, Body1, Body2, Tag1 } from '@styles/FontStyle';
 import { gray04, gray05, gray06, text_black } from '@styles/Colors';
@@ -89,7 +95,33 @@ const ContentText = styled.span`
   color : ${text_black};
 `;
 
-function PostContent({ post }) {
+function PostContent({ id, post }) {
+  const { token } = useContext(Context);
+  const [like, setLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+
+  useEffect(() => {
+    setLikeCount(post.likeCount);
+  }, []);
+
+  const onClickLike = async (event) => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `https://www.weato.kro.kr/api/posts/${id}/likes`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setLikeCount(response.data.likecount);
+      // alert('좋아요 완료');
+    } catch (error) {
+      // alert(error);
+    }
+    setLike(!like);
+  };
+
   return (
     <Layout>
       <Row>
@@ -128,7 +160,7 @@ function PostContent({ post }) {
               margin-left: 41px;
             `}
           >
-            {post.date}
+            {post.createdAt.slice(0, 10).replaceAll('-', '.')}
           </SmallText>
         </Box>
       </Row>
@@ -147,7 +179,12 @@ function PostContent({ post }) {
       </Row>
 
       <Row>
-        <HeartButton value={post.likeCount} btnType={'heart'} />
+        <ActionButton
+          btnType="like"
+          value={likeCount}
+          onClick={onClickLike}
+          active={like}
+        />
       </Row>
     </Layout>
   );

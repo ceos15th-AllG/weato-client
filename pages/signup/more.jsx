@@ -286,14 +286,7 @@ export default function More() {
 
   // 현재 관리하는 방법 입력 1개 이상인지 체크
   useEffect(() => {
-    let flag = false;
-    for (let tag of tags) {
-      if (tag.active) {
-        flag = true;
-      }
-    }
-
-    if (flag) {
+    if (tags.filter((tag) => tag.active).length > 0) {
       setTagValid(true);
     } else {
       setTagValid(false);
