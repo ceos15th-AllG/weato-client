@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 import Context from './Context';
 
 const ContextProvider = ({ children }) => {
+  const setLogin = (newLogin) => {
+    setState((prevState) => ({
+      ...prevState,
+      login: newLogin,
+    }));
+  };
   const setToken = (newToken) => {
     setState((prevState) => ({
       ...prevState,
@@ -16,19 +22,13 @@ const ContextProvider = ({ children }) => {
     }));
     document.cookie = `id=${newUser.id}; path=/`;
   };
-  const setLogin = (newLogin) => {
-    setState((prevState) => ({
-      ...prevState,
-      login: newLogin,
-    }));
-  };
   const initialState = {
+    login: false,
+    setLogin: setLogin,
     token: null,
     setToken: setToken,
     user: {},
     setUser: setUser,
-    login: false,
-    setLogin: setLogin,
   };
 
   const [state, setState] = useState(initialState);

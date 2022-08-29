@@ -164,7 +164,7 @@ const PolicyButton = styled.span`
   color: ${gray07};
 `;
 
-export default function Signup() {
+function Signup() {
   const router = useRouter();
   const { user, token } = useContext(Context);
 
@@ -233,8 +233,12 @@ export default function Signup() {
       )
     );
   };
-  const offCheckBox = () => {
-    setCheck(false);
+  const toggleCheckBox = () => {
+    if (!check) {
+      setModalActive(true);
+    } else {
+      setCheck(false);
+    }
   };
   const onClickModalOn = () => {
     setModalActive(true);
@@ -375,7 +379,7 @@ export default function Signup() {
           <PolicyHeader>서비스 정책</PolicyHeader>
           <PolicyRow>
             <PolicySubRow>
-              <CheckBox active={check} toggleCheckBox={offCheckBox} />
+              <CheckBox active={check} onClick={toggleCheckBox} />
               <PolicyText>서비스 이용약관에 모두 동의합니다. (필수)</PolicyText>
             </PolicySubRow>
             <PolicyButton onClick={onClickModalOn}>
@@ -400,3 +404,37 @@ export default function Signup() {
     </Layout>
   );
 }
+
+// export const getServerSideProps = async (context) => {
+//   const query = context.query;
+
+//   if (Object.keys(query).length === 0 || !query.hasOwnProperty('token')) {
+//     return {
+//       redirect: {
+//         destination: '/login',
+//         permanent: false,
+//       },
+//       props: {},
+//     };
+//   }
+
+//   try {
+//     const response = await axios({
+//       method: 'get',
+//       url: `https://www.weato.kro.kr/api/members`,
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+
+//   return {
+//     props: {
+//       token: query.token,
+//     },
+//   };
+// };
+
+export default Signup;

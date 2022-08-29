@@ -1,6 +1,8 @@
 import { createContext } from 'react';
 
 const Context = createContext({
+  login: false,
+  setLogin: () => {},
   token: null,
   setToken: () => {},
   user: {
@@ -12,8 +14,6 @@ const Context = createContext({
     createdAT: '',
   },
   setUser: () => {},
-  login: false,
-  setLogin: () => {},
 });
 
 export default Context;

@@ -14,21 +14,22 @@ const Layout = styled.div`
   justify-content: flex-start;
   align-items: flex-end;
 
+  border: ${({ active }) => (active ? `none` : `1px solid #9a9a9a`)};
   border-radius: 4px;
 
-  background: ${sub};
+  background: ${({ active }) => (active ? sub : `white`)};
 
   div {
     width: 17px;
     height: 13px;
     margin-left: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 9px;
   }
 `;
 
-function CheckBox({ active, toggleCheckBox }) {
+function CheckBox({ active, onClick }) {
   return (
-    <Layout onClick={toggleCheckBox}>
+    <Layout active={active} onClick={onClick}>
       {active ? (
         <div>
           <Image src={icon_check} alt="" />

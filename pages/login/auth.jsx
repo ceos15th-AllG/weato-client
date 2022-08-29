@@ -40,7 +40,7 @@ const Auth = (props) => {
       setToken(token);
       setUser(response.data);
       setLogin(true);
-      router.push(`/signup`);
+      router.push(`/signup?token=${token}`);
     } catch (error) {
       console.log(error);
       alert('잘못된 로그인 정보입니다.');
