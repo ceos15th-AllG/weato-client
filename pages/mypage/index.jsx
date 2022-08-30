@@ -39,6 +39,16 @@ function Mypage(props) {
 export const getServerSideProps = async (context) => {
   const query = context.query;
 
+  const toQueryTags = {
+    all: 'all',
+    medicine: 'drug',
+    sleep: 'sleep',
+    water: 'cleaning',
+    food: 'food',
+    env: 'environment',
+    etc: 'otherwise',
+  };
+
   const tab = !query.tab ? 'profile' : query.tab;
   const tag = !query.tag ? 'all' : query.tag;
   const page = !query.page ? 1 : parseInt(query.page);
@@ -64,7 +74,7 @@ export const getServerSideProps = async (context) => {
     } else if (tab === 'bookmarks') {
       const response = await axios({
         method: 'get',
-        url: `https://www.weato.kro.kr/api/members/${id}/scraped`,
+        url: `https://www.weato.kro.kr/api/members/${id}/bookmarks?tag=${toQueryTags[tag]}&page=${page}`,
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
@@ -97,10 +107,10 @@ export const getServerSideProps = async (context) => {
   }
 
   return {
-    redirect: {
-      destination: '/login',
-      permanent: false,
-    },
+    // redirect: {
+    //   destination: '/login',
+    //   permanent: false,
+    // },
     props: {},
   };
 };
