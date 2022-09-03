@@ -450,11 +450,12 @@ function Edit(props) {
       });
       // console.log(responseMember.data);
       const responseProfile = await axios({
-        method: 'post',
-        url: `https://www.weato.kro.kr/api/members/${user.id}/additional-info`,
+        // method: 'post',
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        method: 'patch',
+        url: `https://www.weato.kro.kr/api/members/${user.id}/profile`,
         data: {
           years: Number.parseInt(since),
           recurrence: repeat[0].active,
@@ -471,8 +472,9 @@ function Edit(props) {
           symptomDegree: 'SLIGHT',
         },
       });
-      // console.log(responseProfile.data);
-      router.push(`/mypage?tab=profile`);
+      console.log(responseProfile.data);
+      alert('요청 성공');
+      // router.push(`/mypage?tab=profile`);
       // alert('서버 요청 성공');
     } catch (error) {
       alert(error);
@@ -547,10 +549,19 @@ function Edit(props) {
   ]);
   // 기존 정보 로딩해서 폼에 채워넣기
   useEffect(() => {
+    console.log(profileData);
     setNickname(profileData.nickname);
+    setNicknameValid(true);
+    setNicknameUnique(true);
+
     setBirthYear(profileData.birthYear);
+    setBirthValid(true);
+
     setEmail(profileData.newsletterEmail);
+    setEmailValid(true);
+
     setSince(profileData.medicalHistory);
+    setSinceValid(true);
   }, []);
 
   return (
@@ -560,7 +571,7 @@ function Edit(props) {
           <a>마이페이지</a>
         </Link>
         <strong>&#xE001;</strong>
-        <Link href={`/mypage?tab=?profile`}>
+        <Link href={`/mypage?tab=profile`}>
           <a>프로필</a>
         </Link>
         <strong>&#xE001;</strong>

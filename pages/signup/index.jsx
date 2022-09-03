@@ -85,6 +85,15 @@ const InputField = styled.input`
   border: none;
 
   padding: 14px 0px;
+
+  letter-spacing: ${({ password }) => (!password ? 0 : `10px`)};
+
+  &::-webkit-input-placeholder {
+    letter-spacing: 0px;
+  }
+  &:-ms-input-placeholder {
+    letter-spacing: 0px;
+  }
 `;
 
 const InputWarning = styled.span`
@@ -96,7 +105,7 @@ const InputWarning = styled.span`
 
   color: red;
 
-  opacity: ${(props) => (!props.valid ? 1 : 0)};
+  opacity: ${({ valid }) => (!valid ? 1 : 0)};
 
   transition: all 0.3s ease-in-out;
 `;
@@ -172,7 +181,12 @@ function Signup() {
   const [nicknameValid, setNicknameValid] = useState(false);
   const [nicknameUnique, setNicknameUnique] = useState(false);
   const [email, setEmail] = useState('');
+  const [emailValidText, setEmailValidText] = useState('aaaa@bb.cc');
   const [emailValid, setEmailValid] = useState(false);
+  const [emailSended, setEmailSended] = useState(false);
+  const [emailCert, setEmailCert] = useState('');
+  const [emailCertValid, setEmailCertValid] = useState(false);
+  const [emailConfirm, setEmailConfirm] = useState(false);
   const [tags, setTags] = useState([
     {
       text: '약품',
@@ -219,11 +233,24 @@ function Signup() {
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     const emailCurrent = event.target.value;
     setEmail(emailCurrent);
+    setEmailSended(false);
+    setEmailConfirm(false);
 
     if (!emailRegex.test(emailCurrent)) {
       setEmailValid(false);
     } else {
       setEmailValid(true);
+    }
+  }, []);
+  const onChangeEmailCert = useCallback((event) => {
+    const result = event.target.value.replace(/\D/g, '');
+    setEmailCert(result.slice(0, 5));
+    // setNicknameUnique(false);
+
+    if (event.target.value.length >= 5) {
+      setEmailCertValid(true);
+    } else {
+      setEmailCertValid(false);
     }
   }, []);
   const toggleActive = (id) => {
@@ -269,6 +296,57 @@ function Signup() {
       alert('서버 요청이 불가능하네요...');
     }
   };
+  // const sendEmail = async (event) => {
+  const sendEmail = (event) => {
+    if (!emailValid || emailConfirm) {
+      return;
+    }
+
+    try {
+      console.log('인증 메일을 보내는 중...');
+      // const response = await axios({
+      //   method: 'post',
+      //   url: `https://www.weato.kro.kr/api/mail`,
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      //   data: {
+      //     address: email,
+      //   },
+      // });
+      alert('이메일 전송 완료');
+      setEmailSended(true);
+      setEmailCert('');
+      setEmailCertValid(false);
+      setEmailConfirm(false);
+    } catch (error) {
+      alert(error);
+      alert('서버 요청이 불가능하네요...');
+    }
+  };
+  const confirmEmail = (event) => {
+    if (!emailCertValid || emailConfirm) {
+      return;
+    }
+
+    try {
+      // const response = await axios({
+      //   method: 'get',
+      //   url: `https://www.weato.kro.kr/api/members/validation?nickname=${encodeURIComponent(
+      //     nickname
+      //   )}`,
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // });
+
+      alert('이메일이 인증되었습니다.');
+      setEmailConfirm(true);
+    } catch (error) {
+      alert(error);
+      alert('서버 요청이 불가능하네요...');
+    }
+  };
   const onConfirm = async (event) => {
     if (!confirm) {
       return;
@@ -309,12 +387,13 @@ function Signup() {
     }
   }, [tags]);
   useEffect(() => {
-    if (nicknameValid && nicknameUnique && emailValid && tagValid && check) {
+    // if (nicknameUnique && tagValid && check) {
+    if (emailConfirm) {
       setConfirm(true);
     } else {
       setConfirm(false);
     }
-  }, [nicknameValid, nicknameUnique, emailValid, tagValid, check]);
+  }, [nicknameUnique, emailConfirm, tagValid, check]);
 
   return (
     <Layout>
@@ -353,10 +432,34 @@ function Signup() {
               value={email}
               onChange={onChangeEmail}
             />
-            <Button text="인증하기" btnType="3" disabled={!emailValid} />
+            <Button
+              text="인증하기"
+              btnType="3"
+              disabled={!emailValid || emailConfirm}
+              onClick={sendEmail}
+            />
           </Input>
-          <InputWarning valid={emailValid}>aaaa@bb.cc</InputWarning>
+          <InputWarning valid={emailValid}>{emailValidText}</InputWarning>
         </ContentItem>
+        {emailSended ? (
+          <ContentItem>
+            <InputHeader>인증번호 *</InputHeader>
+            <Input>
+              <InputField
+                placeholder="이메일로 전송된 인증 번호를 입력하세요"
+                password
+                value={emailCert}
+                onChange={onChangeEmailCert}
+              />
+              <Button
+                text="확인"
+                btnType="3"
+                disabled={!emailCertValid || emailConfirm}
+                onClick={confirmEmail}
+              />
+            </Input>
+          </ContentItem>
+        ) : undefined}
 
         <ContentItem>
           <TagRow>

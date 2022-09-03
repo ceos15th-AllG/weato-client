@@ -15,21 +15,24 @@ const Layout = styled.div`
 `;
 
 function Mypage(props) {
-  if (!props.data) {
+  console.log(props);
+  if (!props.profileData) {
     return <span>로딩 에러</span>;
   }
 
-  const { data, query } = props;
+  const { query } = props;
   const { tab, tag, page } = query;
 
   return (
     <Layout>
-      <HeaderBox />
+      <HeaderBox data={props.profileData} />
       <TabBar selected={tab} />
 
-      {tab === 'profile' ? <ProfileTab userProfile={data} /> : undefined}
+      {tab === 'profile' ? (
+        <ProfileTab userProfile={props.profileData} />
+      ) : undefined}
       {tab === 'bookmarks' ? (
-        <BookmarksTab query={query} data={data} />
+        <BookmarksTab query={query} data={props.bookmarksData} />
       ) : undefined}
       {/* {tab === 'community' ? <CommunityTab /> : undefined} */}
     </Layout>
@@ -57,7 +60,7 @@ export const getServerSideProps = async (context) => {
     const { id, access_token } = cookie.parse(context.req.headers.cookie);
 
     if (tab === 'profile') {
-      const response = await axios({
+      const responseProfile = await axios({
         method: 'get',
         url: `https://www.weato.kro.kr/api/members/${id}/profile`,
         headers: {
@@ -68,11 +71,19 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
-          data: response.data,
+          profileData: responseProfile.data,
         },
       };
     } else if (tab === 'bookmarks') {
-      const response = await axios({
+      const responseProfile = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members/${id}/profile`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+
+      const responseBookmarks = await axios({
         method: 'get',
         url: `https://www.weato.kro.kr/api/members/${id}/bookmarks?tag=${toQueryTags[tag]}&page=${page}`,
         headers: {
@@ -83,11 +94,20 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
-          data: response.data,
+          profileData: responseProfile.data,
+          bookmarksData: responseBookmarks.data,
         },
       };
     } else if (tab === 'community') {
-      const response = await axios({
+      const responseProfile = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members/${id}/profile`,
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+
+      const responseCommunity = await axios({
         method: 'get',
         url: `https://www.weato.kro.kr/api/members/${id}/profile`,
         headers: {
@@ -98,7 +118,8 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
-          data: response.data,
+          profileData: responseProfile.data,
+          communityData: responseCommunity.data,
         },
       };
     }

@@ -168,7 +168,7 @@ function ProfileTab(props) {
         <InfoBox>
           <InfoName>선호 태그</InfoName>
           <InfoData>
-            {userProfile.managementTypeList.map((tag, index) => (
+            {userProfile.tags.map((tag, index) => (
               <div
                 key={index}
                 css={css`

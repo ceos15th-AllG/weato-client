@@ -40,7 +40,6 @@ const BannerBox = styled.div`
 `;
 
 function Community(props) {
-  console.log(props);
   if (!props.data) {
     return <span>에러...</span>;
   }
@@ -55,8 +54,8 @@ function Community(props) {
             <HotTopic posts={data.hotTopics} />
           </Row>
           <Row>
-            <Knowhow posts={data.question} />
-            <Questions posts={data.management} />
+            <Knowhow posts={data.management} />
+            <Questions posts={data.question} />
           </Row>
         </Board>
         <BannerBox>

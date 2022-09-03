@@ -16,10 +16,12 @@ const Layout = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 `;
 
 const Box = styled.div`
+  height: 32px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;

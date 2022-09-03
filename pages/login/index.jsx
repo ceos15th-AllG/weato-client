@@ -66,8 +66,8 @@ const NaverLoginBtn = styled.div`
 
 function Login(props) {
   const router = useRouter();
-  // const REDIRECT_URI = `http://localhost:3000/login/auth`;
-  const REDIRECT_URI = `http://weato.net/login/auth`;
+  const REDIRECT_URI = `http://localhost:3000/login/auth`;
+  // const REDIRECT_URI = `http://weato.net/login/auth`;
   const REQUEST_PATH = `https://www.weato.kro.kr/oauth2/authorization/naver?redirect_uri=${REDIRECT_URI}`;
 
   return (

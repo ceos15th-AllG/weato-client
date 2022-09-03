@@ -12,7 +12,8 @@
       "@community/*": ["src/components/community/*"],
       "@search/*": ["src/components/search/*"],
       "@styles/*": ["styles/*"],
-      "@contexts/*": ["src/contexts/*"]
+      "@contexts/*": ["src/contexts/*"],
+      "@utils/*": ["src/utils/*"]
     }
   }
 }

@@ -14,6 +14,14 @@ const Layout = styled.div`
   align-items: center;
 `;
 
+const Row = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 41px;
+`;
+
 function BookmarksTab({ query, data }) {
   const router = useRouter();
   const { tag, page } = query;
@@ -23,13 +31,15 @@ function BookmarksTab({ query, data }) {
     <Layout>
       <TabGroup selected={tag} />
       <CardBox data={result} />
-      <Pagenator
-        path={router.pathname}
-        query={query}
-        min={min}
-        max={max}
-        current={page}
-      />
+      <Row>
+        <Pagenator
+          path={router.pathname}
+          query={query}
+          min={min}
+          max={max}
+          current={page}
+        />
+      </Row>
     </Layout>
   );
 }

@@ -6,6 +6,8 @@ import Image from 'next/image';
 
 import Context from '@contexts/Context';
 
+import Level from '@utils/Level';
+
 import { Display1, Tag1 } from '@styles/FontStyle';
 
 import { gray01, gray06, text_black } from '@styles/Colors';
@@ -30,7 +32,7 @@ const Column = styled.div`
   flex-direction: column;
 `;
 
-const Level = styled.span`
+const LevelText = styled.span`
   ${Tag1}
 
   color : ${gray06};
@@ -52,16 +54,24 @@ const Email = styled.span`
   color : ${text_black};
 `;
 
-function HeaderBox() {
+function HeaderBox({ data }) {
+  const { imageUrl, level, name, newsletterEmail } = data;
+
   const { user } = useContext(Context);
 
   return (
     <Layout>
-      <Image src={profile_sample_large} width={180} height={180} alt="" />
+      {!imageUrl ? (
+        <>
+          <Image src={profile_sample_large} width={180} height={180} alt="" />
+        </>
+      ) : (
+        <Image src={imageUrl} width={180} height={180} alt="" />
+      )}
       <Column>
-        <Level>새싹</Level>
-        <Name>{user.name}</Name>
-        <Email>{user.email}</Email>
+        <LevelText>{Level[level]}</LevelText>
+        <Name>{name}</Name>
+        <Email>{newsletterEmail}</Email>
       </Column>
     </Layout>
   );
