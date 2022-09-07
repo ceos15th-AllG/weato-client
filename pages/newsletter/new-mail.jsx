@@ -101,104 +101,16 @@ const TextArea = styled.textarea`
 `;
 
 const NewsletterForm = styled.div`
-  width: 100%;
+  width: 748px;
   height: 100%;
 
   display: flex;
   flex-direction: column;
 
-  padding: 20px;
-
   border-radius: 8px;
   border: 1px solid black;
 
   overflow: scroll;
-
-  .header {
-    width: 100%;
-
-    margin-bottom: 24px;
-
-    ${Display1};
-
-    text-align: center;
-
-    color: ${text_black};
-  }
-
-  .header-subscription {
-    width: 100%;
-
-    margin-bottom: 28px;
-
-    ${Body2};
-
-    text-align: center;
-
-    color: ${gray05};
-  }
-
-  .header-date {
-    width: 100%;
-
-    margin-bottom: 27px;
-
-    ${Body2};
-
-    text-align: right;
-
-    color: ${gray07};
-  }
-
-  .content-text {
-    margin-bottom: 24px;
-
-    ${Body2};
-
-    line-height: 24px;
-    text-align: left;
-
-    color: ${text_black};
-
-    a {
-      color: ${main};
-    }
-
-    strong {
-      font-weight: 500;
-    }
-  }
-
-  .content-line {
-    width: 100%;
-
-    margin: 16px 0px 40px;
-
-    border-top: 1px solid ${tag_etc};
-  }
-
-  .content-header {
-    margin-bottom: 20px;
-
-    ${Headline1};
-
-    color: ${text_black};
-  }
-
-  .content-a {
-    color: ${main};
-  }
-
-  .content-list {
-    margin-bottom: 24px;
-
-    list-style: disc outside none;
-    line-height: 28px;
-  }
-
-  .content-listitem {
-    list-style: disc outside none;
-  }
 `;
 
 const CardBox = styled.div`
@@ -213,12 +125,6 @@ const CardBox = styled.div`
 
 function New() {
   const [login, user, token] = useContext(Context);
-
-  const [number, setNumber] = useState(null);
-  const [page, setPage] = useState(1);
-
-  const [loaded, setLoaded] = useState(null);
-  const [loadedNewsletters, setLoadedNewsletters] = useState([]);
 
   const [newsletter, setNewsletter] = useState(``);
   const [cursorPosition, setCursorPosition] = useState(0);
@@ -285,97 +191,21 @@ function New() {
     setNewsletter(newsletter + '\n' + newText[option]);
   };
 
-  const loadNewsletterLists = async (event) => {
-    try {
-      const response = await axios({
-        method: 'get',
-        url: `https://www.weato.kro.kr/api/newsletters?page=${page}`,
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
-      });
-
-      setLoadedNewsletters(response.data);
-      setLoaded(true);
-    } catch (error) {
-      console.log(error);
-      alert('서버 요청이 불가능하네요...');
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('editing_content'))) {
+      setNewsletter(JSON.parse(localStorage.getItem('editing_content')));
     }
-  };
-
-  const loadNewsletter = async (event) => {
-    if (!number) {
-      return;
-    }
-
-    try {
-      const response = await axios({
-        method: 'get',
-        url: `https://www.weato.kro.kr/api/newsletters/${number}`,
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
-      });
-
-      // setNewsletter(pretty(response.data.content));
-      setNewsletter(response.data.content);
-    } catch (error) {
-      console.log(error);
-      alert('서버 요청이 불가능하네요...');
-    }
-  };
+  }, []);
 
   useEffect(() => {
-    loadNewsletterLists();
-  }, [page]);
-
-  useEffect(() => {
-    loadNewsletter();
-  }, [number]);
+    localStorage.setItem('editing_content', JSON.stringify(newsletter));
+  }, [newsletter]);
 
   return (
     <Layout>
       <Row center>
-        <h1>[Admin] 뉴스레터 관리 페이지</h1>
+        <h1>[Admin] 뉴스레터 (메일 전송 형태) 에디터 페이지</h1>
       </Row>
-
-      {loaded ? (
-        <>
-          <Row center>
-            <CardBox>
-              {loadedNewsletters.data.map(
-                ({ id, title, createdAt, tagType }, index) =>
-                  !number || id === number ? (
-                    <Card
-                      key={index}
-                      text={title}
-                      date={createdAt.slice(0, 10).replaceAll('-', '.')}
-                      tag={dict[tagType]}
-                      onClick={() => setNumber(id)}
-                      selected
-                    />
-                  ) : (
-                    <Card
-                      key={index}
-                      text={title}
-                      date={createdAt.slice(0, 10).replaceAll('-', '.')}
-                      tag={dict[tagType]}
-                      onClick={() => setNumber(id)}
-                    />
-                  )
-              )}
-            </CardBox>
-          </Row>
-          <Row center>
-            <Pagenator
-              min={loadedNewsletters.min}
-              max={loadedNewsletters.max}
-              page={page}
-              setPage={setPage}
-            />
-          </Row>
-        </>
-      ) : undefined}
 
       <Row>
         <Section>

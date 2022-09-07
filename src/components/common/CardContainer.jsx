@@ -3,7 +3,7 @@ import Card from '@common/Card';
 import Link from 'next/link';
 
 const CardContainer = (props) => {
-  const { href, text, date, tag } = props;
+  const { text, date, tag } = props;
 
   const dict = {
     DRUG: '약품',
@@ -15,12 +15,12 @@ const CardContainer = (props) => {
     ALL: '전체',
   };
 
-  if (!href) {
+  if (!props.href) {
     return <Card text={text} date={date} tag={dict[tag]} />;
   }
 
   return (
-    <Link href={href}>
+    <Link href={props.href}>
       <a>
         <Card text={text} date={date} tag={dict[tag]} />
       </a>

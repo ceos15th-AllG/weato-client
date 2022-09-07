@@ -78,7 +78,7 @@ const Search = (props) => {
       {data.newslettersData.length !== 0 ? (
         <ButtonBox>
           <Button
-            text="더보기"
+            text="전체 글 보기"
             btnType="4"
             href={`/search/filter?keyword=${keyword}&category=newsletter`}
           />
@@ -123,7 +123,7 @@ const Search = (props) => {
       {data.postsData.length !== 0 ? (
         <ButtonBox>
           <Button
-            text="더보기"
+            text="전체 글 보기"
             btnType="4"
             href={`/search/filter?keyword=${keyword}&category=community`}
           />

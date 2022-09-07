@@ -196,20 +196,24 @@ function Newsletter(props) {
     return setPercentage(percentage);
   };
 
+  // 스크롤 퍼센테이지 진행 바 업데이트 로직
   useEffect(() => {
     window.addEventListener('scroll', getScrollPercentage);
     return () => window.removeEventListener('scroll', getScrollPercentage);
   }, []);
+
+  // 페이지 로딩 후 기본 값 세팅
   useEffect(() => {
     console.log(newsletterData);
-    console.log(newsletterData.likeChecker, newsletterData.bookmarkChecker);
-    setLike(newsletterData.likeChecker);
+    // console.log(newsletterData.likeChecker, newsletterData.bookmarkChecker);
+    // setLike(newsletterData.likeChecker);
     setLikeCount(newsletterData.likeCount);
-    setScrap(newsletterData.bookmarkChecker);
+    // setScrap(newsletterData.bookmarkChecker);
     setScrapCount(newsletterData.bookmarkCount);
   }, []);
 
-  const onClickLike = async (event) => {
+  // const onClickLike = async (event) => {
+  const onClickLike = (event) => {
     if (!login) {
       router.push(`/login`);
       return;
@@ -217,34 +221,36 @@ function Newsletter(props) {
 
     try {
       if (!like) {
-        const response = await axios({
-          method: 'post',
-          url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/likes`,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        // const response = await axios({
+        //   method: 'post',
+        //   url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/likes`,
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
 
         setLike(true);
         setLikeCount(likeCount + 1);
+        alert('좋아요 완료');
       } else {
-        const response = await axios({
-          method: 'delete',
-          url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/likes`,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        // const response = await axios({
+        //   method: 'delete',
+        //   url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/likes`,
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
 
         setLike(false);
         setLikeCount(likeCount - 1);
         alert('좋아요 취소 완료');
       }
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
-  const onClickScrap = async (event) => {
+  // const onClickScrap = async (event) => {
+  const onClickScrap = (event) => {
     if (!login) {
       router.push(`/login`);
       return;
@@ -261,8 +267,13 @@ function Newsletter(props) {
         // });
 
         // setScrapCount(response.data.bookmarkCount);
+
+        setScrap(true);
+        setScrapCount(scrapCount + 1);
         alert('스크랩 완료');
       } else {
+        setScrap(false);
+        setScrapCount(scrapCount - 1);
         alert('스크랩 취소 완료');
       }
     } catch (error) {

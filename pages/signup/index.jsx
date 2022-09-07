@@ -103,9 +103,8 @@ const InputWarning = styled.span`
 
   margin-top : 8px;
 
-  color: red;
-
-  opacity: ${({ valid }) => (!valid ? 1 : 0)};
+  color: ${({ highlight }) => (!highlight ? semantic_red : main)};
+  opacity: ${({ valid, highlight }) => (highlight || !valid ? 1 : 0)};
 
   transition: all 0.3s ease-in-out;
 `;
@@ -182,6 +181,7 @@ function Signup() {
   const [nicknameUnique, setNicknameUnique] = useState(false);
   const [email, setEmail] = useState('');
   const [emailValidText, setEmailValidText] = useState('aaaa@bb.cc');
+  const [emailWaiting, setEmailWaiting] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
   const [emailSended, setEmailSended] = useState(false);
   const [emailCert, setEmailCert] = useState('');
@@ -296,54 +296,55 @@ function Signup() {
       alert('서버 요청이 불가능하네요...');
     }
   };
-  // const sendEmail = async (event) => {
-  const sendEmail = (event) => {
+  const sendEmail = async (event) => {
     if (!emailValid || emailConfirm) {
       return;
     }
 
     try {
-      console.log('인증 메일을 보내는 중...');
-      // const response = await axios({
-      //   method: 'post',
-      //   url: `https://www.weato.kro.kr/api/mail`,
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      //   data: {
-      //     address: email,
-      //   },
-      // });
-      alert('이메일 전송 완료');
       setEmailSended(true);
+      const response = await axios({
+        method: 'post',
+        url: `https://www.weato.kro.kr/api/mail`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          address: email,
+        },
+      });
+      alert('이메일 전송 완료');
       setEmailCert('');
       setEmailCertValid(false);
       setEmailConfirm(false);
     } catch (error) {
-      alert(error);
+      setEmailSended(false);
+      // alert(error);
       alert('서버 요청이 불가능하네요...');
     }
   };
-  const confirmEmail = (event) => {
+  const confirmEmail = async (event) => {
     if (!emailCertValid || emailConfirm) {
       return;
     }
 
     try {
-      // const response = await axios({
-      //   method: 'get',
-      //   url: `https://www.weato.kro.kr/api/members/validation?nickname=${encodeURIComponent(
-      //     nickname
-      //   )}`,
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // });
+      const response = await axios({
+        method: 'patch',
+        url: `https://www.weato.kro.kr/api/mail`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          num: parseInt(emailCert),
+        },
+      });
 
+      console.log(response.data);
       alert('이메일이 인증되었습니다.');
       setEmailConfirm(true);
     } catch (error) {
-      alert(error);
+      // alert(error);
       alert('서버 요청이 불가능하네요...');
     }
   };
@@ -439,7 +440,13 @@ function Signup() {
               onClick={sendEmail}
             />
           </Input>
-          <InputWarning valid={emailValid}>{emailValidText}</InputWarning>
+          {emailSended ? (
+            <InputWarning highlight>
+              인증 번호가 메일로 전송되었습니다.
+            </InputWarning>
+          ) : (
+            <InputWarning valid={emailValid}>{emailValidText}</InputWarning>
+          )}
         </ContentItem>
         {emailSended ? (
           <ContentItem>
