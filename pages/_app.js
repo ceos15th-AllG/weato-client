@@ -15,7 +15,7 @@ import TopNav from '@main/TopNav';
 import Footerbar from '@main/Footerbar';
 
 const MARGIN = styled.div`
-  height: 100px;
+  height: ${({ extended }) => (!extended ? `100px` : `200px`)};
 `;
 
 const App = ({ Component, pageProps }) => {
@@ -36,7 +36,7 @@ const App = ({ Component, pageProps }) => {
           <>
             <TopNav />
             <ContentLayout>
-              <MARGIN />
+              <MARGIN extended={router.asPath === `/`} />
               <Component {...pageProps} />
               {router.asPath.startsWith(`/signup`) ? undefined : <Footerbar />}
             </ContentLayout>
