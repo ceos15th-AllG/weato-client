@@ -212,8 +212,8 @@ function Newsletter(props) {
     setScrapCount(newsletterData.bookmarkCount);
   }, []);
 
-  // const onClickLike = async (event) => {
-  const onClickLike = (event) => {
+  const onClickLike = async (event) => {
+    // const onClickLike = (event) => {
     if (!login) {
       router.push(`/login`);
       return;
@@ -221,25 +221,25 @@ function Newsletter(props) {
 
     try {
       if (!like) {
-        // const response = await axios({
-        //   method: 'post',
-        //   url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/likes`,
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // });
+        const response = await axios({
+          method: 'post',
+          url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/likes`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setLike(true);
         setLikeCount(likeCount + 1);
         alert('좋아요 완료');
       } else {
-        // const response = await axios({
-        //   method: 'delete',
-        //   url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/likes`,
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // });
+        const response = await axios({
+          method: 'delete',
+          url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/likes`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setLike(false);
         setLikeCount(likeCount - 1);
@@ -249,8 +249,8 @@ function Newsletter(props) {
       alert(error);
     }
   };
-  // const onClickScrap = async (event) => {
-  const onClickScrap = (event) => {
+  const onClickScrap = async (event) => {
+    // const onClickScrap = (event) => {
     if (!login) {
       router.push(`/login`);
       return;
@@ -258,28 +258,33 @@ function Newsletter(props) {
 
     try {
       if (!scrap) {
-        // const response = await axios({
-        //   method: 'post',
-        //   url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/bookmark`,
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // });
-
-        // setScrapCount(response.data.bookmarkCount);
+        const response = await axios({
+          method: 'post',
+          url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/bookmarks`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setScrap(true);
         setScrapCount(scrapCount + 1);
         alert('스크랩 완료');
       } else {
+        const response = await axios({
+          method: 'delete',
+          url: `https://www.weato.kro.kr/api/newsletters/${newsletterId}/bookmarks`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         setScrap(false);
         setScrapCount(scrapCount - 1);
         alert('스크랩 취소 완료');
       }
     } catch (error) {
-      // alert(error);
+      alert(error);
     }
-    setScrap(!scrap);
   };
 
   return (

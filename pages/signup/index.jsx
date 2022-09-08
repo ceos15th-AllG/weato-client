@@ -297,7 +297,7 @@ function Signup() {
     }
   };
   const sendEmail = async (event) => {
-    if (!emailValid || emailConfirm) {
+    if (!emailValid || emailSended || emailConfirm) {
       return;
     }
 
@@ -436,7 +436,7 @@ function Signup() {
             <Button
               text="인증하기"
               btnType="3"
-              disabled={!emailValid || emailConfirm}
+              disabled={!emailValid || emailSended || emailConfirm}
               onClick={sendEmail}
             />
           </Input>
