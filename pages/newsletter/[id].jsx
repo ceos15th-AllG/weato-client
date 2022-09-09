@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { useState, useEffect, useContext } from 'react';
 
 import axios from 'axios';
+import cookie from 'cookie';
 
 import Head from 'next/head';
 import Link from 'next/link';
@@ -23,7 +24,6 @@ import {
   text_black,
   tag_etc,
 } from '@styles/Colors';
-import { Router } from 'next/router';
 
 const Layout = styled.div`
   display: flex;
@@ -178,8 +178,10 @@ const toQueryTags = {
 function Newsletter(props) {
   const router = useRouter();
   const { newsletterId, newsletterData } = props;
-  const [percentage, setPercentage] = useState(0.0);
   const { login, user, token } = useContext(Context);
+
+  const [percentage, setPercentage] = useState(0.0);
+
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [scrap, setScrap] = useState(false);
@@ -204,16 +206,13 @@ function Newsletter(props) {
 
   // 페이지 로딩 후 기본 값 세팅
   useEffect(() => {
-    console.log(newsletterData);
-    // console.log(newsletterData.likeChecker, newsletterData.bookmarkChecker);
-    // setLike(newsletterData.likeChecker);
+    setLike(newsletterData.likeChecker);
     setLikeCount(newsletterData.likeCount);
-    // setScrap(newsletterData.bookmarkChecker);
+    setScrap(newsletterData.bookmarkChecker);
     setScrapCount(newsletterData.bookmarkCount);
   }, []);
 
   const onClickLike = async (event) => {
-    // const onClickLike = (event) => {
     if (!login) {
       router.push(`/login`);
       return;
@@ -230,8 +229,8 @@ function Newsletter(props) {
         });
 
         setLike(true);
-        setLikeCount(likeCount + 1);
-        alert('좋아요 완료');
+        setLikeCount(response.data.likecount);
+        // alert('좋아요 완료');
       } else {
         const response = await axios({
           method: 'delete',
@@ -243,14 +242,18 @@ function Newsletter(props) {
 
         setLike(false);
         setLikeCount(likeCount - 1);
-        alert('좋아요 취소 완료');
+        // alert('좋아요 취소 완료');
       }
     } catch (error) {
-      alert(error);
+      if (error.response.status === 400) {
+        setLike(!like);
+      } else {
+        alert(error);
+      }
     }
   };
+
   const onClickScrap = async (event) => {
-    // const onClickScrap = (event) => {
     if (!login) {
       router.push(`/login`);
       return;
@@ -267,8 +270,8 @@ function Newsletter(props) {
         });
 
         setScrap(true);
-        setScrapCount(scrapCount + 1);
-        alert('스크랩 완료');
+        setScrapCount(response.data.bookmarkCount);
+        // alert('스크랩 완료');
       } else {
         const response = await axios({
           method: 'delete',
@@ -279,11 +282,15 @@ function Newsletter(props) {
         });
 
         setScrap(false);
-        setScrapCount(scrapCount - 1);
-        alert('스크랩 취소 완료');
+        setScrapCount(response.data.bookmarkCount);
+        // alert('스크랩 취소 완료');
       }
     } catch (error) {
-      alert(error);
+      if (error.response.status === 400) {
+        setScrap(!scrap);
+      } else {
+        alert(error);
+      }
     }
   };
 
@@ -316,13 +323,13 @@ function Newsletter(props) {
           btnType="like"
           value={likeCount}
           onClick={onClickLike}
-          active={like}
+          active={login && like}
         />
         <ActionButton
           btnType="scrap"
           value={scrapCount}
           onClick={onClickScrap}
-          active={scrap}
+          active={login && scrap}
         />
       </ButtonRow>
     </Layout>
@@ -333,9 +340,14 @@ export const getServerSideProps = async (context) => {
   const query = context.query;
 
   try {
-    const response = await axios.get(
-      `https://www.weato.kro.kr/api/newsletters/${query.id}`
-    );
+    const { access_token } = cookie.parse(context.req.headers.cookie);
+    const response = await axios({
+      method: 'get',
+      url: `https://www.weato.kro.kr/api/newsletters/${query.id}`,
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
 
     return {
       props: {
