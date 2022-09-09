@@ -51,14 +51,15 @@ const NavbarExtendedLayout = styled.div`
   flex-direction: column;
 
   width: 100%;
-  height: 200px;
 
   box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.07);
 `;
 
 const Row = styled.div`
   width: 100%;
-  height: 100px;
+  height: ${({ visible }) => (!visible ? `0px` : `100px`)};
+
+  transition: height 0.5s ease;
 
   display: flex;
   justify-content: ${({ centered }) =>
@@ -170,143 +171,73 @@ const TopNav = () => {
         </Link>
       </NavbarCenterLayout>
     );
-  } else if (router.asPath === `/`) {
-    return (
-      <>
-        <NavbarExtendedLayout>
-          <Row centered>
-            <span className="top-alert">
-              {`화면 크기 1920px에 최적화 되어 있습니다 :)`}
-            </span>
-          </Row>
-          <Row>
-            <NavbarContent>
-              <Link href="/">
-                <a>
-                  <Image
-                    src={logo_horizontal}
-                    width={239.5}
-                    height={58}
-                    alt=""
-                  />
-                </a>
-              </Link>
-              <NavbarItem
-                menu={'/newsletter'}
-                currentPath={router.pathname}
-                css={css`
-                  margin-left: 95px;
-                `}
-              >
-                <Link href="/newsletter">
-                  <a>뉴스레터</a>
-                </Link>
-              </NavbarItem>
-              <NavbarItem
-                menu={'/community'}
-                currentPath={router.pathname}
-                css={css`
-                  margin-left: 130px;
-                `}
-              >
-                <Link href="/community">
-                  <a>커뮤니티</a>
-                </Link>
-              </NavbarItem>
-            </NavbarContent>
-
-            <NavbarRightGroup>
-              {!login ? (
-                <NavbarRightGroupItem css={Subhead3}>
-                  <Link href="/login">
-                    <a>회원가입 / 로그인</a>
-                  </Link>
-                </NavbarRightGroupItem>
-              ) : (
-                <NavbarRightGroupItem css={Subhead3}>
-                  <Link href="/mypage">
-                    <a>
-                      <ProfileBox>
-                        <Image src={default_profile} alt="" />
-                      </ProfileBox>
-                      <span className="profile-text">{user.name} 님</span>
-                    </a>
-                  </Link>
-                </NavbarRightGroupItem>
-              )}
-
-              <div onClick={onClickModalOn}>
-                <Image src={icon_search} width="34" height="35.02" alt="" />
-              </div>
-            </NavbarRightGroup>
-          </Row>
-        </NavbarExtendedLayout>
-
-        <Modal active={modalActive}>
-          <SearchModal setIsActive={setModalActive} router={router} />
-        </Modal>
-      </>
-    );
   }
 
   return (
     <>
-      <NavbarLayout>
-        <NavbarContent>
-          <Link href="/">
-            <a>
-              <Image src={logo_horizontal} width={239.5} height={58} alt="" />
-            </a>
-          </Link>
-          <NavbarItem
-            menu={'/newsletter'}
-            currentPath={router.pathname}
-            css={css`
-              margin-left: 95px;
-            `}
-          >
-            <Link href="/newsletter">
-              <a>뉴스레터</a>
+      <NavbarExtendedLayout>
+        <Row centered visible={router.asPath === `/`}>
+          <span className="top-alert">
+            {`화면 크기 1920px에 최적화 되어 있습니다 :)`}
+          </span>
+        </Row>
+        <Row visible={true}>
+          <NavbarContent>
+            <Link href="/">
+              <a>
+                <Image src={logo_horizontal} width={239.5} height={58} alt="" />
+              </a>
             </Link>
-          </NavbarItem>
-          <NavbarItem
-            menu={'/community'}
-            currentPath={router.pathname}
-            css={css`
-              margin-left: 130px;
-            `}
-          >
-            <Link href="/community">
-              <a>커뮤니티</a>
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
-
-        <NavbarRightGroup>
-          {!login ? (
-            <NavbarRightGroupItem css={Subhead3}>
-              <Link href="/login">
-                <a>회원가입 / 로그인</a>
+            <NavbarItem
+              menu={'/newsletter'}
+              currentPath={router.pathname}
+              css={css`
+                margin-left: 95px;
+              `}
+            >
+              <Link href="/newsletter">
+                <a>뉴스레터</a>
               </Link>
-            </NavbarRightGroupItem>
-          ) : (
-            <NavbarRightGroupItem css={Subhead3}>
-              <Link href="/mypage">
-                <a>
-                  <ProfileBox>
-                    <Image src={default_profile} alt="" />
-                  </ProfileBox>
-                  <span className="profile-text">{user.name} 님</span>
-                </a>
+            </NavbarItem>
+            <NavbarItem
+              menu={'/community'}
+              currentPath={router.pathname}
+              css={css`
+                margin-left: 130px;
+              `}
+            >
+              <Link href="/community">
+                <a>커뮤니티</a>
               </Link>
-            </NavbarRightGroupItem>
-          )}
+            </NavbarItem>
+          </NavbarContent>
 
-          <div onClick={onClickModalOn}>
-            <Image src={icon_search} width="34" height="35.02" alt="" />
-          </div>
-        </NavbarRightGroup>
-      </NavbarLayout>
+          <NavbarRightGroup>
+            {!login ? (
+              <NavbarRightGroupItem css={Subhead3}>
+                <Link href="/login">
+                  <a>회원가입 / 로그인</a>
+                </Link>
+              </NavbarRightGroupItem>
+            ) : (
+              <NavbarRightGroupItem css={Subhead3}>
+                <Link href="/mypage">
+                  <a>
+                    <ProfileBox>
+                      <Image src={default_profile} alt="" />
+                    </ProfileBox>
+                    <span className="profile-text">{user.name} 님</span>
+                  </a>
+                </Link>
+              </NavbarRightGroupItem>
+            )}
+
+            <div onClick={onClickModalOn}>
+              <Image src={icon_search} width="34" height="35.02" alt="" />
+            </div>
+          </NavbarRightGroup>
+        </Row>
+      </NavbarExtendedLayout>
 
       <Modal active={modalActive}>
         <SearchModal setIsActive={setModalActive} router={router} />
