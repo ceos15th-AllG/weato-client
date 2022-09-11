@@ -15,7 +15,6 @@ const Layout = styled.div`
 `;
 
 function Mypage(props) {
-  console.log(props);
   if (!props.profileData) {
     return <span>로딩 에러</span>;
   }
