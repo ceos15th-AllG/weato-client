@@ -40,7 +40,10 @@ const App = ({ Component, pageProps }) => {
             <ContentLayout>
               <MARGIN extended={router.asPath === `/`} />
               <Component {...pageProps} />
-              {router.asPath.startsWith(`/signup`) ? undefined : <Footerbar />}
+              {router.asPath.startsWith(`/signup`) ||
+              router.pathname === `/newsletter/admin` ? undefined : (
+                <Footerbar />
+              )}
             </ContentLayout>
           </>
         )}

@@ -10,6 +10,7 @@ import Context from '@contexts/Context';
 import Button from '@common/ButtonContainer';
 import Card from '@newsletter/Card';
 import Pagenator from '@newsletter/PagenatorAdmin';
+import Dropdown from '@common/Dropdown';
 
 import { Display1, Subhead3, Headline1, Body2 } from '@styles/FontStyle';
 import {
@@ -38,7 +39,9 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 100px 50px;
+  padding: 100px 0px;
+
+  background-color: #fcfcfc;
 `;
 
 const Row = styled.div`
@@ -48,6 +51,7 @@ const Row = styled.div`
   padding-bottom: 60px;
 
   ${({ center }) => (!center ? `` : `justify-content : center;`)};
+  ${({ top }) => (!top ? `` : `width : 500px; margin-left : 100px`)};
 
   & > span {
     position: relative;
@@ -97,7 +101,6 @@ const TextArea = styled.textarea`
   outline: none;
 
   border-radius: 8px;
-  border: 1px solid black;
 `;
 
 const NewsletterForm = styled.div`
@@ -110,7 +113,8 @@ const NewsletterForm = styled.div`
   padding: 20px;
 
   border-radius: 8px;
-  border: 1px solid black;
+
+  background-color: white;
 
   overflow: scroll;
 
@@ -211,7 +215,7 @@ const CardBox = styled.div`
   grid-row-gap: 40px;
 `;
 
-function New() {
+function Admin() {
   const [login, user, token] = useContext(Context);
 
   const [number, setNumber] = useState(null);
@@ -222,7 +226,6 @@ function New() {
 
   const [newsletter, setNewsletter] = useState(``);
   const [cursorPosition, setCursorPosition] = useState(0);
-  const [result, setResult] = useState(``);
 
   const onChange = (event) => {
     setNewsletter(event.target.value);
@@ -335,11 +338,12 @@ function New() {
 
   return (
     <Layout>
-      <Row center>
-        <h1>[Admin] 뉴스레터 관리 페이지</h1>
+      <Row center top>
+        <Dropdown />
       </Row>
 
-      {loaded ? (
+      {/* {loaded ? ( */}
+      {false ? (
         <>
           <Row center>
             <CardBox>
@@ -443,23 +447,14 @@ function New() {
             onChange={onChange}
             onKeyUp={onCursorMove}
           />
-          <Button text="한 줄로 변환하기" btnType="4" onClick={onConvert} />
         </Section>
         <Section>
           <span>아래 화면처럼 보여요</span>
           <NewsletterForm dangerouslySetInnerHTML={{ __html: newsletter }} />
         </Section>
       </Row>
-
-      <Row>
-        <TextArea
-          readOnly
-          placeholder="한 줄로 변환된 뉴스레터 내용입니다"
-          value={result}
-        />
-      </Row>
     </Layout>
   );
 }
 
-export default New;
+export default Admin;
