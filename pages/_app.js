@@ -17,7 +17,7 @@ import Footerbar from '@main/Footerbar';
 const MARGIN = styled.div`
   height: ${({ extended }) => (!extended ? `100px` : `200px`)};
 
-  transition: height 0.5s ease;
+  transition: height 0.6s ease;
 `;
 
 const App = ({ Component, pageProps }) => {

@@ -59,7 +59,7 @@ const Row = styled.div`
   width: 100%;
   height: ${({ visible }) => (!visible ? `0px` : `100px`)};
 
-  transition: height 0.5s ease;
+  transition: height 0.6s ease;
 
   display: flex;
   justify-content: ${({ centered }) =>
