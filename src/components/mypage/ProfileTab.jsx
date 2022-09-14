@@ -107,6 +107,13 @@ function ProfileTab(props) {
     ALL: '전체',
   };
 
+  const severityDict = {
+    SLIGHT: '약함',
+    BELOWAVG: '평균 이하',
+    ABOVEAVG: '평균 이상',
+    SEVERETY: '강함',
+  };
+
   return (
     <Layout>
       <Row>
@@ -163,7 +170,7 @@ function ProfileTab(props) {
         </InfoBox>
         <InfoBox>
           <InfoName>증상 정도</InfoName>
-          <InfoData>{userProfile.symptomDegree}</InfoData>
+          <InfoData>{severityDict[userProfile.symptomDegree]}</InfoData>
         </InfoBox>
         <InfoBox>
           <InfoName>선호 태그</InfoName>
