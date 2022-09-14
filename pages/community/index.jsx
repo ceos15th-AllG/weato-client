@@ -8,6 +8,7 @@ import Knowhow from '@community/Knowhow';
 import Questions from '@community/Question';
 import Banner from '@community/Banner';
 import QnA from '@community/QnA';
+import JoinUs from '@community/joinus';
 
 const Layout = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const BannerBox = styled.div`
 
 function Community(props) {
   if (!props.data) {
-    return <span>에러...</span>;
+    return <JoinUs></JoinUs>;
   }
 
   const { data } = props;
@@ -91,10 +92,10 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    redirect: {
-      destination: '/login',
-      permanent: false,
-    },
+    // redirect: {
+    //   destination: '/login',
+    //   permanent: false,
+    // },
     props: {},
   };
 }

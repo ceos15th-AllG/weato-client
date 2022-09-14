@@ -13,6 +13,7 @@ import TabBar from '@community/TabBar';
 import BoardRow from '@community/BoardRow';
 import BoardCard from '@community/BoardCard';
 import Pagenator from '@common/Pagenator';
+import JoinUs from '@community/joinus';
 
 const Layout = styled.div`
   margin: 39px 300px 67px;
@@ -61,7 +62,7 @@ function Board(props) {
   const router = useRouter();
 
   if (!props.data) {
-    return <span>로딩 에러...</span>;
+    return <JoinUs></JoinUs>;
   }
 
   const { query } = props;
@@ -71,19 +72,17 @@ function Board(props) {
   const recommends = [
     {
       id: '0',
-      title: '아토피 이제 괜찮아졌어요',
-      content:
-        '아토피를 앓은 지도 12년 째... 지겨웠던 아토피와의 싸움이 그래도 나아지기 시작하네요\n1주일에 3번 30분씩 밖에서 뛰고 온 지 1달 쯤 지나니까 확실히 피부 발진이 줄어든 게 느껴집니다.',
-      view: '200',
-      like: '200',
+      title: '',
+      content: '',
+      view: '0',
+      like: '0',
     },
     {
       id: '1',
-      title: '나아진 경험 공유해요!',
-      content:
-        '아토피를 앓은 지도 12년 째... 지겨웠던 아토피와의 싸움이 그래도 나아지기 시작하네요\n1주일에 3번 30분씩 밖에서 뛰고 온 지 1달 쯤 지나니까 확실히 피부 발진이 줄어든 게 느껴집니다.',
-      view: '200',
-      like: '200',
+      title: '',
+      content: '',
+      view: '0',
+      like: '0',
     },
   ];
 
