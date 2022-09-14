@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import Button from '@common/ButtonContainer';
 import TabBar from '@community/TabBar';
@@ -61,14 +61,14 @@ const BlurBox = styled.div`
     z-index: 1100;
 
     width: 100%;
-    height: 74%;
+    height: 72.5%;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
 
     background: linear-gradient(to bottom, transparent 0%, #666666 100%);
   }
@@ -83,6 +83,9 @@ const BlurBox = styled.div`
 `;
 
 function JoinUs() {
+  const [tagSelected, setTagSelected] = useState('태그');
+  const tagTypes = ['전체', '약품', '수면', '세면', '음식', '환경', '기타'];
+
   const sampleData = [
     {
       id: 0,
@@ -166,6 +169,12 @@ function JoinUs() {
   //   };
   // }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => (document.body.style.overflow = 'scroll');
+  }, []);
+
   return (
     <>
       <BlurBox>
@@ -178,7 +187,12 @@ function JoinUs() {
       </BlurBox>
 
       <Layout>
-        <TabBar selected="hot" />
+        <TabBar
+          selected="hot"
+          tagSelected={tagSelected}
+          tagTypes={tagTypes}
+          setTagSelected={setTagSelected}
+        />
         <Row>
           <BoardLayout>
             {sampleData.map(
