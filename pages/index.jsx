@@ -1,13 +1,16 @@
 import styled from '@emotion/styled';
 
+import { useContext } from 'react';
+
 import axios from 'axios';
 
-import { text_white } from '@styles/Colors';
-
-import { Display1, Headline2 } from '@styles/FontStyle';
+import Context from '@contexts/Context';
 
 import CardBox from '@common/CardBox';
 import Button from '@common/ButtonContainer';
+
+import { Display1, Headline2 } from '@styles/FontStyle';
+import { text_white } from '@styles/Colors';
 
 import banner from '@public/main_banner.png';
 
@@ -70,6 +73,8 @@ const ButtonRow = styled.div`
 `;
 
 function Home(props) {
+  const { login } = useContext(Context);
+
   if (!props.newsletterHot || !props.newsletterScrap) {
     return <span>로딩 에러...</span>;
   }
@@ -87,7 +92,11 @@ function Home(props) {
                 <br />
                 이제는 위아토와 함께해요!
               </BannerText>
-              <Button text={'바로 구독하기'} btnType={'4'} href="/login" />
+              {login ? (
+                <Button text={'바로 구독하기'} btnType={'4'} href="/mypage" />
+              ) : (
+                <Button text={'바로 구독하기'} btnType={'4'} href="/login" />
+              )}
             </BannerContent>
           </BannerLayout>
 

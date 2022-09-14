@@ -15,12 +15,19 @@ const ContextProvider = ({ children }) => {
     }));
     document.cookie = `access_token=${newToken}; path=/`;
   };
-  const setUser = async (newUser) => {
+  const setUser = (newUser) => {
     setState((prevState) => ({
       ...prevState,
       user: newUser,
     }));
     document.cookie = `id=${newUser.id}; path=/`;
+  };
+  const setLogOut = () => {
+    // setState(initialState);
+    // localStorage.clear();
+    // document.cookie = `access_token=no_exist; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+    // document.cookie = `id=no_exist; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+    alert('로그아웃');
   };
   const initialState = {
     login: false,
@@ -29,6 +36,7 @@ const ContextProvider = ({ children }) => {
     setToken: setToken,
     user: {},
     setUser: setUser,
+    setLogOut: setLogOut,
   };
 
   const [state, setState] = useState(initialState);

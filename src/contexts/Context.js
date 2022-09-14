@@ -14,6 +14,7 @@ const Context = createContext({
     createdAT: '',
   },
   setUser: () => {},
+  setLogOut: () => {},
 });
 
 export default Context;

@@ -58,17 +58,20 @@ const Email = styled.span`
   color : ${text_black};
 `;
 
-function HeaderBox({ data }) {
+function HeaderBox(props) {
   const router = useRouter();
-
   const { user } = useContext(Context);
-  const { imageUrl, level, name, newsletterEmail } = data;
+
+  const { imageUrl, level, name, newsletterEmail } = props.data;
 
   const onClick = (event) => {
     localStorage.clear();
     document.cookie = `access_token=no_exist; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
     document.cookie = `id=no_exist; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+    // setLogOut();
+
     router.push(`/`).then(() => router.reload(`/`));
+    // router.replace(`/`);
   };
 
   return (
