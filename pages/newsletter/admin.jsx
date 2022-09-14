@@ -53,11 +53,8 @@ const Layout = styled.div`
 `;
 
 const Sidebar = styled.div`
-  width: ${({ open }) => (open ? `600px` : `0`)};
+  width: ${({ open }) => (open ? `500px` : `0`)};
   height: 100%;
-
-  position: relative;
-  z-index: 2500;
 
   display: flex;
   flex-direction: column;
@@ -69,7 +66,7 @@ const Sidebar = styled.div`
 
   background-color: white;
 
-  transition: 0.3s width ease-in-out;
+  transition: 0.6s width ease;
 `;
 
 const SearchInputContainer = styled.div`
@@ -100,21 +97,26 @@ const SearchInput = styled.input`
 `;
 
 const Content = styled.div`
-  position: relative;
-
-  width: 100%;
+  width: ${({ open }) => (open ? `calc(100vw - 500px)` : `100vw`)};
   height: 100%;
 
   display: flex;
+
+  transition: width 0.6s ease;
 `;
 
 const IconContainer = styled.div`
   width: 48px;
   height: 48px;
 
+  padding: 8px;
+  border-radius: 50%;
+
   position: absolute;
   top: 28px;
   left: 28px;
+
+  background-color: white;
 `;
 
 const SideBarMenuBox = styled.div`
@@ -195,6 +197,7 @@ const Section = styled.section`
   align-items: center;
 
   margin: 0px 50px;
+  padding-top: 100px;
 
   & > span {
     margin-bottom: 20px;
@@ -415,7 +418,7 @@ const Admin = () => {
         </SideBarMenuBox>
       </Sidebar>
 
-      <Content>
+      <Content open={sideOpen}>
         <Section>
           <ButtonArea>
             <Button
