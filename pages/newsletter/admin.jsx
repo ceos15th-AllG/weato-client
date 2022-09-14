@@ -27,6 +27,8 @@ import {
   gray07,
   text_black,
   tag_etc,
+  gray01,
+  gray02,
 } from '@styles/Colors';
 
 import icon_menu from '@public/newsletter/icon_menu.png';
@@ -44,17 +46,22 @@ const dict = {
 
 const Layout = styled.div`
   width: 100%;
-  height: calc(100vh - 100px);
+
   position: absolute;
 
   display: flex;
 
-  background-color: #fcfcfc;
+  padding-bottom: 60px;
+
+  background-color: ${gray02};
 `;
 
 const Sidebar = styled.div`
   width: ${({ open }) => (open ? `500px` : `0`)};
-  height: 100%;
+  height: calc(100vh - 100px);
+
+  position: fixed;
+  left: 0;
 
   display: flex;
   flex-direction: column;
@@ -97,7 +104,8 @@ const SearchInput = styled.input`
 `;
 
 const Content = styled.div`
-  width: ${({ open }) => (open ? `calc(100vw - 500px)` : `100vw`)};
+  /* width: ${({ open }) => (open ? `calc(100vw - 500px)` : `100vw`)}; */
+  width: 100vw;
   height: 100%;
 
   display: flex;
@@ -112,9 +120,10 @@ const IconContainer = styled.div`
   padding: 8px;
   border-radius: 50%;
 
-  position: absolute;
-  top: 28px;
+  position: fixed;
+  top: 128px;
   left: 28px;
+  z-index: 1000;
 
   background-color: white;
 `;
@@ -174,23 +183,14 @@ const SideBarMenuBox = styled.div`
 const Row = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
 
-  padding-bottom: 60px;
-
-  ${({ center }) => (!center ? `` : `justify-content : center;`)};
-  ${({ top }) => (!top ? `` : `width : 500px; margin-left : 100px`)};
-
-  & > span {
-    position: relative;
-    left: 100px;
-    font-size: 32px;
-    font-weight: 500;
-  }
+  margin-bottom: 10px;
 `;
 
 const Section = styled.section`
   width: 80vw;
-  height: 1000px;
+  height: 90vh;
 
   display: flex;
   flex-direction: column;
@@ -233,7 +233,7 @@ const TextArea = styled.textarea`
 
 const NewsletterForm = styled.div`
   width: 100%;
-  height: 100%;
+  height: 90%;
 
   display: flex;
   flex-direction: column;
@@ -339,10 +339,12 @@ const Admin = () => {
 
   const [sideOpen, setSideOpen] = useState(false);
 
-  //   const [number, setNumber] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [number, setNumber] = useState(null);
 
   const [loaded, setLoaded] = useState(null);
   const [loadedNewsletters, setLoadedNewsletters] = useState([]);
+  const [filteredNewsletters, setFilteredNewsletters] = useState([]);
 
   const [newsletter, setNewsletter] = useState(``);
 
@@ -350,7 +352,11 @@ const Admin = () => {
     setSideOpen(!sideOpen);
   };
 
-  const onChange = (event) => {
+  const onChangeSearchKeyword = (event) => {
+    setSearchKeyword(event.target.value);
+  };
+
+  const onChangeNewsletter = (event) => {
     setNewsletter(event.target.value);
   };
 
@@ -384,9 +390,54 @@ const Admin = () => {
     }
   };
 
+  const loadNewsletter = async (event) => {
+    if (!number) {
+      return;
+    }
+
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/newsletters/${number}`,
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
+      });
+
+      // setNewsletter(pretty(response.data.content));
+      setNewsletter(response.data.content);
+    } catch (error) {
+      console.log(error);
+      alert('서버 요청이 불가능하네요...');
+    }
+  };
+
   useEffect(() => {
-    loadNewsletterLists();
-  }, []);
+    if (sideOpen) {
+      loadNewsletterLists();
+    }
+  }, [sideOpen]);
+
+  useEffect(() => {
+    loadNewsletter();
+  }, [number]);
+
+  useEffect(() => {
+    try {
+      let result = loadedNewsletters.filter((newsletter) =>
+        new RegExp(`${searchKeyword.trim()}`, 'i').test(newsletter.title) ||
+        new RegExp(`${searchKeyword.trim()}`, 'i').test(
+          dict[newsletter.tagType]
+        )
+          ? newsletter
+          : null
+      );
+
+      setFilteredNewsletters(result);
+    } catch (error) {
+      setFilteredNewsletters([]);
+    }
+  }, [loadedNewsletters, searchKeyword]);
 
   return (
     <Layout>
@@ -397,18 +448,22 @@ const Admin = () => {
       <Sidebar open={sideOpen}>
         <SearchInputContainer>
           <Image src={icon_search} width={24} height={24} />
-          <SearchInput placeholder="뉴스레터 검색어 필터링..." />
+          <SearchInput
+            placeholder="뉴스레터 검색어 필터링..."
+            value={searchKeyword}
+            onChange={onChangeSearchKeyword}
+          />
         </SearchInputContainer>
 
         <SideBarMenuBox>
           {loaded ? (
             <>
               <span className="title">
-                뉴스레터 목록 ({loadedNewsletters.length})
+                뉴스레터 목록 ({filteredNewsletters.length})
               </span>
 
-              {loadedNewsletters.map(({ title, tagType }, index) => (
-                <div className="item" key={index}>
+              {filteredNewsletters.map(({ id, title, tagType }, index) => (
+                <div className="item" key={index} onClick={() => setNumber(id)}>
                   <Tag text={dict[tagType]} />
                   <span>{title}</span>
                 </div>
@@ -481,9 +536,13 @@ const Admin = () => {
           <TextArea
             placeholder="뉴스레터 내용을 입력하세요"
             value={newsletter}
-            onChange={onChange}
+            onChange={onChangeNewsletter}
           />
+          <Row>
+            <Button text="적용하기" btnType="1" onClick={() => alert()} />
+          </Row>
         </Section>
+
         <Section>
           <span>아래 화면처럼 보여요</span>
           <NewsletterForm dangerouslySetInnerHTML={{ __html: newsletter }} />
