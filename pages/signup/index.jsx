@@ -313,7 +313,7 @@ function Signup() {
           address: email,
         },
       });
-      alert('이메일 전송 완료');
+      // alert('이메일 전송 완료');
       setEmailCert('');
       setEmailCertValid(false);
       setEmailConfirm(false);
@@ -345,7 +345,7 @@ function Signup() {
       setEmailConfirm(true);
     } catch (error) {
       // alert(error);
-      alert('서버 요청이 불가능하네요...');
+      alert('인증 번호를 다시 확인해주세요...');
     }
   };
   const onConfirm = async (event) => {
@@ -387,9 +387,10 @@ function Signup() {
       setTagValid(false);
     }
   }, [tags]);
+
+  // 전체 필드 만족되었는지 체크
   useEffect(() => {
-    // if (nicknameUnique && tagValid && check) {
-    if (emailConfirm) {
+    if (nicknameUnique && emailConfirm && tagValid && check) {
       setConfirm(true);
     } else {
       setConfirm(false);
