@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
@@ -10,6 +11,7 @@ import { Subhead4 } from '@styles/FontStyle';
 import { text_black } from '@styles/Colors';
 
 import TabBar from '@community/TabBar';
+import TagDropdown from '@community/TagDropdown';
 import BoardRow from '@community/BoardRow';
 import BoardCard from '@community/BoardCard';
 import Pagenator from '@common/Pagenator';
@@ -60,6 +62,7 @@ const BottomRow = styled.div`
 
 function Board(props) {
   const router = useRouter();
+  const [tagSelected, setTagSelected] = useState('태그');
 
   if (!props.data) {
     return <JoinUs></JoinUs>;
@@ -68,6 +71,8 @@ function Board(props) {
   const { query } = props;
   const { tab, tag, page } = query;
   const { min, max, data } = props.data;
+
+  const tagTypes = ['전체', '약품', '수면', '세면', '음식', '환경', '기타'];
 
   const recommends = [
     {
@@ -88,7 +93,12 @@ function Board(props) {
 
   return (
     <Layout>
-      <TabBar selected={tab} />
+      <TabBar
+        selected={tab}
+        tagSelected={tagSelected}
+        tagTypes={tagTypes}
+        setTagSelected={setTagSelected}
+      />
       <Row>
         <BoardLayout>
           {data.map(

@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 
 import Link from 'next/link';
 
+import TagDropdown from './TagDropdown';
 import Button from '@common/ButtonContainer';
 
 import { Headline1, Subhead4 } from '@styles/FontStyle';
-
 import { main, gray02, gray05, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
@@ -13,7 +13,7 @@ const Layout = styled.div`
 
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
 
   border-bottom: 2px solid ${gray02};
 `;
@@ -52,7 +52,7 @@ const DropDown = styled.div`
   color : ${text_black};
 `;
 
-function TabBar({ selected }) {
+function TabBar({ selected, tagSelected, tagTypes, setTagSelected }) {
   return (
     <Layout>
       <Box>
@@ -76,9 +76,11 @@ function TabBar({ selected }) {
       </Box>
       <Box>
         <Button text="글쓰기" btnType="7" href="/community/post/new" />
-        <DropDown>
-          <span>태그</span>
-        </DropDown>
+        <TagDropdown
+          item={tagSelected}
+          options={tagTypes}
+          setItem={setTagSelected}
+        />
       </Box>
     </Layout>
   );
