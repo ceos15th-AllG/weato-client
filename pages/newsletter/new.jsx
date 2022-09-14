@@ -235,7 +235,7 @@ function Admin() {
     setCursorPosition(event.target.selectionStart);
   };
 
-  const onConvert = () => {
+  const convertSingleLine = () => {
     let convertResult = '';
     const lines = newsletter.split('\n');
     for (let line of lines) {
@@ -243,7 +243,7 @@ function Admin() {
     }
     // setResult(convertResult);
     // console.log(convertResult);
-    console.log(pretty(convertResult));
+    console.log(convertResult);
   };
 
   const insertText = (option) => {
@@ -293,9 +293,9 @@ function Admin() {
       const response = await axios({
         method: 'get',
         url: `https://www.weato.kro.kr/api/newsletters?page=${page}`,
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       setLoadedNewsletters(response.data);
@@ -315,9 +315,9 @@ function Admin() {
       const response = await axios({
         method: 'get',
         url: `https://www.weato.kro.kr/api/newsletters/${number}`,
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       // setNewsletter(pretty(response.data.content));

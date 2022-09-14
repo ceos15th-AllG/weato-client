@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
+import cookie from 'cookie';
 
 import Context from '@contexts/Context';
 
@@ -29,6 +30,7 @@ import {
   tag_etc,
   gray01,
   gray02,
+  sub,
 } from '@styles/Colors';
 
 import icon_menu from '@public/newsletter/icon_menu.png';
@@ -155,7 +157,7 @@ const SideBarMenuBox = styled.div`
     margin-top: 6px;
     padding: 0px 20px;
 
-    background-color: #fafafa;
+    background-color: ${({ selected }) => (selected ? `red` : `#fafafa`)};
 
     &:hover {
       background-color: #e4e4e4;
@@ -177,6 +179,33 @@ const SideBarMenuBox = styled.div`
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
     }
+  }
+
+  .new-button {
+    width: 100%;
+    height: 55px;
+
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 6px;
+    padding: 0px 20px;
+
+    color: white;
+    background-color: ${sub};
+
+    opacity: 1;
+    &:hover {
+      opacity: 0.5;
+    }
+
+    transition: opacity 0.3s ease;
+
+    ${Subhead4}
+    font-weight : 600;
   }
 `;
 
@@ -333,9 +362,10 @@ const NewsletterForm = styled.div`
   }
 `;
 
-const Admin = () => {
+const Admin = (props) => {
   const router = useRouter();
-  const [login, user, token] = useContext(Context);
+  // const [login, user, token] = useContext(Context);
+  const { token } = props;
 
   const [sideOpen, setSideOpen] = useState(false);
 
@@ -369,9 +399,6 @@ const Admin = () => {
         const response = await axios({
           method: 'get',
           url: `https://www.weato.kro.kr/api/newsletters?page=${page}`,
-          // headers: {
-          //   Authorization: `Bearer ${token}`,
-          // },
         });
 
         buffer.push(...response.data.data);
@@ -399,9 +426,6 @@ const Admin = () => {
       const response = await axios({
         method: 'get',
         url: `https://www.weato.kro.kr/api/newsletters/${number}`,
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
       });
 
       // setNewsletter(pretty(response.data.content));
@@ -439,6 +463,85 @@ const Admin = () => {
     }
   }, [loadedNewsletters, searchKeyword]);
 
+  const insertText = (option) => {
+    const newText = {
+      'header-box': `<header class='header'>
+    뉴스레터 제목
+</header>
+<span class='header-subscription'>
+    본 뉴스레터는 전문기자의 기사를 기반으로 작성되었습니다.
+</span>
+<date class='header-date'>
+    2022.00.00
+</date>
+`,
+      'content-header': `<div class='content-header'>
+    소제목
+</div>      
+`,
+      'content-text': `<span class='content-text'>
+    문단 내용
+</span>      
+`,
+      'content-a': `<a href='' target='_blank'>링크</a>
+`,
+      'content-strong': `<strong>강조문</strong>
+`,
+      'content-br': `<br />    
+`,
+      'content-line': `<div class='content-line'></div>      
+`,
+      'content-list': `<ul class='content-list'>
+    <li class='content-listitem'>리스트 아이템 1</li>
+    <li class='content-listitem'>리스트 아이템 2</li>
+    <li class='content-listitem'>리스트 아이템 3</li>
+</ul>      
+`,
+    };
+    // let frontText = newsletter.substring(0, cursorPosition);
+    // let backText = newsletter.substring(cursorPosition, newsletter.length);
+    // setNewsletter(frontText + newText[option] + backText);
+    // setCursorPosition(cursorPosition + newText[option].length);
+    setNewsletter(newsletter + '\n' + newText[option]);
+  };
+
+  const convertSingleLine = () => {
+    let convertResult = '';
+    const lines = newsletter.split('\n');
+    for (let line of lines) {
+      convertResult += line.trim();
+    }
+
+    return convertResult;
+  };
+
+  const updateNewsletter = async (event) => {
+    if (!number) {
+      return;
+    }
+
+    const result = convertSingleLine();
+
+    try {
+      const response = await axios({
+        method: 'patch',
+        url: `https://www.weato.kro.kr/api/newsletters/${number}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          updatedTitle: '바뀐 타이틀 테스트',
+          updatedContent: result,
+        },
+      });
+
+      alert(`${number}번 뉴스레터 내용 업데이트 완료!`);
+    } catch (error) {
+      console.log(error);
+      alert('서버 요청이 불가능하네요...');
+    }
+  };
+
   return (
     <Layout>
       <IconContainer onClick={onClick}>
@@ -463,11 +566,28 @@ const Admin = () => {
               </span>
 
               {filteredNewsletters.map(({ id, title, tagType }, index) => (
-                <div className="item" key={index} onClick={() => setNumber(id)}>
+                <div
+                  className="item"
+                  key={index}
+                  // selected={number === id}
+                  onClick={() => {
+                    setNumber(id);
+                    setSideOpen(false);
+                  }}
+                >
                   <Tag text={dict[tagType]} />
                   <span>{title}</span>
                 </div>
               ))}
+
+              <div
+                className="new-button"
+                onClick={() => {
+                  alert('만드는 중');
+                }}
+              >
+                <span>새로운 뉴스레터 발행하기</span>
+              </div>
             </>
           ) : undefined}
         </SideBarMenuBox>
@@ -539,7 +659,12 @@ const Admin = () => {
             onChange={onChangeNewsletter}
           />
           <Row>
-            <Button text="적용하기" btnType="1" onClick={() => alert()} />
+            <Button
+              text="적용하기"
+              btnType="3"
+              onClick={updateNewsletter}
+              disabled={!number}
+            />
           </Row>
         </Section>
 
@@ -550,6 +675,26 @@ const Admin = () => {
       </Content>
     </Layout>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  try {
+    const { access_token } = cookie.parse(context.req.headers.cookie);
+
+    return {
+      props: {
+        token: access_token,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+  }
+
+  return {
+    props: {
+      token: null,
+    },
+  };
 };
 
 export default Admin;
