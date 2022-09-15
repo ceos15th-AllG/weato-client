@@ -58,6 +58,14 @@ const Email = styled.span`
   color : ${text_black};
 `;
 
+const CustomProfileContainer = styled.div`
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
 function HeaderBox(props) {
   const router = useRouter();
   const { user } = useContext(Context);
@@ -77,11 +85,11 @@ function HeaderBox(props) {
   return (
     <Layout>
       {!imageUrl ? (
-        <>
-          <Image src={profile_sample_large} width={180} height={180} alt="" />
-        </>
+        <Image src={profile_sample_large} width={180} height={180} alt="" />
       ) : (
-        <Image src={imageUrl} width={180} height={180} alt="" />
+        <CustomProfileContainer>
+          <Image src={imageUrl} width={180} height={180} alt="" />
+        </CustomProfileContainer>
       )}
       <Column>
         <LevelText>{Level[level]}</LevelText>
