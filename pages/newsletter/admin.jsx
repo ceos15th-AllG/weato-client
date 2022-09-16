@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 
 import axios from 'axios';
 import cookie from 'cookie';
+import pretty from 'pretty';
 
 import Context from '@contexts/Context';
 
@@ -146,7 +147,7 @@ const SideBarMenuBox = styled.div`
 
   .item {
     width: 100%;
-    height: 55px;
+    min-height: 55px;
 
     border-radius: 8px;
 
@@ -183,7 +184,7 @@ const SideBarMenuBox = styled.div`
 
   .new-button {
     width: 100%;
-    height: 55px;
+    min-height: 55px;
 
     border-radius: 8px;
 
@@ -191,18 +192,16 @@ const SideBarMenuBox = styled.div`
     justify-content: center;
     align-items: center;
 
-    margin-top: 6px;
+    margin-top: 26px;
     padding: 0px 20px;
 
     color: white;
     background-color: ${sub};
-
-    opacity: 1;
     &:hover {
-      opacity: 0.5;
+      background-color: ${gray05};
     }
 
-    transition: opacity 0.3s ease;
+    transition: background-color 0.6s ease;
 
     ${Subhead4}
     font-weight : 600;
@@ -212,7 +211,7 @@ const SideBarMenuBox = styled.div`
 const Row = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 
   margin-bottom: 10px;
 `;
@@ -244,6 +243,22 @@ const ButtonArea = styled.div`
   justify-content: space-between;
 `;
 
+const TextField = styled.input`
+  width: 100%;
+  height: 60px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  margin-top: 30px;
+  padding: 24px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 8px;
+`;
+
 const TextArea = styled.textarea`
   width: 100%;
   height: 100%;
@@ -251,7 +266,7 @@ const TextArea = styled.textarea`
 
   font-size: 18px;
 
-  margin: 30px 0px;
+  margin: 20px 0px 40px;
   padding: 24px;
 
   border: none;
@@ -367,6 +382,8 @@ const Admin = (props) => {
   // const [login, user, token] = useContext(Context);
   const { token } = props;
 
+  console.log(`토큰 : ${token}`);
+
   const [sideOpen, setSideOpen] = useState(false);
 
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -376,7 +393,9 @@ const Admin = (props) => {
   const [loadedNewsletters, setLoadedNewsletters] = useState([]);
   const [filteredNewsletters, setFilteredNewsletters] = useState([]);
 
+  const [title, setTitle] = useState(``);
   const [newsletter, setNewsletter] = useState(``);
+  const [newsletterValid, setNewsletterValid] = useState(false);
 
   const onClick = (event) => {
     setSideOpen(!sideOpen);
@@ -384,6 +403,10 @@ const Admin = (props) => {
 
   const onChangeSearchKeyword = (event) => {
     setSearchKeyword(event.target.value);
+  };
+
+  const onChangeTitle = (event) => {
+    setTitle(event.target.value);
   };
 
   const onChangeNewsletter = (event) => {
@@ -428,7 +451,7 @@ const Admin = (props) => {
         url: `https://www.weato.kro.kr/api/newsletters/${number}`,
       });
 
-      // setNewsletter(pretty(response.data.content));
+      setTitle(response.data.title);
       setNewsletter(response.data.content);
     } catch (error) {
       console.log(error);
@@ -505,6 +528,12 @@ const Admin = (props) => {
     setNewsletter(newsletter + '\n' + newText[option]);
   };
 
+  useEffect(() => {
+    setNewsletterValid(
+      newsletter.trim().length !== 0 && title.trim().length !== 0
+    );
+  }, [title, newsletter]);
+
   const convertSingleLine = () => {
     let convertResult = '';
     const lines = newsletter.split('\n');
@@ -515,8 +544,17 @@ const Admin = (props) => {
     return convertResult;
   };
 
+  const alignNewsletter = (event) => {
+    if (!number || !newsletterValid) {
+      return;
+    }
+
+    let result = pretty(newsletter);
+    setNewsletter(result);
+  };
+
   const updateNewsletter = async (event) => {
-    if (!number) {
+    if (!number || !newsletterValid) {
       return;
     }
 
@@ -530,7 +568,7 @@ const Admin = (props) => {
           Authorization: `Bearer ${token}`,
         },
         data: {
-          updatedTitle: '바뀐 타이틀 테스트',
+          updatedTitle: title,
           updatedContent: result,
         },
       });
@@ -653,6 +691,11 @@ const Admin = (props) => {
               }}
             />
           </ButtonArea>
+          <TextField
+            placeholder="뉴스레터 제목을 입력하세요"
+            value={title}
+            onChange={onChangeTitle}
+          />
           <TextArea
             placeholder="뉴스레터 내용을 입력하세요"
             value={newsletter}
@@ -660,10 +703,16 @@ const Admin = (props) => {
           />
           <Row>
             <Button
+              text="정렬하기"
+              btnType="3"
+              onClick={alignNewsletter}
+              disabled={!newsletterValid}
+            />
+            <Button
               text="적용하기"
               btnType="3"
               onClick={updateNewsletter}
-              disabled={!number}
+              disabled={!newsletterValid}
             />
           </Row>
         </Section>
