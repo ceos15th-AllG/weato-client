@@ -7,9 +7,7 @@ import { useRouter } from 'next/router';
 
 import axios from 'axios';
 import cookie from 'cookie';
-import pretty from 'pretty';
-import { html2json } from 'html2json';
-import json2html from 'json2html';
+// import pretty from 'pretty';
 
 import Context from '@contexts/Context';
 
@@ -551,10 +549,6 @@ const Admin = (props) => {
 
     // let result = pretty(newsletter);
     // setNewsletter(result);
-
-    console.log(html2json(newsletter));
-    // console.log(json2html.render(html2json(newsletter), { plainHtml: true }));
-    // console.log(html2json(newsletter));
     // setNewsletter(JSON.stringify(html2json(newsletter)));
   };
 
