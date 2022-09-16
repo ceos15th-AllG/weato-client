@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import cookie from 'cookie';
 import pretty from 'pretty';
+import { html2json } from 'html2json';
+import json2html from 'json2html';
 
 import Context from '@contexts/Context';
 
@@ -382,8 +384,6 @@ const Admin = (props) => {
   // const [login, user, token] = useContext(Context);
   const { token } = props;
 
-  console.log(`토큰 : ${token}`);
-
   const [sideOpen, setSideOpen] = useState(false);
 
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -549,8 +549,13 @@ const Admin = (props) => {
       return;
     }
 
-    let result = pretty(newsletter);
-    setNewsletter(result);
+    // let result = pretty(newsletter);
+    // setNewsletter(result);
+
+    console.log(html2json(newsletter));
+    // console.log(json2html.render(html2json(newsletter), { plainHtml: true }));
+    // console.log(html2json(newsletter));
+    // setNewsletter(JSON.stringify(html2json(newsletter)));
   };
 
   const updateNewsletter = async (event) => {
