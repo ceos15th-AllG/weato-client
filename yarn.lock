@@ -1357,6 +1357,11 @@ hoist-non-react-statics@^3.3.1:
   dependencies:
     react-is "^16.7.0"
 
+html2json@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/html2json/-/html2json-1.0.2.tgz#c9d6d202fa65402386c202b345cf51bce80ed1ef"
+  integrity sha512-tCdVt82U+/D1GCXFIoN5VfCzx767065EZJ5B8nStQUGSXU9PQ4L/0kFvF2of3Qsoe9HGaJni+lxOkqakfw0zpA==
+
 ieee754@^1.1.13:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
@@ -1572,6 +1577,13 @@ json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==
+
+json2html@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/json2html/-/json2html-0.0.8.tgz#6c64ee08259744fd28a49fb97d7746b29ae0501d"
+  integrity sha512-WwGOLuGAqD9xv0rfS6g6R/ZWO9GDceR/68HGMaw7RXACU8+bRbQ94JTdVOtKhchRBPGK9jLzM0U7HR1kLWfPdA==
+  dependencies:
+    underscore ">=1.3.1"
 
 json5@^1.0.1:
   version "1.0.1"
@@ -2455,6 +2467,11 @@ unbox-primitive@^1.0.2:
     has-bigints "^1.0.2"
     has-symbols "^1.0.3"
     which-boxed-primitive "^1.0.2"
+
+underscore@>=1.3.1:
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.4.tgz#7886b46bbdf07f768e0052f1828e1dcab40c0dee"
+  integrity sha512-BQFnUDuAQ4Yf/cYY5LNrK9NCJFKriaRbD9uR1fTeXnBeoa97W0i41qkZfGO9pSo8I5KzjAcSY2XYtdf0oKd7KQ==
 
 universal-cookie@^4.0.2:
   version "4.0.4"
