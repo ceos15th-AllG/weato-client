@@ -17,6 +17,8 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  row-gap: 32px;
 `;
 
 const Box = styled.div`
@@ -34,7 +36,7 @@ const Title = styled.span`
 
   ${Subhead3}
 
-  color : ${text_black};
+  color: ${text_black};
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -74,7 +76,20 @@ function BoardContentLarge({ posts }) {
   const dict = {
     MANAGEMENT: '관리법',
     QUESTION: '질문',
+    null: `태그`,
   };
+
+  const tags = {
+    DRUG: '약품',
+    SLEEP: '수면',
+    CLEANING: '세면',
+    FOOD: '음식',
+    ENVIRONMENT: '환경',
+    OTHERWISE: '기타',
+    ALL: '전체',
+  };
+
+  console.log(posts);
 
   return (
     <Layout>
@@ -84,9 +99,9 @@ function BoardContentLarge({ posts }) {
           title,
           createdAt,
           author,
+          tagType,
           commentsCounter,
           views,
-          likeCounter,
           boardType,
         }) => (
           <Link href={`/community/post/${id}`} key={id}>
@@ -99,7 +114,7 @@ function BoardContentLarge({ posts }) {
                   </Title>
                 </Box>
                 <Box>
-                  {/* <Hashtag>#{dict[boardType]}</Hashtag> */}
+                  <Hashtag>#{tags[tagType]}</Hashtag>
                   <Box>
                     <Image src={icon_views} width={17.54} height={12} alt="" />
                     <Views>{views}</Views>

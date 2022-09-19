@@ -19,9 +19,9 @@ const Layout = styled.div`
 `;
 
 const SmallText = styled.span`
-  ${Subhead3}
+  ${Subhead3};
 
-  color:  ${gray05};
+  color: ${gray05};
 `;
 
 const Title = styled.span`
@@ -66,26 +66,21 @@ const Name = styled.span`
 `;
 
 const SmallBox = styled.div`
-  width: 52px;
+  width: 53px;
 
   margin-left: 20px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+
+  .counter-value {
+    margin-left: 6px;
+  }
 `;
 
 function BoardRow(props) {
-  const {
-    id,
-    title,
-    createdAt,
-    author,
-    commentsCounter,
-    views,
-    likeCounter,
-    boardType,
-  } = props;
+  const { id, title, author, views, likeCounter, boardType } = props;
   const dict = {
     MANAGEMENT: '관리법',
     QUESTION: '질문',
@@ -100,17 +95,17 @@ function BoardRow(props) {
           <Row>
             <Box>
               <Image src={profile_sample} width={24} height={24} alt="" />
-              <Level>새싹</Level>
+              <Level>{`${`새싹`} •`}</Level>
               <Name>{author}</Name>
             </Box>
             <Box>
               <SmallBox>
                 <Image src={icon_gray_views} width={20} height={13.69} alt="" />
-                <SmallText>{views}</SmallText>
+                <SmallText className="counter-value">{views}</SmallText>
               </SmallBox>
               <SmallBox>
                 <Image src={icon_color_heart} width={16} height={14} alt="" />
-                <SmallText>{likeCounter}</SmallText>
+                <SmallText className="counter-value">{likeCounter}</SmallText>
               </SmallBox>
             </Box>
           </Row>

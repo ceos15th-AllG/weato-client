@@ -14,7 +14,8 @@ const Layout = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+
+  row-gap: 34px;
 `;
 
 const Box = styled.div`
@@ -26,9 +27,9 @@ const Box = styled.div`
 const Title = styled.span`
   width: 200px;
 
-  ${Subhead3}
+  ${Subhead3};
 
-  color : ${text_black};
+  color: ${text_black};
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -58,7 +59,7 @@ const Date = styled.span`
 function BoardContentSmall({ posts }) {
   return (
     <Layout>
-      {posts.map(({ id, title, createdAt, commentsCounter, views }) => (
+      {posts.map(({ id, title, createdAt, views }) => (
         <Link href={`/community/post/${id}`} key={id}>
           <a>
             <Box>
@@ -69,6 +70,7 @@ function BoardContentSmall({ posts }) {
                   <Views>{views}</Views>
                 </Box>
                 <Date>{createdAt.slice(0, 10)}</Date>
+                {/* <Date>{'몇분 전'}</Date> */}
               </Box>
             </Box>
           </a>
