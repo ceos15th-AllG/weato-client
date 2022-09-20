@@ -15,6 +15,17 @@ import Dropdown from '@community/Dropdown';
 import { Display1, Subhead4, Subhead3 } from '@styles/FontStyle';
 import { main, gray04, gray05, gray06, text_black } from '@styles/Colors';
 
+const boardType = ['나만의 관리법', '질문'];
+const tagType = ['약품', '수면', '세면', '음식', '환경', '기타'];
+const toKoreanTags = {
+  약품: 'DRUG',
+  수면: 'SLEEP',
+  세면: 'CLEANING',
+  음식: 'FOOD',
+  환경: 'ENVIRONMENT',
+  기타: 'OTHERWISE',
+};
+
 const Layout = styled.div`
   margin: 79px 523px 60px;
 
@@ -116,6 +127,8 @@ export default function New() {
   const router = useRouter();
   const { token } = useContext(Context);
 
+  console.log(token);
+
   const [categorySelected, setCategorySelected] = useState('게시판');
   const [tagSelected, setTagSelected] = useState('태그');
   const [title, setTitle] = useState('');
@@ -172,14 +185,12 @@ export default function New() {
           title: title.trim(),
           content: encodedContent,
           boardType: toBoardType[categorySelected],
+          tagType: toKoreanTags[tagSelected],
         },
       });
 
-      // console.log(response.data);
-
-      // alert('서버 요청 성공');
-      // router.push(`/community/post/${}`);
-      router.push(`/community`);
+      const newPostId = response.data.id;
+      router.push(`/community/post/${newPostId}`);
     } catch (error) {
       alert(error);
       alert('서버 요청이 불가능하네요...');
@@ -199,9 +210,6 @@ export default function New() {
       setConfirm(false);
     }
   }, [categorySelected, tagSelected, titleValid, contentValid]);
-
-  const boardType = ['나만의 관리법', '질문'];
-  const tagType = ['전체', '약품', '수면', '세면', '음식', '환경', '기타'];
 
   return (
     <Layout>
