@@ -1,6 +1,15 @@
 import styled from '@emotion/styled';
 
+import { useState, useEffect, useContext } from 'react';
+
+import axios from 'axios';
+
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+
+import Context from '@contexts/Context';
+
+import OptionButton from '@community/OptionButton';
 
 import { Subhead3, Subhead4, Body1, Body2, Tag1 } from '@styles/FontStyle';
 import { gray01, gray03, gray05, gray06, text_black } from '@styles/Colors';
@@ -11,9 +20,12 @@ import icon_blank_heart from '@public/icon_blank_heart.png';
 import icon_reply_comment from '@public/icon_reply_comment.png';
 
 const Layout = styled.div`
+  width: 100%;
+
   padding-top: 21px;
   padding-bottom: 34px;
   padding-left: ${(props) => `${props.reply ? '74px' : '0px'}`};
+  padding-right: 0px;
 
   display: flex;
   flex-direction: column;
@@ -32,6 +44,27 @@ const Row = styled.div`
 const Box = styled.div`
   display: flex;
   align-items: center;
+
+  .reply-text {
+    width: 40px;
+
+    margin-right: 8px;
+
+    ${Body1}
+
+    color : ${gray06};
+  }
+
+  .like-text {
+    width: 40px;
+
+    margin-left: 8px;
+    margin-right: 16px;
+
+    ${Subhead3}
+
+    color : ${gray05};
+  }
 `;
 
 const ReplyBlock = styled.div`
@@ -55,16 +88,6 @@ const Date = styled.span`
   color : ${gray06};
 `;
 
-const LikeText = styled.span`
-  width: 40px;
-
-  margin-left: 8px;
-
-  ${Subhead3}
-
-  color : ${gray05};
-`;
-
 const Content = styled.span`
   width: 775px;
 
@@ -75,7 +98,16 @@ const Content = styled.span`
   color : ${text_black};
 `;
 
-function CommentRow({
+const OptionButtonContainer = styled.div`
+  position: absolute;
+  right: 520px;
+
+  width: 40px;
+  height: 40px;
+`;
+
+const CommentRow = ({
+  postId,
   commentId,
   name,
   level,
@@ -84,7 +116,39 @@ function CommentRow({
   date,
   reply,
   liked,
-}) {
+}) => {
+  const { token } = useContext(Context);
+  const router = useRouter();
+
+  // const onClickDelete = async (event) => {
+  //   try {
+  //     const deleteComment = await axios({
+  //       method: 'delete',
+  //       url: `https://www.weato.kro.kr/api/posts/${postId}/comments`,
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+
+  //       data: {
+  //         content: myComment.trim(),
+  //       },
+  //     });
+
+  //     const getNewComments = await axios({
+  //       method: 'get',
+  //       url: `https://www.weato.kro.kr/api/posts/${postId}`,
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+
+  //     setComments(getNewComments.data.comments);
+  //     setMyComment('');
+  //   } catch (error) {
+  //     alert(error);
+  //   }
+  // };
+
   return (
     <Layout reply={reply}>
       {/* <ReplyBlock>
@@ -97,14 +161,39 @@ function CommentRow({
           <Date>{date}</Date>
         </Box>
         <Box>
+          <span
+            className="reply-text"
+            onClick={(event) => {
+              alert('답글 기능 연결 중..');
+            }}
+          >
+            답글
+          </span>
           <Image
             src={liked ? icon_color_heart : icon_blank_heart}
             width={20}
             height={18}
             alt=""
           />
-          <LikeText>{like}</LikeText>
+          <span className="like-text">{like}</span>
         </Box>
+
+        <OptionButtonContainer>
+          <OptionButton
+            options={[
+              {
+                label: '수정',
+                action: () => {
+                  alert('수정 기능 연결 중...');
+                },
+              },
+              {
+                label: '삭제',
+                action: () => alert('수정 기능 연결 중...'),
+              },
+            ]}
+          />
+        </OptionButtonContainer>
       </Row>
 
       <Row>
@@ -121,6 +210,6 @@ function CommentRow({
       </Row>
     </Layout>
   );
-}
+};
 
 export default CommentRow;

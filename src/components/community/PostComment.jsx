@@ -78,10 +78,12 @@ const CommentArea = styled.section`
 
 function PostComment(props) {
   const { user, token } = useContext(Context);
-  const { id } = props;
+  const { postId } = props;
   const [comments, setComments] = useState([]);
   const [myComment, setMyComment] = useState('');
   const [submit, setSubmit] = useState(false);
+
+  console.log(props.comment);
 
   const onChangeComment = (event) => {
     setMyComment(event.target.value);
@@ -108,7 +110,7 @@ function PostComment(props) {
     try {
       const submitComment = await axios({
         method: 'post',
-        url: `https://www.weato.kro.kr/api/posts/${id}/comments`,
+        url: `https://www.weato.kro.kr/api/posts/${postId}/comments`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -120,7 +122,7 @@ function PostComment(props) {
 
       const getNewComments = await axios({
         method: 'get',
-        url: `https://www.weato.kro.kr/api/posts/${id}`,
+        url: `https://www.weato.kro.kr/api/posts/${postId}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -157,19 +159,22 @@ function PostComment(props) {
       </Form>
 
       <CommentArea>
-        {comments.map(({ author, content, createdAt, likeCounter }, index) => (
-          <CommentRow
-            key={index}
-            commentId={index}
-            name={author}
-            level={`새싹`}
-            content={content}
-            like={likeCounter}
-            date={createdAt.slice(0, 10)}
-            reply={false}
-            liked={false}
-          />
-        ))}
+        {comments.map(
+          ({ id, author, content, createdAt, likeCounter }, index) => (
+            <CommentRow
+              key={index}
+              postId={postId}
+              commentId={id}
+              name={author}
+              level={`새싹`}
+              content={content}
+              like={likeCounter}
+              date={createdAt.slice(0, 10)}
+              reply={false}
+              liked={false}
+            />
+          )
+        )}
       </CommentArea>
     </Layout>
   );
