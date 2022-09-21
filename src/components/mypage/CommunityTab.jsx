@@ -3,13 +3,18 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import BoardRow from '@mypage/BoardRow';
+import BoardRow from '@community/BoardRow';
 import Pagenator from '@common/Pagenator';
 
 import { Display1, Headline1, Subhead4, Body3 } from '@styles/FontStyle';
-
 import { gray04, gray06, text_black } from '@styles/Colors';
+
+const toBoardType = {
+  MANAGEMENT: '관리법',
+  QUESTION: '질문',
+};
 
 const Layout = styled.div`
   margin: 42px 300px 151px;
@@ -85,60 +90,19 @@ const CenterBox = styled.div`
   justify-content: center;
 `;
 
-function CommunityTab() {
+function CommunityTab({ query, data }) {
+  const router = useRouter();
+
+  console.log(data);
+
+  const { page } = query;
+  const { min, max, result } = data;
+
   const basicData = {
     level: '새싹',
     currentPoint: 20,
     nextLevel: 100,
   };
-
-  const communityData = [
-    {
-      id: '0',
-      category: '관리법',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-    {
-      id: '1',
-      category: '질문',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-    {
-      id: '2',
-      category: '관리법',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-    {
-      id: '3',
-      category: '질문',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-    {
-      id: '4',
-      category: '관리법',
-      title: '아토피 이제 괜찮아졌어요',
-      view: '200',
-      like: '200',
-      name: '아토랑',
-      level: '새싹',
-    },
-  ];
 
   return (
     <Layout>
@@ -163,26 +127,33 @@ function CommunityTab() {
           margin-top: 149px;
         `}
       >
-        나의 작성글
+        나의 작성글 ({result.length})
       </SubHeader>
       <Board>
-        {communityData.map(
-          ({ id, category, title, view, like, name, level }) => (
+        {result.map(
+          ({ id, boardType, title, author, views, likeCounter }, index) => (
             <BoardRow
-              key={id}
-              category={category}
+              key={index}
+              id={id}
+              boardType={boardType}
               title={title}
-              view={view}
-              like={like}
-              name={name}
-              level={level}
+              level={`레벨들어갈부분`}
+              author={author}
+              views={views}
+              likeCounter={likeCounter}
             />
           )
         )}
       </Board>
 
       <CenterBox>
-        <Pagenator />
+        <Pagenator
+          path={router.pathname}
+          query={query}
+          min={min}
+          max={max}
+          current={page}
+        />
       </CenterBox>
     </Layout>
   );

@@ -20,7 +20,7 @@ function Mypage(props) {
   }
 
   const { query } = props;
-  const { tab, tag, page } = query;
+  const { tab } = query;
 
   return (
     <Layout>
@@ -33,7 +33,9 @@ function Mypage(props) {
       {tab === 'bookmarks' ? (
         <BookmarksTab query={query} data={props.bookmarksData} />
       ) : undefined}
-      {/* {tab === 'community' ? <CommunityTab /> : undefined} */}
+      {tab === 'community' ? (
+        <CommunityTab query={query} data={props.communityData} />
+      ) : undefined}
     </Layout>
   );
 }
@@ -108,7 +110,7 @@ export const getServerSideProps = async (context) => {
 
       const responseCommunity = await axios({
         method: 'get',
-        url: `https://www.weato.kro.kr/api/members/${id}/profile`,
+        url: `https://www.weato.kro.kr/api/members/${id}/scraps?page=${page}`,
         headers: {
           Authorization: `Bearer ${access_token}`,
         },

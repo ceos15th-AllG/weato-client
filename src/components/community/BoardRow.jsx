@@ -80,7 +80,7 @@ const SmallBox = styled.div`
 `;
 
 function BoardRow(props) {
-  const { id, title, author, views, likeCounter, boardType } = props;
+  const { id, boardType, title, author, views, likeCounter } = props;
   const dict = {
     MANAGEMENT: '관리법',
     QUESTION: '질문',
