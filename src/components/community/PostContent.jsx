@@ -101,25 +101,44 @@ function PostContent({ id, post }) {
   const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
+    setLike(post.likeChecker);
     setLikeCount(post.likeCount);
   }, []);
 
   const onClickLike = async (event) => {
     try {
-      const response = await axios({
-        method: 'post',
-        url: `https://www.weato.kro.kr/api/posts/${id}/likes`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      if (!like) {
+        const response = await axios({
+          method: 'post',
+          url: `https://www.weato.kro.kr/api/posts/${id}/likes`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      setLikeCount(response.data.likecount);
-      // alert('좋아요 완료');
+        setLike(true);
+        setLikeCount(response.data.likecount);
+        // alert('좋아요 완료');
+      } else {
+        const response = await axios({
+          method: 'delete',
+          url: `https://www.weato.kro.kr/api/posts/${id}/likes`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setLike(false);
+        setLikeCount(response.data.likecount);
+        // alert('좋아요 취소 완료');
+      }
     } catch (error) {
-      // alert(error);
+      if (error.response.status === 400) {
+        setLike(!like);
+      } else {
+        alert(error);
+      }
     }
-    setLike(!like);
   };
 
   return (
