@@ -104,13 +104,13 @@ function Home(props) {
             <CardHeader css={Display1}>이주의 아토레터</CardHeader>
             <CardBox data={newsletterHot.data} />
             <ButtonRow>
-              <Button text={'더보기'} btnType={'4'} href="/newsletter" />
+              <Button text={'전체 글 보기'} btnType={'4'} href="/newsletter" />
             </ButtonRow>
 
             <CardHeader css={Display1}>가장 많은 스크랩</CardHeader>
             <CardBox data={newsletterScrap.data} />
             <ButtonRow>
-              <Button text={'더보기'} btnType={'4'} href="/newsletter" />
+              <Button text={'전체 글 보기'} btnType={'4'} href="/newsletter" />
             </ButtonRow>
           </HomeContent>
         </div>
