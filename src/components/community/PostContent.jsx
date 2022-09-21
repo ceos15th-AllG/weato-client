@@ -7,12 +7,14 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import Context from '@contexts/Context';
 
 import PostTag from '@community/PostTag';
 import Tag from '@common/Tag';
 import ActionButton from '@common/ActionButton';
+import OptionButton from '@community/OptionButton';
 
 import { Subhead4, Body1, Body2, Tag1 } from '@styles/FontStyle';
 import { gray04, gray05, gray06, text_black } from '@styles/Colors';
@@ -31,11 +33,12 @@ const toKoreanTags = {
 };
 
 const Layout = styled.div`
-  margin-top: 30px;
-  padding-bottom: 24px;
-
+  position: relative;
   display: flex;
   flex-direction: column;
+
+  margin-top: 30px;
+  padding-bottom: 24px;
 
   border-bottom: 1px solid ${gray04};
 `;
@@ -105,8 +108,19 @@ const ContentText = styled.span`
   color : ${text_black};
 `;
 
+const OptionButtonContainer = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 24px;
+
+  width: 40px;
+  height: 40px;
+`;
+
 function PostContent({ id, post }) {
   const { token } = useContext(Context);
+  const router = useRouter();
+
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
@@ -148,6 +162,23 @@ function PostContent({ id, post }) {
       } else {
         alert(error);
       }
+    }
+  };
+
+  const onClickDelete = async (event) => {
+    try {
+      const response = await axios({
+        method: 'delete',
+        url: `https://www.weato.kro.kr/api/posts/${id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // router.back();
+      router.replace(`/community/board`);
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -215,6 +246,23 @@ function PostContent({ id, post }) {
           active={like}
         />
       </Row>
+
+      <OptionButtonContainer>
+        <OptionButton
+          options={[
+            {
+              label: '수정',
+              action: () => {
+                alert('수정 기능 연결 중...');
+              },
+            },
+            {
+              label: '삭제',
+              action: onClickDelete,
+            },
+          ]}
+        />
+      </OptionButtonContainer>
     </Layout>
   );
 }
