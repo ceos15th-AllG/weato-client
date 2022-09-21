@@ -47,8 +47,8 @@ function Community(props) {
           <a>커뮤니티</a>
         </Link>
         <strong>&#xE001;</strong>
-        <Link href={`/community/board?tab=${toQueryTypes['MANAGEMENT']}`}>
-          <a>{toKoreanTypes['MANAGEMENT']}</a>
+        <Link href={`/community/board?tab=${toQueryTypes[postData.boardType]}`}>
+          <a>{toKoreanTypes[postData.boardType]}</a>
         </Link>
       </ContentHeader>
 

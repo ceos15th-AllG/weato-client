@@ -86,7 +86,6 @@ function BoardContentLarge({ posts }) {
     FOOD: '음식',
     ENVIRONMENT: '환경',
     OTHERWISE: '기타',
-    ALL: '전체',
   };
 
   console.log(posts);

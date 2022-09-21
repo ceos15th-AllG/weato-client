@@ -20,6 +20,16 @@ import { gray04, gray05, gray06, text_black } from '@styles/Colors';
 import profile_sample_big from '@public/profile_sample_big.png';
 import icon_gray_views from '@public/icon_gray_views.png';
 
+const toKoreanTypes = { MANAGEMENT: '관리법', QUESTION: '질문' };
+const toKoreanTags = {
+  DRUG: '약품',
+  SLEEP: '수면',
+  CLEANING: '세면',
+  FOOD: '음식',
+  ENVIRONMENT: '환경',
+  OTHERWISE: '기타',
+};
+
 const Layout = styled.div`
   margin-top: 30px;
   padding-bottom: 24px;
@@ -145,10 +155,10 @@ function PostContent({ id, post }) {
     <Layout>
       <Row>
         <Box>
-          <PostTag text={`관리법`} />
+          <PostTag text={toKoreanTypes[post.boardType]} />
           <Title>{post.title}</Title>
         </Box>
-        <Tag text={`수면`} />
+        <Tag text={toKoreanTags[post.tagType]} />
       </Row>
 
       <Row
@@ -160,7 +170,7 @@ function PostContent({ id, post }) {
       >
         <Box>
           <Image src={profile_sample_big} width={42} height={42} alt="" />
-          <Level>{`새싹`}</Level>
+          <Level>{`${`새싹`} •`}</Level>
           <Name>{post.author}</Name>
           <Since>병력: {`2년`}</Since>
           <Severity>정도: {1}</Severity>
