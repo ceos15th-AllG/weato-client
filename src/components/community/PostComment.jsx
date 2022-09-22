@@ -77,13 +77,12 @@ const CommentArea = styled.section`
 `;
 
 function PostComment(props) {
+  console.log(props);
   const { user, token } = useContext(Context);
-  const { postId } = props;
+  const postId = props.id;
   const [comments, setComments] = useState([]);
   const [myComment, setMyComment] = useState('');
   const [submit, setSubmit] = useState(false);
-
-  console.log(props.comment);
 
   const onChangeComment = (event) => {
     setMyComment(event.target.value);
@@ -131,6 +130,7 @@ function PostComment(props) {
       setComments(getNewComments.data.comments);
       setMyComment('');
     } catch (error) {
+      console.log(error);
       alert(error);
     }
   };
