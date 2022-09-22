@@ -139,14 +139,21 @@ function ProfileTab(props) {
           <InfoData>{userProfile.nickname}</InfoData>
         </InfoBox>
         <InfoBox>
-          <InfoName>생년월일</InfoName>
-          <InfoData>
-            {userProfile.birthyear && `${userProfile.birthyear}년 `}
-            {userProfile.birthday &&
-              `${userProfile.birthday.split('-')[0]}월 ${
-                userProfile.birthday.split('-')[1]
-              }일`}
-          </InfoData>
+          {!userProfile.birthday ? (
+            <>
+              <InfoName>생년</InfoName>
+              <InfoData>{userProfile.birthyear}년</InfoData>
+            </>
+          ) : (
+            <>
+              <InfoName>생년월일</InfoName>
+              <InfoData>
+                {`${userProfile.birthyear}년 ${
+                  userProfile.birthday.split('-')[0]
+                }월 ${userProfile.birthday.split('-')[1]}일`}
+              </InfoData>
+            </>
+          )}
         </InfoBox>
         <InfoBox>
           <InfoName>이메일</InfoName>
