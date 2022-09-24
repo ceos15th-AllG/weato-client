@@ -168,10 +168,9 @@ function PostComment(props) {
               name={author}
               level={`새싹`}
               content={content}
-              like={likeCounter}
+              likeCounter={likeCounter}
               date={createdAt.slice(0, 10)}
               reply={false}
-              liked={false}
               setComments={setComments}
             />
           )

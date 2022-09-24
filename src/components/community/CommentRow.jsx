@@ -98,6 +98,11 @@ const Content = styled.span`
   color : ${text_black};
 `;
 
+const LikeButton = styled.div`
+  width: 20px;
+  height: 18px;
+`;
+
 const OptionButtonContainer = styled.div`
   position: absolute;
   right: 520px;
@@ -112,14 +117,52 @@ const CommentRow = ({
   name,
   level,
   content,
-  like,
   date,
   reply,
-  liked,
+  likeCounter,
   setComments,
 }) => {
   const { token } = useContext(Context);
   const router = useRouter();
+
+  const [like, setLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(likeCounter);
+
+  const onClickLike = async (event) => {
+    try {
+      if (!like) {
+        const response = await axios({
+          method: 'post',
+          url: `https://www.weato.kro.kr/api/posts/${postId}/comments/${commentId}/likes`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setLike(true);
+        setLikeCount(response.data.likecount);
+        // alert('좋아요 완료');
+      } else {
+        const response = await axios({
+          method: 'delete',
+          url: `https://www.weato.kro.kr/api/posts/${postId}/comments/${commentId}/likes`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setLike(false);
+        setLikeCount(response.data.likeCount);
+        // alert('좋아요 취소 완료');
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        setLike(!like);
+      } else {
+        alert(error);
+      }
+    }
+  };
 
   const onClickDelete = async (event) => {
     try {
@@ -165,13 +208,10 @@ const CommentRow = ({
           >
             답글
           </span>
-          <Image
-            src={liked ? icon_color_heart : icon_blank_heart}
-            width={20}
-            height={18}
-            alt=""
-          />
-          <span className="like-text">{like}</span>
+          <LikeButton onClick={onClickLike}>
+            <Image src={like ? icon_color_heart : icon_blank_heart} alt="" />
+          </LikeButton>
+          <span className="like-text">{likeCount}</span>
         </Box>
 
         <OptionButtonContainer>
