@@ -56,9 +56,17 @@ const Item = styled.div`
 
   background-color: white;
   color: ${gray04};
+
   &:nth-of-type(1) {
     color: ${text_black};
   }
+  /* &:not(:nth-of-type(1)) {
+    border-left: 1px solid ${gray05};
+    border-right: 1px solid ${gray05};
+  }
+  &:last-of-type {
+    background-color: red;
+  } */
 
   &:hover {
     background-color: ${gray01};
