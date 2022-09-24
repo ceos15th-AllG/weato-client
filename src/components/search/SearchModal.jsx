@@ -5,11 +5,9 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Button from '@common/ButtonContainer';
+import { Headline1, Subhead4, Body4 } from '@styles/FontStyle';
 
-import { Headline1, Body4 } from '@styles/FontStyle';
-
-import { main, text_black, text_white } from '@styles/Colors';
+import { main, sub, gray04, text_black, text_white } from '@styles/Colors';
 
 import icon_quit from '@public/icon_quit.png';
 import icon_search_big from '@public/icon_search_big.png';
@@ -109,6 +107,32 @@ const ButtonRow = styled.div`
   justify-content: space-between;
 `;
 
+const Button = styled.div`
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  align-items: center;
+
+  width: 203px;
+  height: 60px;
+
+  border: 1px solid ${gray04};
+  border-radius: 4px;
+
+  color: ${gray04};
+  background-color: white;
+
+  ${Subhead4}
+
+  &:hover {
+    color: ${text_white};
+    background-color: ${sub};
+    border: 1px solid transparent;
+  }
+
+  transition: 0.5s all ease;
+`;
+
 const SearchModal = ({ setIsActive, router }) => {
   const [searchText, setSearchText] = useState('');
 
@@ -160,14 +184,14 @@ const SearchModal = ({ setIsActive, router }) => {
       <BottomBox>
         <TitleText>위아토의 키워드</TitleText>
         <ButtonRow>
-          <Button text={'약품'} btnType={'8'} />
-          <Button text={'세면'} btnType={'8'} />
-          <Button text={'환경'} btnType={'8'} />
+          <Button>약품</Button>
+          <Button>세면</Button>
+          <Button>환경</Button>
         </ButtonRow>
         <ButtonRow>
-          <Button text={'수면'} btnType={'8'} />
-          <Button text={'음식'} btnType={'8'} />
-          <Button text={'기타'} btnType={'8'} />
+          <Button>수면</Button>
+          <Button>음식</Button>
+          <Button>기타</Button>
         </ButtonRow>
       </BottomBox>
     </Layout>
