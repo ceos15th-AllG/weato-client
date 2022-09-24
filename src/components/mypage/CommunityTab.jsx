@@ -105,7 +105,7 @@ function CommunityTab({ query, basicData, data }) {
   return (
     <Layout>
       <Row>
-        <Header>회원정보</Header>
+        <Header>커뮤니티 정보</Header>
       </Row>
 
       <SubHeader>기본 정보</SubHeader>
