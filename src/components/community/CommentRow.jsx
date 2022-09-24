@@ -116,38 +116,34 @@ const CommentRow = ({
   date,
   reply,
   liked,
+  setComments,
 }) => {
   const { token } = useContext(Context);
   const router = useRouter();
 
-  // const onClickDelete = async (event) => {
-  //   try {
-  //     const deleteComment = await axios({
-  //       method: 'delete',
-  //       url: `https://www.weato.kro.kr/api/posts/${postId}/comments`,
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
+  const onClickDelete = async (event) => {
+    try {
+      const deleteComment = await axios({
+        method: 'delete',
+        url: `https://www.weato.kro.kr/api/posts/${postId}/comments/${commentId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  //       data: {
-  //         content: myComment.trim(),
-  //       },
-  //     });
+      const getNewComments = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/posts/${postId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  //     const getNewComments = await axios({
-  //       method: 'get',
-  //       url: `https://www.weato.kro.kr/api/posts/${postId}`,
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     setComments(getNewComments.data.comments);
-  //     setMyComment('');
-  //   } catch (error) {
-  //     alert(error);
-  //   }
-  // };
+      setComments(getNewComments.data.comments);
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   return (
     <Layout reply={reply}>
@@ -189,7 +185,7 @@ const CommentRow = ({
               },
               {
                 label: '삭제',
-                action: () => alert('수정 기능 연결 중...'),
+                action: onClickDelete,
               },
             ]}
           />

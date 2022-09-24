@@ -77,7 +77,6 @@ const CommentArea = styled.section`
 `;
 
 function PostComment(props) {
-  console.log(props);
   const { user, token } = useContext(Context);
   const postId = props.id;
   const [comments, setComments] = useState([]);
@@ -95,6 +94,7 @@ function PostComment(props) {
       setSubmit(false);
     }
   }, [myComment]);
+
   useEffect(() => {
     setComments(props.comment);
   }, []);
@@ -172,6 +172,7 @@ function PostComment(props) {
               date={createdAt.slice(0, 10)}
               reply={false}
               liked={false}
+              setComments={setComments}
             />
           )
         )}

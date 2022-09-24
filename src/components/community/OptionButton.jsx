@@ -76,7 +76,13 @@ const OptionButton = ({ options }) => {
       {isOpen && (
         <Content>
           {options.map(({ label, action }, index) => (
-            <Item key={index} onClick={action}>
+            <Item
+              key={index}
+              onClick={() => {
+                action();
+                setIsOpen(false);
+              }}
+            >
               {label}
             </Item>
           ))}
