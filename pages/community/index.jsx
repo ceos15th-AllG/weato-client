@@ -72,13 +72,13 @@ function Community(props) {
 
 export async function getServerSideProps(context) {
   try {
-    const { access_token } = cookie.parse(context.req.headers.cookie);
+    const { token } = cookie.parse(context.req.headers.cookie);
 
     const response = await axios({
       method: 'get',
       url: `https://www.weato.kro.kr/api/community`,
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -92,10 +92,6 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    // redirect: {
-    //   destination: '/login',
-    //   permanent: false,
-    // },
     props: {},
   };
 }

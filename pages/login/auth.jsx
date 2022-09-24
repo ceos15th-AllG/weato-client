@@ -25,39 +25,28 @@ const Layout = styled.div`
 `;
 
 const Auth = (props) => {
+  console.log(props);
   const router = useRouter();
   const { setToken, setUser, setLogin } = useContext(Context);
 
-  const requestLogin = async (token) => {
-    try {
-      const response = await axios({
-        method: 'get',
-        url: `https://www.weato.kro.kr/api/members`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setToken(token);
-      setUser(response.data);
+  const requestLogin = async () => {
+    if (props.newMember) {
+      router.replace(`/signup?token=${props.token}`);
+    } else {
+      setToken(props.token);
+      setUser(props.userData);
       setLogin(true);
-      router.push(`/signup?token=${token}`);
-    } catch (error) {
-      console.log(error);
-      alert('잘못된 로그인 정보입니다.');
-      setToken(null);
-      setUser({});
-      setLogin(false);
-      router.push(`/login`);
+      router.replace(`/`);
     }
   };
 
   useEffect(() => {
-    requestLogin(props.token);
+    requestLogin();
   }, []);
 
   return (
     <Layout>
-      <span>회원가입 페이지로 연결 중입니다...</span>
+      <span>네이버 소셜 로그인 연결 중입니다...</span>
     </Layout>
   );
 };
@@ -65,20 +54,44 @@ const Auth = (props) => {
 export const getServerSideProps = async (context) => {
   const query = context.query;
 
-  if (Object.keys(query).length === 0 || !query.hasOwnProperty('token')) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
+  try {
+    const response = await axios({
+      method: 'get',
+      url: `https://www.weato.kro.kr/api/members`,
+      headers: {
+        Authorization: `Bearer ${query.token}`,
       },
-      props: {},
-    };
+    });
+
+    // 이미 회원인 경우
+    if (!response.data.newMemberChecker) {
+      return {
+        props: {
+          token: query.token,
+          newMember: false,
+          userData: response.data,
+        },
+      };
+    }
+    // 새로 가입해야 하는 경우
+    else {
+      return {
+        props: {
+          token: query.token,
+          newMember: true,
+        },
+      };
+    }
+  } catch (error) {
+    console.log(error);
   }
 
   return {
-    props: {
-      token: query.token,
+    redirect: {
+      destination: '/login',
+      permanent: false,
     },
+    props: {},
   };
 };
 

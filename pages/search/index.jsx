@@ -138,14 +138,14 @@ export const getServerSideProps = async (context) => {
   const keyword = !query.keyword ? '빈 검색어' : query.keyword.trim();
 
   try {
-    const { access_token } = cookie.parse(context.req.headers.cookie);
+    const { token } = cookie.parse(context.req.headers.cookie);
     const response = await axios({
       method: 'get',
       url: `https://www.weato.kro.kr/api/search?keyword=${encodeURIComponent(
         keyword
       )}`,
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

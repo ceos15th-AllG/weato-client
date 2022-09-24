@@ -148,7 +148,7 @@ export const getServerSideProps = async (context) => {
   const page = !query.page ? 1 : parseInt(query.page);
 
   try {
-    const { access_token } = cookie.parse(context.req.headers.cookie);
+    const { token } = cookie.parse(context.req.headers.cookie);
 
     if (category === 'newsletter') {
       const response = await axios({
@@ -157,7 +157,7 @@ export const getServerSideProps = async (context) => {
           keyword
         )}&page=${page}`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -174,7 +174,7 @@ export const getServerSideProps = async (context) => {
           keyword
         )}&page=${page}`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 

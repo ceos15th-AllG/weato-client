@@ -163,14 +163,14 @@ export const getServerSideProps = async (context) => {
   const page = !query.page ? 1 : parseInt(query.page);
 
   try {
-    const { access_token } = cookie.parse(context.req.headers.cookie);
+    const { token } = cookie.parse(context.req.headers.cookie);
 
     if (tab === 'hot') {
       const response = await axios({
         method: 'get',
         url: `https://www.weato.kro.kr/api/posts/hot-topics`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       return {
@@ -184,7 +184,7 @@ export const getServerSideProps = async (context) => {
         method: 'get',
         url: `https://www.weato.kro.kr/api/posts?type=management&page=${page}`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       return {
@@ -198,7 +198,7 @@ export const getServerSideProps = async (context) => {
         method: 'get',
         url: `https://www.weato.kro.kr/api/posts?type=question&page=${page}`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       return {

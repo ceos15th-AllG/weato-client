@@ -727,11 +727,11 @@ const Admin = (props) => {
 
 export const getServerSideProps = async (context) => {
   try {
-    const { access_token } = cookie.parse(context.req.headers.cookie);
+    const { token } = cookie.parse(context.req.headers.cookie);
 
     return {
       props: {
-        token: access_token,
+        token: token,
       },
     };
   } catch (error) {

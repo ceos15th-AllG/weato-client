@@ -58,14 +58,14 @@ export const getServerSideProps = async (context) => {
   const page = !query.page ? 1 : parseInt(query.page);
 
   try {
-    const { id, access_token } = cookie.parse(context.req.headers.cookie);
+    const { id, token } = cookie.parse(context.req.headers.cookie);
 
     if (tab === 'profile') {
       const responseProfile = await axios({
         method: 'get',
         url: `https://www.weato.kro.kr/api/members/${id}/profile`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -80,7 +80,7 @@ export const getServerSideProps = async (context) => {
         method: 'get',
         url: `https://www.weato.kro.kr/api/members/${id}/profile`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -88,7 +88,7 @@ export const getServerSideProps = async (context) => {
         method: 'get',
         url: `https://www.weato.kro.kr/api/members/${id}/bookmarks?tag=${toQueryTags[tag]}&page=${page}`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -104,7 +104,7 @@ export const getServerSideProps = async (context) => {
         method: 'get',
         url: `https://www.weato.kro.kr/api/members/${id}/profile`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -112,7 +112,7 @@ export const getServerSideProps = async (context) => {
         method: 'get',
         url: `https://www.weato.kro.kr/api/members/${id}/scraps?page=${page}`,
         headers: {
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 

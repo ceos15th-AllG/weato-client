@@ -5,16 +5,8 @@ const Context = createContext({
   setLogin: () => {},
   token: null,
   setToken: () => {},
-  user: {
-    id: -1,
-    name: '',
-    email: '',
-    gender: '',
-    birthYear: '',
-    createdAT: '',
-  },
+  user: {},
   setUser: () => {},
-  setLogOut: () => {},
 });
 
 export default Context;

@@ -62,12 +62,12 @@ export const getServerSideProps = async (context) => {
   const query = context.query;
 
   try {
-    const { access_token } = cookie.parse(context.req.headers.cookie);
+    const { token } = cookie.parse(context.req.headers.cookie);
     const response = await axios({
       method: 'get',
       url: `https://www.weato.kro.kr/api/posts/${query.id}`,
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

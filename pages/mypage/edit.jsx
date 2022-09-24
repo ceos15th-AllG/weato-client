@@ -831,19 +831,19 @@ function Edit(props) {
 }
 export const getServerSideProps = async (context) => {
   try {
-    const { id, access_token } = cookie.parse(context.req.headers.cookie);
+    const { id, token } = cookie.parse(context.req.headers.cookie);
     const responseUser = await axios({
       method: 'get',
       url: `https://www.weato.kro.kr/api/members/${id}`,
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     const responseProfile = await axios({
       method: 'get',
       url: `https://www.weato.kro.kr/api/members/${id}/profile`,
       headers: {
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
