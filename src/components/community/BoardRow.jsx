@@ -10,6 +10,7 @@ import { gray05, gray06, text_black, tag_etc } from '@styles/Colors';
 import profile_sample from '@public/profile_sample.png';
 import icon_gray_views from '@public/icon_gray_views.png';
 import icon_color_heart from '@public/icon_color_heart.png';
+import icon_blank_heart from '@public/icon_blank_heart.png';
 
 const Layout = styled.div`
   width: 100%;

@@ -100,8 +100,6 @@ function CommunityTab({ query, basicData, data }) {
   const { page } = query;
   const { min, max, result } = data;
 
-  console.log(basicData);
-
   return (
     <Layout>
       <Row>
