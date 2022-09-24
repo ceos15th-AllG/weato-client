@@ -34,7 +34,11 @@ function Mypage(props) {
         <BookmarksTab query={query} data={props.bookmarksData} />
       ) : undefined}
       {tab === 'community' ? (
-        <CommunityTab query={query} data={props.communityData} />
+        <CommunityTab
+          query={query}
+          basicData={props.userData}
+          data={props.communityData}
+        />
       ) : undefined}
     </Layout>
   );
@@ -100,6 +104,14 @@ export const getServerSideProps = async (context) => {
         },
       };
     } else if (tab === 'community') {
+      const responseUser = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       const responseProfile = await axios({
         method: 'get',
         url: `https://www.weato.kro.kr/api/members/${id}/profile`,
@@ -119,6 +131,7 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
+          userData: responseUser.data,
           profileData: responseProfile.data,
           communityData: responseCommunity.data,
         },

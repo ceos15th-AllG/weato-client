@@ -11,6 +11,8 @@ import Pagenator from '@common/Pagenator';
 import { Display1, Headline1, Subhead4, Body3 } from '@styles/FontStyle';
 import { gray04, gray06, text_black } from '@styles/Colors';
 
+const Level = { 1: '새싹', 2: '일반', 3: '우수', 4: '베스트' };
+
 const toBoardType = {
   MANAGEMENT: '관리법',
   QUESTION: '질문',
@@ -90,19 +92,15 @@ const CenterBox = styled.div`
   justify-content: center;
 `;
 
-function CommunityTab({ query, data }) {
+function CommunityTab({ query, basicData, data }) {
   const router = useRouter();
 
-  console.log(data);
+  // console.log(data);
 
   const { page } = query;
   const { min, max, result } = data;
 
-  const basicData = {
-    level: '새싹',
-    currentPoint: 20,
-    nextLevel: 100,
-  };
+  console.log(basicData);
 
   return (
     <Layout>
@@ -113,12 +111,12 @@ function CommunityTab({ query, data }) {
       <SubHeader>기본 정보</SubHeader>
       <InfoBox>
         <InfoName>레벨</InfoName>
-        <InfoData>{basicData.level}</InfoData>
+        <InfoData>{Level[basicData.level]}</InfoData>
       </InfoBox>
       <InfoBox>
         <InfoName>포인트</InfoName>
         <InfoData>
-          {basicData.currentPoint}/{basicData.nextLevel}
+          {basicData.currentExp}/{basicData.requiredExp}
         </InfoData>
       </InfoBox>
 
