@@ -123,11 +123,17 @@ const ContentField = styled.textarea`
   border: 1px solid ${gray05};
 `;
 
+const ContentFieldCount = styled.span`
+  position: absolute;
+  right: 540px;
+  bottom: 90px;
+
+  text-align: right;
+`;
+
 export default function New() {
   const router = useRouter();
   const { token } = useContext(Context);
-
-  console.log(token);
 
   const [categorySelected, setCategorySelected] = useState('게시판');
   const [tagSelected, setTagSelected] = useState('태그');
@@ -154,7 +160,7 @@ export default function New() {
   const onChangeContent = useCallback((event) => {
     setContent(event.target.value);
 
-    if (event.target.value !== '') {
+    if (event.target.value !== '' && event.target.value.trim().length >= 30) {
       setContentValid(true);
     } else {
       setContentValid(false);
@@ -257,6 +263,7 @@ export default function New() {
           value={content}
           onChange={onChangeContent}
         />
+        <ContentFieldCount>{content.trim().length} / 30</ContentFieldCount>
       </WriteFormLayout>
     </Layout>
   );
