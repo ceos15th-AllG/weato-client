@@ -119,13 +119,14 @@ const CommentRow = ({
   content,
   date,
   reply,
+  likeChecker,
   likeCounter,
   setComments,
 }) => {
   const { token } = useContext(Context);
   const router = useRouter();
 
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState(likeChecker);
   const [likeCount, setLikeCount] = useState(likeCounter);
 
   const onClickLike = async (event) => {
@@ -139,6 +140,8 @@ const CommentRow = ({
           },
         });
 
+        // console.log(response.data);
+
         setLike(true);
         setLikeCount(response.data.likecount);
         // alert('좋아요 완료');
@@ -150,6 +153,8 @@ const CommentRow = ({
             Authorization: `Bearer ${token}`,
           },
         });
+
+        // console.log(response.data);
 
         setLike(false);
         setLikeCount(response.data.likeCount);
