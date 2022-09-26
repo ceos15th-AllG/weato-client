@@ -617,6 +617,30 @@ function Edit(props) {
       setSinceValid(true);
     }
 
+    setRepeat([
+      {
+        text: 'O',
+        active: profileData.isRecurrence,
+      },
+      {
+        text: 'X',
+        active: !profileData.isRecurrence,
+      },
+    ]);
+    setRepeatValid(true);
+
+    setFamily([
+      {
+        text: 'O',
+        active: profileData.isFamilyHistory,
+      },
+      {
+        text: 'X',
+        active: !profileData.isFamilyHistory,
+      },
+    ]);
+    setFamilyValid(true);
+
     if (profileData.managementTypeList) {
       setManagements(
         managements.map((item, index) =>
