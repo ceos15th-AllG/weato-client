@@ -38,6 +38,26 @@ import {
 import icon_naver from '@public/icon_naver.png';
 import profile_guest from '@public/profile_guest.png';
 
+const toKoreanManagements = {
+  보습제: 'MOISTURE',
+  스테로이드제: 'STEROID',
+  식단관리: 'DIET',
+  약물치료: 'DRUG',
+  '세면 습관 관리': 'CLEANING',
+  연고치료: 'OINTMENT',
+  광선치료: 'LASER',
+  한방치료: 'ORIENTALMEDICINE',
+  기타치료: 'ETC',
+};
+const toKoreanTags = {
+  약품: 'DRUG',
+  수면: 'SLEEP',
+  세면: 'CLEANING',
+  음식: 'FOOD',
+  환경: 'ENVIRONMENT',
+  기타: 'OTHERWISE',
+};
+
 const Layout = styled.div`
   margin: 79px 0px 160px;
   padding: 0px 635px;
@@ -570,21 +590,56 @@ function Edit(props) {
     tagValid,
     severityValid,
   ]);
+
   // 기존 정보 로딩해서 폼에 채워넣기
   useEffect(() => {
     console.log(profileData);
+
     setNickname(profileData.nickname);
     setNicknameValid(true);
     setNicknameUnique(true);
 
-    setBirthYear(profileData.birthYear);
-    setBirthValid(true);
+    if (profileData.birthyear) {
+      setBirthYear(profileData.birthyear);
+      if (profileData.birthday) {
+        setBirthMonth(profileData.birthday.split('-')[0]);
+        setBirthDay(profileData.birthday.split('-')[1]);
+
+        setBirthValid(true);
+      }
+    }
 
     setEmail(profileData.newsletterEmail);
     // setEmailValid(true);
 
-    setSince(profileData.medicalHistory);
-    setSinceValid(true);
+    if (profileData.medicalHistory) {
+      setSince(profileData.medicalHistory);
+      setSinceValid(true);
+    }
+
+    if (profileData.)
+
+    if (profileData.managementTypeList) {
+      setManagements(
+        managements.map((item, index) =>
+          profileData.managementTypeList.includes(
+            toKoreanManagements[item.text]
+          )
+            ? { ...item, active: true }
+            : { ...item, active: false }
+        )
+      );
+    }
+
+    if (profileData.tags) {
+      setTags(
+        tags.map((item, index) =>
+          profileData.tags.includes(toKoreanTags[item.text])
+            ? { ...item, active: true }
+            : { ...item, active: false }
+        )
+      );
+    }
   }, []);
 
   return (
