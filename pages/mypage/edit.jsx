@@ -26,7 +26,14 @@ import {
   Tag1,
 } from '@styles/FontStyle';
 
-import { sub, gray04, gray05, gray06, text_black } from '@styles/Colors';
+import {
+  sub,
+  gray04,
+  gray05,
+  gray06,
+  text_black,
+  gray02,
+} from '@styles/Colors';
 
 import icon_naver from '@public/icon_naver.png';
 import profile_guest from '@public/profile_guest.png';
@@ -88,6 +95,10 @@ const InfoBox = styled.section`
 
   display: flex;
   align-items: center;
+
+  .email-readonly {
+    background-color: ${gray02};
+  }
 `;
 
 const InfoName = styled.div`
@@ -203,7 +214,7 @@ function Edit(props) {
   const [birthDay, setBirthDay] = useState('');
   const [birthValid, setBirthValid] = useState(false);
   const [email, setEmail] = useState('');
-  const [emailValid, setEmailValid] = useState(false);
+  // const [emailValid, setEmailValid] = useState(false);
 
   const [since, setSince] = useState('');
   const [sinceValid, setSinceValid] = useState(false);
@@ -365,17 +376,17 @@ function Edit(props) {
   const onChangeDay = useCallback((event) => {
     setBirthDay(event.target.value);
   }, []);
-  const onChangeEmail = useCallback((event) => {
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    setEmail(event.target.value);
+  // const onChangeEmail = useCallback((event) => {
+  //   const emailRegex =
+  //     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  //   setEmail(event.target.value);
 
-    if (!emailRegex.test(event.target.value)) {
-      setEmailValid(false);
-    } else {
-      setEmailValid(true);
-    }
-  }, []);
+  //   if (!emailRegex.test(event.target.value)) {
+  //     setEmailValid(false);
+  //   } else {
+  //     setEmailValid(true);
+  //   }
+  // }, []);
   const onChangeSince = useCallback((event) => {
     setSince(event.target.value);
 
@@ -431,24 +442,25 @@ function Edit(props) {
     }
 
     try {
-      const responseMember = await axios({
-        method: 'post',
-        url: `https://www.weato.kro.kr/api/members/${user.id}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          nickname: nickname,
-          newsletterEmail: email,
-          drug: tags[0].active,
-          cleaning: tags[1].active,
-          environment: tags[2].active,
-          sleep: tags[3].active,
-          food: tags[4].active,
-          etc: tags[5].active,
-        },
-      });
+      // const responseMember = await axios({
+      //   method: 'post',
+      //   url: `https://www.weato.kro.kr/api/members/${user.id}`,
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      //   data: {
+      //     nickname: nickname,
+      //     newsletterEmail: email,
+      //     drug: tags[0].active,
+      //     cleaning: tags[1].active,
+      //     environment: tags[2].active,
+      //     sleep: tags[3].active,
+      //     food: tags[4].active,
+      //     etc: tags[5].active,
+      //   },
+      // });
       // console.log(responseMember.data);
+
       const responseProfile = await axios({
         // method: 'post',
         headers: {
@@ -457,9 +469,12 @@ function Edit(props) {
         method: 'patch',
         url: `https://www.weato.kro.kr/api/members/${user.id}/profile`,
         data: {
-          years: Number.parseInt(since),
-          recurrence: repeat[0].active,
-          familyHistory: family[0].active,
+          imageUrl: null,
+          nickname: nickname,
+          medicalHistory: Number.parseInt(since),
+          isRecurrence: repeat[0].active,
+          isFamilyHistory: family[0].active,
+
           moisturizer: managements[0].active,
           steroid: managements[1].active,
           diet: managements[2].active,
@@ -469,15 +484,23 @@ function Edit(props) {
           laser: managements[6].active,
           orientalMedicine: managements[7].active,
           etc: managements[8].active,
+
+          tagDrug: tags[0].active,
+          tagCleaning: tags[1].active,
+          tagEnvironment: tags[2].active,
+          tagSleep: tags[3].active,
+          tagFood: tags[4].active,
+          otherwise: tags[5].active,
+
           symptomDegree: 'SLIGHT',
         },
       });
       console.log(responseProfile.data);
-      alert('요청 성공');
-      // router.push(`/mypage?tab=profile`);
+      // alert('요청 성공');
+      router.push(`/mypage?tab=profile`);
       // alert('서버 요청 성공');
     } catch (error) {
-      alert(error);
+      console.log(error);
       alert('서버 요청이 불가능하네요...');
     }
   };
@@ -511,7 +534,7 @@ function Edit(props) {
       nicknameValid,
       nicknameUnique,
       birthValid,
-      emailValid,
+      // emailValid,
       sinceValid,
       repeatValid,
       familyValid,
@@ -523,7 +546,7 @@ function Edit(props) {
       nicknameValid &&
       nicknameUnique &&
       birthValid &&
-      emailValid &&
+      // emailValid &&
       sinceValid &&
       repeatValid &&
       familyValid &&
@@ -539,7 +562,7 @@ function Edit(props) {
     nicknameValid,
     nicknameUnique,
     birthValid,
-    emailValid,
+    // emailValid,
     sinceValid,
     repeatValid,
     familyValid,
@@ -558,7 +581,7 @@ function Edit(props) {
     setBirthValid(true);
 
     setEmail(profileData.newsletterEmail);
-    setEmailValid(true);
+    // setEmailValid(true);
 
     setSince(profileData.medicalHistory);
     setSinceValid(true);
@@ -670,11 +693,7 @@ function Edit(props) {
       >
         <InfoName>이메일*</InfoName>
         <InfoData>
-          <Input
-            placeholder="aaaa@bb.cc"
-            value={email}
-            onChange={onChangeEmail}
-          />
+          <Input className="email-readonly" readOnly value={email} />
         </InfoData>
       </InfoBox>
 
