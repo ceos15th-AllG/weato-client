@@ -617,8 +617,6 @@ function Edit(props) {
       setSinceValid(true);
     }
 
-    if (profileData.)
-
     if (profileData.managementTypeList) {
       setManagements(
         managements.map((item, index) =>
