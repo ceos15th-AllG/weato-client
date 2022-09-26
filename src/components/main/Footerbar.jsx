@@ -82,15 +82,39 @@ function FooterBar() {
         </div>
         <FooterInfoList>
           <FooterInfo>
-            <FooterInfoItem css={Body2}>위아토 소개</FooterInfoItem>
-            <FooterInfoItem css={Body2}>|</FooterInfoItem>
-            <FooterInfoItem css={Body2}>제휴제안</FooterInfoItem>
-            <FooterInfoItem css={Body2}>|</FooterInfoItem>
-            <FooterInfoItem css={Body2}>이용약관</FooterInfoItem>
+            <FooterInfoItem css={Body2}>
+              <a
+                href={`https://global-radar-1d7.notion.site/WEATO-91c9d15ef53b4c90a17ce03131df9fac`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                위아토 소개
+              </a>
+            </FooterInfoItem>
             <FooterInfoItem css={Body2}>|</FooterInfoItem>
             <FooterInfoItem css={Body2}>
               <a
-                href="https://docs.google.com/forms/d/11lNkZerluc-NxiFOx4iZOByeC3p7tZTn9mduHX-3Yl4/viewform?chromeless=1&edit_requested=true"
+                href={`https://global-radar-1d7.notion.site/WEATO-91c9d15ef53b4c90a17ce03131df9fac`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                제휴제안
+              </a>
+            </FooterInfoItem>
+            <FooterInfoItem css={Body2}>|</FooterInfoItem>
+            <FooterInfoItem css={Body2}>
+              <a
+                href={`https://global-radar-1d7.notion.site/92e4eefff82b45a0be31dc0e2dbd88e6`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                이용약관
+              </a>
+            </FooterInfoItem>
+            <FooterInfoItem css={Body2}>|</FooterInfoItem>
+            <FooterInfoItem css={Body2}>
+              <a
+                href={`https://global-radar-1d7.notion.site/WEATO-91c9d15ef53b4c90a17ce03131df9fac`}
                 target="_blank"
                 rel="noreferrer"
               >
