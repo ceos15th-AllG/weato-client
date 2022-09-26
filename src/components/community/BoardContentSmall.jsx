@@ -39,16 +39,20 @@ const Title = styled.span`
 `;
 
 const Views = styled.span`
-  width: 37.46px;
+  width: 28px;
+
+  margin-left: 6px;
 
   ${Body1}
-  text-align : right;
+  text-align : left;
 
   color: ${gray05};
 `;
 
 const Date = styled.span`
-  width: 112px;
+  min-width: 85px;
+
+  margin-left: 38px;
 
   ${Body1}
   text-align : right;
