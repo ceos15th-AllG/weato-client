@@ -140,8 +140,6 @@ const CommentRow = ({
           },
         });
 
-        // console.log(response.data);
-
         setLike(true);
         setLikeCount(response.data.likecount);
         // alert('좋아요 완료');
@@ -153,8 +151,6 @@ const CommentRow = ({
             Authorization: `Bearer ${token}`,
           },
         });
-
-        // console.log(response.data);
 
         setLike(false);
         setLikeCount(response.data.likeCount);
