@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { useState, useCallback } from 'react';
 
-import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { Subhead4, Subhead3 } from '@styles/FontStyle';
 import { gray01, gray04, gray05, tag_etc, text_black } from '@styles/Colors';
@@ -83,12 +83,26 @@ const Item = styled.div`
   transition: all 0.3s ease;
 `;
 
-function TagDropdown({ item, options, setItem }) {
+function TagDropdown({ query, selected, options }) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const onClickItem = useCallback((index) => {
-    setItem(options[index]);
+    router.push({
+      pathname: `/community/board`,
+      query: { ...query, tag: options[index], page: 1 },
+    });
   }, []);
+
+  const toKoreanTags = {
+    all: '전체',
+    medicine: '약품',
+    sleep: '수면',
+    water: '세면',
+    food: '음식',
+    env: '환경',
+    etc: '기타',
+  };
 
   return (
     <Layout
@@ -104,19 +118,19 @@ function TagDropdown({ item, options, setItem }) {
       }}
     >
       <ShowArea isOpen={isOpen}>
-        <ItemTop>{item}</ItemTop>
+        <ItemTop>{toKoreanTags[query.tag]}</ItemTop>
         <Box>
           {isOpen &&
             options.map((option, index) => (
               <Item
                 key={index}
-                selected={item}
+                selected={selected}
                 current={option}
                 onClick={() => {
                   onClickItem(index);
                 }}
               >
-                {option}
+                {toKoreanTags[option]}
               </Item>
             ))}
         </Box>

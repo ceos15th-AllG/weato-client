@@ -62,17 +62,14 @@ const BottomRow = styled.div`
 
 function Board(props) {
   const router = useRouter();
-  const [tagSelected, setTagSelected] = useState('태그');
 
   if (!props.data) {
     return <JoinUs></JoinUs>;
   }
 
   const { query } = props;
-  const { tab, tag, page } = query;
+  const { tab, page, tag } = query;
   const { min, max, data } = props.data;
-
-  const tagTypes = ['전체', '약품', '수면', '세면', '음식', '환경', '기타'];
 
   const recommends = [
     {
@@ -93,12 +90,7 @@ function Board(props) {
 
   return (
     <Layout>
-      <TabBar
-        selected={tab}
-        tagSelected={tagSelected}
-        tagTypes={tagTypes}
-        setTagSelected={setTagSelected}
-      />
+      <TabBar query={query} />
       <Row>
         <BoardLayout>
           {data.map(
@@ -158,9 +150,19 @@ function Board(props) {
 export const getServerSideProps = async (context) => {
   const query = context.query;
 
+  const toAPITags = {
+    all: 'all',
+    medicine: 'drug',
+    sleep: 'sleep',
+    water: 'cleaning',
+    food: 'food',
+    env: 'environment',
+    etc: 'otherwise',
+  };
+
   const tab = !query.tab ? 'hot' : query.tab;
-  const tag = !query.tag ? 'all' : query.tag;
   const page = !query.page ? 1 : parseInt(query.page);
+  const tag = !query.tag ? 'all' : query.tag;
 
   try {
     const { token } = cookie.parse(context.req.headers.cookie);
@@ -182,7 +184,7 @@ export const getServerSideProps = async (context) => {
     } else if (tab === 'knowhow') {
       const response = await axios({
         method: 'get',
-        url: `https://www.weato.kro.kr/api/posts?type=management&page=${page}`,
+        url: `https://www.weato.kro.kr/api/posts?type=management&page=${page}&tag=${toAPITags[tag]}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -196,7 +198,7 @@ export const getServerSideProps = async (context) => {
     } else if (tab === 'questions') {
       const response = await axios({
         method: 'get',
-        url: `https://www.weato.kro.kr/api/posts?type=question&page=${page}`,
+        url: `https://www.weato.kro.kr/api/posts?type=question&page=${page}&tag=${toAPITags[tag]}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

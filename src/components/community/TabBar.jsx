@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import Link from 'next/link';
 
-import TagDropdown from './TagDropdown';
+import TagDropdown from '@community/TagDropdown';
 import Button from '@common/ButtonContainer';
 
 import { Headline1, Subhead4 } from '@styles/FontStyle';
@@ -52,23 +52,26 @@ const DropDown = styled.div`
   color : ${text_black};
 `;
 
-function TabBar({ selected, tagSelected, tagTypes, setTagSelected }) {
+function TabBar({ query }) {
+  const { tab, page, tag } = query;
+  const tagTypes = ['all', 'medicine', 'sleep', 'water', 'food', 'env', 'etc'];
+
   return (
     <Layout>
       <Box>
-        <HeaderText menu="hot" selected={selected}>
+        <HeaderText menu="hot" selected={tab}>
           <Link href="/community/board?tab=hot">
             <a>핫토픽</a>
           </Link>
         </HeaderText>
 
-        <HeaderText menu="knowhow" selected={selected}>
+        <HeaderText menu="knowhow" selected={tab}>
           <Link href="/community/board?tab=knowhow">
             <a>나만의 관리법</a>
           </Link>
         </HeaderText>
 
-        <HeaderText menu="questions" selected={selected}>
+        <HeaderText menu="questions" selected={tab}>
           <Link href="/community/board?tab=questions">
             <a>질문</a>
           </Link>
@@ -76,11 +79,7 @@ function TabBar({ selected, tagSelected, tagTypes, setTagSelected }) {
       </Box>
       <Box>
         <Button text="글쓰기" btnType="7" href="/community/post/new" />
-        <TagDropdown
-          item={tagSelected}
-          options={tagTypes}
-          setItem={setTagSelected}
-        />
+        <TagDropdown query={query} selected={tag} options={tagTypes} />
       </Box>
     </Layout>
   );
