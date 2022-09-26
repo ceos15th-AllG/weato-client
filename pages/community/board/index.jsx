@@ -68,6 +68,7 @@ function Board(props) {
   }
 
   const { query } = props;
+  console.log('페이지 :', query.tab, query.page, query.tag);
   const { tab, page, tag } = query;
   const { min, max, data } = props.data;
 

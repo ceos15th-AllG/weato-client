@@ -22,6 +22,13 @@ const Box = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .button-box {
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const HeaderText = styled.span`
@@ -56,6 +63,8 @@ function TabBar({ query }) {
   const { tab, page, tag } = query;
   const tagTypes = ['all', 'medicine', 'sleep', 'water', 'food', 'env', 'etc'];
 
+  console.log('탭바 :', query.tab, query.page, query.tag);
+
   return (
     <Layout>
       <Box>
@@ -78,8 +87,12 @@ function TabBar({ query }) {
         </HeaderText>
       </Box>
       <Box>
-        <Button text="글쓰기" btnType="7" href="/community/post/new" />
-        <TagDropdown query={query} selected={tag} options={tagTypes} />
+        <div className="button-box">
+          <Button text="글쓰기" btnType="7" href="/community/post/new" />
+        </div>
+        {(tab === 'knowhow' || tab === 'questions') && (
+          <TagDropdown query={query} selected={tag} options={tagTypes} />
+        )}
       </Box>
     </Layout>
   );

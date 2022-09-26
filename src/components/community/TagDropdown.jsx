@@ -87,12 +87,14 @@ function TagDropdown({ query, selected, options }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  const onClickItem = useCallback((index) => {
+  console.log('드롭다운 :', query.tab, query.page, query.tag);
+
+  const onClickItem = (index) => {
     router.push({
       pathname: `/community/board`,
       query: { ...query, tag: options[index], page: 1 },
     });
-  }, []);
+  };
 
   const toKoreanTags = {
     all: '전체',
