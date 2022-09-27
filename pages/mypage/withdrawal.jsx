@@ -7,6 +7,8 @@ import Link from 'next/link';
 import axios from 'axios';
 import cookie from 'cookie';
 
+import Dropdown from '@mypage/Dropdown';
+
 import Context from '@contexts/Context';
 
 import Button from '@common/ButtonContainer';
@@ -136,7 +138,7 @@ const InfoData = styled.div`
 
 const Input = styled.input`
   width: 100%;
-  height: 100%;
+  height: 60px;
 
   outline: none;
   border: 1px solid ${gray05};
@@ -164,18 +166,44 @@ const Withdrawal = (props) => {
   const [account, setAccount] = useState('');
   const [nickname, setNickname] = useState('');
 
-  const [reason, setReason] = useState('');
+  const [reason, setReason] = useState('무엇이 불편하셨나요?');
   const [reasonValid, setReasonValid] = useState(false);
+
+  const [comment, setComment] = useState('');
 
   const [confirm, setConfirm] = useState(false);
 
   // 기존 정보 로딩해서 폼에 채워넣기
-  useEffect(() => {
-    console.log(profileData);
+  // useEffect(() => {
+  //   console.log(profileData);
 
-    setAccount(userData.email);
-    setNickname(profileData.nickname);
-  }, []);
+  //   setAccount(userData.email);
+  //   setNickname(profileData.nickname);
+  // }, []);
+
+  // 탈퇴 사유 선택에 따른 처리
+  useEffect(() => {
+    if (reason === '무엇이 불편하셨나요?') {
+      setReasonValid(false);
+    } else if (reason === '기타') {
+      if (comment.trim().length >= 1) {
+        setReasonValid(true);
+      } else {
+        setReasonValid(false);
+      }
+    } else {
+      setReasonValid(true);
+    }
+  }, [reason, comment]);
+
+  // 전체 폼의 조건이 만족되었는지 감지
+  useEffect(() => {
+    if (reasonValid) {
+      setConfirm(true);
+    } else {
+      setConfirm(false);
+    }
+  }, [reasonValid]);
 
   const submitWithdrawal = (event) => {
     if (!confirm) {
@@ -247,16 +275,34 @@ const Withdrawal = (props) => {
         <InfoBox>
           <InfoName>탈퇴사유*</InfoName>
           <InfoData>
-            <Input placeholder="무엇이 불편하셨나요?" />
+            <Dropdown
+              item={reason}
+              options={[
+                '옵션 1',
+                '옵션 2',
+                '옵션 3',
+                '기타',
+                '옵션 5',
+                '옵션 6',
+                '기타',
+              ]}
+              setItem={setReason}
+            />
           </InfoData>
         </InfoBox>
 
-        <InfoBox>
-          <InfoName>기타 불편사항</InfoName>
-          <InfoData>
-            <Input placeholder="탈퇴 사유를 자유롭게 작성해주세요." />
-          </InfoData>
-        </InfoBox>
+        {reason === '기타' && (
+          <InfoBox>
+            <InfoName>기타 불편사항</InfoName>
+            <InfoData>
+              <Input
+                placeholder="탈퇴 사유를 자유롭게 작성해주세요."
+                value={comment}
+                onChange={(event) => setComment(event.target.value)}
+              />
+            </InfoData>
+          </InfoBox>
+        )}
       </InfoArea>
 
       <InfoDescription>
