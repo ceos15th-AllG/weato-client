@@ -12,6 +12,8 @@ import Dropdown from '@mypage/Dropdown';
 import Context from '@contexts/Context';
 
 import Button from '@common/ButtonContainer';
+import Modal from '@common/Modal';
+import WithdrawalModal from '@mypage/WithdrawalModal';
 
 import {
   Headline1,
@@ -173,6 +175,8 @@ const Withdrawal = (props) => {
 
   const [confirm, setConfirm] = useState(false);
 
+  const [modalActive, setModalActive] = useState(false);
+
   // 기존 정보 로딩해서 폼에 채워넣기
   useEffect(() => {
     console.log(profileData);
@@ -210,7 +214,11 @@ const Withdrawal = (props) => {
       return;
     }
 
-    alert('역시 안되겠어요. 탈퇴는 불가능합니다.');
+    setModalActive(true);
+  };
+
+  const onClickModalOn = () => {
+    setModalActive(true);
   };
 
   return (
@@ -318,6 +326,10 @@ const Withdrawal = (props) => {
           onClick={submitWithdrawal}
         />
       </ButtonBox>
+
+      <Modal active={modalActive} background>
+        <WithdrawalModal setModalActive={setModalActive} />
+      </Modal>
     </Layout>
   );
 };
