@@ -174,12 +174,12 @@ const Withdrawal = (props) => {
   const [confirm, setConfirm] = useState(false);
 
   // 기존 정보 로딩해서 폼에 채워넣기
-  // useEffect(() => {
-  //   console.log(profileData);
+  useEffect(() => {
+    console.log(profileData);
 
-  //   setAccount(userData.email);
-  //   setNickname(profileData.nickname);
-  // }, []);
+    setAccount(userData.email);
+    setNickname(profileData.nickname);
+  }, []);
 
   // 탈퇴 사유 선택에 따른 처리
   useEffect(() => {

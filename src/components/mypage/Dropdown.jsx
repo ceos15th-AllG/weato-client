@@ -67,14 +67,6 @@ const Item = styled.div`
   color: ${text_black};
 
   border: 1px solid ${gray05};
-
-  /* &:not(:nth-of-type(1)) {
-    border-left: 1px solid ${gray05};
-    border-right: 1px solid ${gray05};
-  }
-  &:last-of-type {
-    background-color: red;
-  } */
 `;
 
 const SubItem = styled.div`
@@ -90,6 +82,10 @@ const SubItem = styled.div`
 
   text-align: left;
 
+  &:nth-of-type(2) {
+    border-radius: 8px 8px 0px 0px;
+    border-top: 1px solid ${gray02};
+  }
   border-top: 1px solid ${gray02};
   border-left: 1px solid ${gray02};
   border-right: 1px solid ${gray02};
