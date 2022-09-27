@@ -918,9 +918,13 @@ function Edit(props) {
           color : ${text_black};
         `}
       >
-        <span>
-          <u>회원탈퇴하기</u>
-        </span>
+        <Link href={`/mypage/withdrawal`}>
+          <a>
+            <span>
+              <u>회원탈퇴하기</u>
+            </span>
+          </a>
+        </Link>
       </ContentItem>
     </Layout>
   );
