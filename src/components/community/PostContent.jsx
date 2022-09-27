@@ -247,22 +247,24 @@ function PostContent({ id, post }) {
         />
       </Row>
 
-      <OptionButtonContainer>
-        <OptionButton
-          options={[
-            {
-              label: '수정',
-              action: () => {
-                alert('수정 기능 연결 중...');
+      {post.isAuthor && (
+        <OptionButtonContainer>
+          <OptionButton
+            options={[
+              {
+                label: '수정',
+                action: () => {
+                  alert('수정 기능 연결 중...');
+                },
               },
-            },
-            {
-              label: '삭제',
-              action: onClickDelete,
-            },
-          ]}
-        />
-      </OptionButtonContainer>
+              {
+                label: '삭제',
+                action: onClickDelete,
+              },
+            ]}
+          />
+        </OptionButtonContainer>
+      )}
     </Layout>
   );
 }

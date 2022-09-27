@@ -119,6 +119,7 @@ const CommentRow = ({
   content,
   date,
   reply,
+  isAuthor,
   likeChecker,
   likeCounter,
   setComments,
@@ -215,22 +216,24 @@ const CommentRow = ({
           <span className="like-text">{likeCount}</span>
         </Box>
 
-        <OptionButtonContainer>
-          <OptionButton
-            options={[
-              {
-                label: '수정',
-                action: () => {
-                  alert('수정 기능 연결 중...');
+        {isAuthor && (
+          <OptionButtonContainer>
+            <OptionButton
+              options={[
+                {
+                  label: '수정',
+                  action: () => {
+                    alert('수정 기능 연결 중...');
+                  },
                 },
-              },
-              {
-                label: '삭제',
-                action: onClickDelete,
-              },
-            ]}
-          />
-        </OptionButtonContainer>
+                {
+                  label: '삭제',
+                  action: onClickDelete,
+                },
+              ]}
+            />
+          </OptionButtonContainer>
+        )}
       </Row>
 
       <Row>

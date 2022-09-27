@@ -161,7 +161,15 @@ function PostComment(props) {
       <CommentArea>
         {comments.map(
           (
-            { id, author, content, createdAt, likeChecker, likeCounter },
+            {
+              id,
+              author,
+              content,
+              createdAt,
+              likeChecker,
+              likeCounter,
+              isAuthor,
+            },
             index
           ) => (
             <CommentRow
@@ -175,6 +183,7 @@ function PostComment(props) {
               likeCounter={likeCounter}
               date={createdAt.slice(0, 10)}
               reply={false}
+              isAuthor={isAuthor}
               setComments={setComments}
             />
           )
