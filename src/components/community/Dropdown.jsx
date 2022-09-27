@@ -7,7 +7,7 @@ import Image from 'next/image';
 import icon_down from '@public/community/icon_down.png';
 
 import { Subhead4, Subhead3 } from '@styles/FontStyle';
-import { gray01, gray04, gray05, text_black } from '@styles/Colors';
+import { gray01, gray02, gray04, gray05, text_black } from '@styles/Colors';
 
 const Layout = styled.div`
   width: 100%;
@@ -20,7 +20,6 @@ const Layout = styled.div`
   align-items: flex-start;
 
   border-radius: 5px;
-  border: 1px solid ${gray05};
 `;
 
 const IconContainer = styled.div`
@@ -52,23 +51,44 @@ const Item = styled.div`
 
   text-align: left;
 
+  border: 1px solid ${gray05};
   border-radius: 5px;
+
+  background-color: white;
+  color: ${text_black};
+`;
+
+const SubItem = styled.div`
+  width: 100%;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+
+  padding-left: 16px;
+
+  ${Subhead3}
+
+  text-align: left;
 
   background-color: white;
   color: ${gray04};
 
-  &:nth-of-type(1) {
-    color: ${text_black};
+  &:nth-of-type(2) {
+    border-radius: 8px 8px 0px 0px;
+    border-top: 1px solid ${gray02};
   }
-  /* &:not(:nth-of-type(1)) {
-    border-left: 1px solid ${gray05};
-    border-right: 1px solid ${gray05};
-  }
+  border-top: 1px solid ${gray02};
+  border-left: 1px solid ${gray02};
+  border-right: 1px solid ${gray02};
+  border-radius: 0px;
   &:last-of-type {
-    background-color: red;
-  } */
+    border-radius: 0px 0px 8px 8px;
+    border-bottom: 1px solid ${gray02};
+  }
 
   &:hover {
+    color: ${text_black};
     background-color: ${gray01};
   }
 
@@ -99,14 +119,14 @@ function Dropdown({ item, options, setItem }) {
         <Item>{item}</Item>
         {isOpen &&
           options.map((option, index) => (
-            <Item
+            <SubItem
               key={index}
               onClick={() => {
                 onClickItem(index);
               }}
             >
               {option}
-            </Item>
+            </SubItem>
           ))}
       </ShowArea>
       <IconContainer>
