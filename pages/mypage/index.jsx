@@ -122,7 +122,7 @@ export const getServerSideProps = async (context) => {
 
       const responseCommunity = await axios({
         method: 'get',
-        url: `https://www.weato.kro.kr/api/members/${id}/scraps?page=${page}`,
+        url: `https://www.weato.kro.kr/api/members/${id}/owned-posts?page=${page}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
