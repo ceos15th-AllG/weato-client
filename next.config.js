@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   images: {
-    domains: ['img1.daumcdn.net'],
+    domains: ['img1.daumcdn.net', 'user-images.githubusercontent.com'],
   },
   // async rewrites() {
   //   return [
