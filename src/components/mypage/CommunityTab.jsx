@@ -98,7 +98,7 @@ function CommunityTab({ query, basicData, data }) {
   // console.log(data);
 
   const { page } = query;
-  const { min, max, result } = data;
+  const { min, max } = data;
 
   return (
     <Layout>
@@ -123,10 +123,10 @@ function CommunityTab({ query, basicData, data }) {
           margin-top: 149px;
         `}
       >
-        나의 작성글 ({result.length})
+        나의 작성글 ({data.data.length})
       </SubHeader>
       <Board>
-        {result.map(
+        {data.data.map(
           ({ id, boardType, title, author, views, likeCounter }, index) => (
             <BoardRow
               key={index}
