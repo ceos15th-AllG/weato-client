@@ -8,7 +8,7 @@ import Knowhow from '@community/Knowhow';
 import Questions from '@community/Question';
 import Banner from '@community/Banner';
 import QnA from '@community/QnA';
-import JoinUs from '@community/joinus';
+import JoinUs from '@community/JoinUs';
 
 const Layout = styled.div`
   display: flex;

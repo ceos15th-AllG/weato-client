@@ -15,7 +15,7 @@ import TagDropdown from '@community/TagDropdown';
 import BoardRow from '@community/BoardRow';
 import BoardCard from '@community/BoardCard';
 import Pagenator from '@common/Pagenator';
-import JoinUs from '@community/joinus';
+import JoinUs from '@community/JoinUs';
 
 const Layout = styled.div`
   margin: 39px 300px 67px;
