@@ -95,8 +95,6 @@ const CenterBox = styled.div`
 function CommunityTab({ query, basicData, data }) {
   const router = useRouter();
 
-  // console.log(data);
-
   const { page } = query;
   const { min, max } = data;
 
@@ -127,13 +125,16 @@ function CommunityTab({ query, basicData, data }) {
       </SubHeader>
       <Board>
         {data.data.map(
-          ({ id, boardType, title, author, views, likeCounter }, index) => (
+          (
+            { id, boardType, title, level, author, views, likeCounter },
+            index
+          ) => (
             <BoardRow
               key={index}
               id={id}
               boardType={boardType}
               title={title}
-              level={`레벨들어갈부분`}
+              level={level}
               author={author}
               views={views}
               likeCounter={likeCounter}
