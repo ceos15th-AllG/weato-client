@@ -88,8 +88,6 @@ function Board(props) {
     },
   ];
 
-  console.log(data);
-
   return (
     <Layout>
       <TabBar query={query} />

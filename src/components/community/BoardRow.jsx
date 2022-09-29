@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import LevelProfile from '@common/LevelProfile';
+
 import { Subhead3, Body1, Body3, Tag1 } from '@styles/FontStyle';
 
 import { gray05, gray06, text_black, tag_etc } from '@styles/Colors';
@@ -97,7 +99,8 @@ function BoardRow(props) {
           <Title>{title}</Title>
           <Row>
             <Box>
-              <Image src={profile_sample} width={24} height={24} alt="" />
+              <LevelProfile level={level} width={24} />
+              {/* <Image src={profile_sample} width={24} height={24} alt="" /> */}
               <Level>{`${levelDict[level]} •`}</Level>
               <Name>{author}</Name>
             </Box>
