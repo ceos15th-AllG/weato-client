@@ -31,6 +31,13 @@ const toKoreanTags = {
   ENVIRONMENT: '환경',
   OTHERWISE: '기타',
 };
+const levelDict = { 1: '새싹', 2: '일반', 3: '우수', 4: '베스트' };
+const severityDict = {
+  SLIGHT: '약함',
+  BELOWAVG: '평균 이하',
+  ABOVEAVG: '평균 이상',
+  SEVERETY: '강함',
+};
 
 const Layout = styled.div`
   position: relative;
@@ -201,10 +208,10 @@ function PostContent({ id, post }) {
       >
         <Box>
           <Image src={profile_sample_big} width={42} height={42} alt="" />
-          <Level>{`${`새싹`} •`}</Level>
+          <Level>{`${levelDict[post.authorLevel]} •`}</Level>
           <Name>{post.author}</Name>
-          <Since>병력: {`2년`}</Since>
-          <Severity>정도: {1}</Severity>
+          <Since>병력: {`${post.medicalHistory}년`}</Since>
+          <Severity>정도: {severityDict[post.symptomDegree]}</Severity>
         </Box>
         <Box>
           <Image src={icon_gray_views} width={20} height={13.69} alt="" />
