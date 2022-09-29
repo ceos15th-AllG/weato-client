@@ -256,7 +256,6 @@ function PostContent({ id, post }) {
         />
       </Row>
 
-      {/* {post.isAuthor && ( */}
       <OptionButtonContainer>
         <OptionButton
           options={[
@@ -273,7 +272,6 @@ function PostContent({ id, post }) {
           ]}
         />
       </OptionButtonContainer>
-      {/* )} */}
     </Layout>
   );
 }
