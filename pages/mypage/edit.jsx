@@ -613,7 +613,7 @@ function Edit(props) {
     }
 
     // 재발 여부 필드
-    if (profileData.isRecurrence) {
+    if (profileData.isRecurrence !== null) {
       setRepeat([
         {
           text: 'O',
@@ -628,7 +628,7 @@ function Edit(props) {
     }
 
     // 가족력 여부 필드
-    if (profileData.isFamilyHistory) {
+    if (profileData.isFamilyHistory !== null) {
       setFamily([
         {
           text: 'O',
@@ -643,31 +643,25 @@ function Edit(props) {
     }
 
     // 관리법 필드
-    if (profileData.managementTypeList) {
-      setManagements(
-        managements.map((item, index) =>
-          profileData.managementTypeList.includes(
-            toKoreanManagements[item.text]
-          )
-            ? { ...item, active: true }
-            : { ...item, active: false }
-        )
-      );
-    }
+    setManagements(
+      managements.map((item, index) =>
+        profileData.managementTypeList.includes(toKoreanManagements[item.text])
+          ? { ...item, active: true }
+          : { ...item, active: false }
+      )
+    );
 
     // 선호 태그 필드
-    if (profileData.tags) {
-      setTags(
-        tags.map((item, index) =>
-          profileData.tags.includes(toKoreanTags[item.text])
-            ? { ...item, active: true }
-            : { ...item, active: false }
-        )
-      );
-    }
+    setTags(
+      tags.map((item, index) =>
+        profileData.tags.includes(toKoreanTags[item.text])
+          ? { ...item, active: true }
+          : { ...item, active: false }
+      )
+    );
 
     // 증상정도 필드
-    if (profileData.symptomDegree) {
+    if (profileData.symptomDegree !== null) {
       const severityIdx = severityLists.indexOf(profileData.symptomDegree);
 
       setSeverity(
