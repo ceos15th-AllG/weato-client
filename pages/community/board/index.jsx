@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 
 import { useState } from 'react';
+
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
@@ -40,6 +42,7 @@ const BoardLayout = styled.div`
 
 const BoardRecommend = styled.div`
   margin-top: 59px;
+  row-gap: 24px;
 
   width: 427px;
 
@@ -67,26 +70,9 @@ function Board(props) {
     return <JoinUs></JoinUs>;
   }
 
-  const { query } = props;
+  const { query, recommends } = props;
   const { tab, page, tag } = query;
   const { min, max, data } = props.data;
-
-  const recommends = [
-    {
-      id: '0',
-      title: '',
-      content: '',
-      view: '0',
-      like: '0',
-    },
-    {
-      id: '1',
-      title: '',
-      content: '',
-      view: '0',
-      like: '0',
-    },
-  ];
 
   return (
     <Layout>
@@ -133,14 +119,18 @@ function Board(props) {
 
         <BoardRecommend>
           <BoardRecommendHeader>실시간 추천글</BoardRecommendHeader>
-          {recommends.map(({ id, title, content, view, like }) => (
-            <BoardCard
-              key={id}
-              title={title}
-              content={content}
-              view={view}
-              like={like}
-            />
+          {recommends.data.map(({ id, title, content, views, likeCounter }) => (
+            <Link href={`/community/post/${id}`}>
+              <a>
+                <BoardCard
+                  key={id}
+                  title={title}
+                  content={`내용`}
+                  view={views}
+                  like={likeCounter}
+                />
+              </a>
+            </Link>
           ))}
         </BoardRecommend>
       </Row>
@@ -168,6 +158,14 @@ export const getServerSideProps = async (context) => {
   try {
     const { token } = cookie.parse(context.req.headers.cookie);
 
+    const recommendsResponse = await axios({
+      method: 'get',
+      url: `https://www.weato.kro.kr/api/posts/recommended-posts`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     if (tab === 'hot') {
       const response = await axios({
         method: 'get',
@@ -179,6 +177,7 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
+          recommends: recommendsResponse.data,
           data: response.data,
         },
       };
@@ -193,6 +192,7 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
+          recommends: recommendsResponse.data,
           data: response.data,
         },
       };
@@ -207,6 +207,7 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
+          recommends: recommendsResponse.data,
           data: response.data,
         },
       };
@@ -218,6 +219,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       query: { ...query, tab: tab, tag: tag, page: page },
+      recommends: null,
       data: null,
     },
   };

@@ -13,7 +13,6 @@ const Layout = styled.div`
   height: 280px;
 
   padding: 31px 20px 18px 27px;
-  margin-top: 24px;
 
   display: flex;
   flex-direction: column;
