@@ -314,11 +314,11 @@ function Newsletter(props) {
         </ContentHeader>
 
         <NewsletterForm>
-          <header class="header">{newsletterData.title}</header>
-          <span class="header-subscription">
+          <header className="header">{newsletterData.title}</header>
+          <span className="header-subscription">
             본 뉴스레터는 전문기자의 기사를 기반으로 작성되었습니다.
           </span>
-          <date class="header-date">
+          <date className="header-date">
             {newsletterData.createdAt.slice(0, 10).replaceAll('-', '.')}
           </date>
         </NewsletterForm>
