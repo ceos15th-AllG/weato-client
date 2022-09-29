@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 
 import Context from '@contexts/Context';
 
+import LevelProfile from '@common/LevelProfile';
 import Modal from '@common/Modal';
 import SearchModal from '@search/SearchModal';
 
@@ -146,8 +147,6 @@ const NavbarRightGroupItem = styled.div`
 `;
 
 const ProfileBox = styled.div`
-  width: 38px;
-  height: 38px;
   margin-right: 12px;
 `;
 
@@ -224,7 +223,7 @@ const TopNav = () => {
                 <Link href="/mypage">
                   <a>
                     <ProfileBox>
-                      <Image src={default_profile} alt="" />
+                      <LevelProfile level={user.level} width={38} />
                     </ProfileBox>
                     <span className="profile-text">{user.name} 님</span>
                   </a>
