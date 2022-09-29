@@ -120,10 +120,9 @@ function Board(props) {
         <BoardRecommend>
           <BoardRecommendHeader>실시간 추천글</BoardRecommendHeader>
           {recommends.data.map(({ id, title, content, views, likeCounter }) => (
-            <Link href={`/community/post/${id}`}>
+            <Link key={id} href={`/community/post/${id}`}>
               <a>
                 <BoardCard
-                  key={id}
                   title={title}
                   content={`내용`}
                   view={views}
