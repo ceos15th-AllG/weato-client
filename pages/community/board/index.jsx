@@ -124,7 +124,7 @@ function Board(props) {
               <a>
                 <BoardCard
                   title={title}
-                  content={`내용`}
+                  content={content}
                   view={views}
                   like={likeCounter}
                 />
