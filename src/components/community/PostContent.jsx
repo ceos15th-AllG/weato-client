@@ -13,6 +13,7 @@ import Context from '@contexts/Context';
 
 import PostTag from '@community/PostTag';
 import Tag from '@common/Tag';
+import LevelProfile from '@common/LevelProfile';
 import ActionButton from '@common/ActionButton';
 import OptionButton from '@community/OptionButton';
 
@@ -207,7 +208,8 @@ function PostContent({ id, post }) {
         `}
       >
         <Box>
-          <Image src={profile_sample_big} width={42} height={42} alt="" />
+          {/* <Image src={profile_sample_big} width={42} height={42} alt="" /> */}
+          <LevelProfile level={post.authorLevel} width={42} />
           <Level>{`${levelDict[post.authorLevel]} •`}</Level>
           <Name>{post.author}</Name>
           <Since>병력: {`${post.medicalHistory}년`}</Since>

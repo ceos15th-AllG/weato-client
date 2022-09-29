@@ -163,6 +163,7 @@ function PostComment(props) {
           (
             {
               id,
+              authorLevel,
               author,
               content,
               createdAt,
@@ -177,7 +178,7 @@ function PostComment(props) {
               postId={postId}
               commentId={id}
               name={author}
-              level={`새싹`}
+              level={authorLevel}
               content={content}
               likeChecker={likeChecker}
               likeCounter={likeCounter}

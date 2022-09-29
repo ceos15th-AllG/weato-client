@@ -9,12 +9,12 @@ import { useRouter } from 'next/router';
 
 import Context from '@contexts/Context';
 
+import LevelProfile from '@common/LevelProfile';
 import OptionButton from '@community/OptionButton';
 
 import { Subhead3, Subhead4, Body1, Body2, Tag1 } from '@styles/FontStyle';
 import { gray01, gray03, gray05, gray06, text_black } from '@styles/Colors';
 
-import profile_sample_big from '@public/profile_sample_big.png';
 import icon_color_heart from '@public/icon_color_heart.png';
 import icon_blank_heart from '@public/icon_blank_heart.png';
 import icon_reply_comment from '@public/icon_reply_comment.png';
@@ -197,7 +197,7 @@ const CommentRow = ({
       </ReplyBlock> */}
       <Row>
         <Box>
-          <Image src={profile_sample_big} width={42} height={42} alt="" />
+          <LevelProfile level={level} width={42} />
           <Name>{name}</Name>
           <Date>{date}</Date>
         </Box>
