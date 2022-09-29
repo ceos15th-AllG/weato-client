@@ -313,6 +313,16 @@ function Newsletter(props) {
           </Link>
         </ContentHeader>
 
+        <NewsletterForm>
+          <header class="header">{newsletterData.title}</header>
+          <span class="header-subscription">
+            본 뉴스레터는 전문기자의 기사를 기반으로 작성되었습니다.
+          </span>
+          <date class="header-date">
+            {newsletterData.createdAt.slice(0, 10).replaceAll('-', '.')}
+          </date>
+        </NewsletterForm>
+
         <NewsletterForm
           dangerouslySetInnerHTML={{ __html: newsletterData.content }}
         />
