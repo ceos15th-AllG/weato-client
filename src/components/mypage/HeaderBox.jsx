@@ -86,7 +86,7 @@ function HeaderBox(props) {
   return (
     <Layout>
       {!imageUrl ? (
-        <LevelProfile level={level} width={180} big />
+        <LevelProfile level={level} width={180} height={180} />
       ) : (
         // <Image src={profile_sample_large} width={180} height={180} alt="" />
         <CustomProfileContainer>
