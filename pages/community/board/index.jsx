@@ -68,7 +68,6 @@ function Board(props) {
   }
 
   const { query } = props;
-  console.log('페이지 :', query.tab, query.page, query.tag);
   const { tab, page, tag } = query;
   const { min, max, data } = props.data;
 
@@ -89,6 +88,8 @@ function Board(props) {
     },
   ];
 
+  console.log(data);
+
   return (
     <Layout>
       <TabBar query={query} />
@@ -99,6 +100,7 @@ function Board(props) {
               id,
               title,
               createdAt,
+              level,
               author,
               commentsCounter,
               views,
@@ -112,8 +114,8 @@ function Board(props) {
                 boardType={boardType}
                 views={views}
                 likeCounter={likeCounter}
+                level={level}
                 author={author}
-                // level={level}
               />
             )
           )}

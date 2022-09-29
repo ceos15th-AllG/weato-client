@@ -81,11 +81,13 @@ const SmallBox = styled.div`
 `;
 
 function BoardRow(props) {
-  const { id, boardType, title, author, views, likeCounter } = props;
+  const { id, boardType, title, level, author, views, likeCounter } = props;
+
   const dict = {
     MANAGEMENT: '관리법',
     QUESTION: '질문',
   };
+  const levelDict = { 1: '새싹', 2: '일반', 3: '우수', 4: '베스트' };
 
   return (
     <Link href={`/community/post/${id}`}>
@@ -96,7 +98,7 @@ function BoardRow(props) {
           <Row>
             <Box>
               <Image src={profile_sample} width={24} height={24} alt="" />
-              <Level>{`${`새싹`} •`}</Level>
+              <Level>{`${levelDict[level]} •`}</Level>
               <Name>{author}</Name>
             </Box>
             <Box>
