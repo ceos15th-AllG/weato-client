@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 
 import Context from '@contexts/Context';
 
+import LevelProfile from '@common/LevelProfile';
 import Button from '@common/ButtonContainer';
 
 import { Display1, Tag1 } from '@styles/FontStyle';
@@ -85,8 +86,9 @@ function HeaderBox(props) {
   return (
     <Layout>
       {!imageUrl ? (
-        <Image src={profile_sample_large} width={180} height={180} alt="" />
+        <LevelProfile level={level} width={180} big />
       ) : (
+        // <Image src={profile_sample_large} width={180} height={180} alt="" />
         <CustomProfileContainer>
           <Image src={imageUrl} width={180} height={180} alt="" />
         </CustomProfileContainer>
