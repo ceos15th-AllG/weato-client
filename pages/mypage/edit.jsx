@@ -58,6 +58,8 @@ const toKoreanTags = {
   기타: 'OTHERWISE',
 };
 
+const severityLists = ['SLIGHT', 'BELOWAVG', 'ABOVEAVG', 'SEVERETY'];
+
 const Layout = styled.div`
   margin: 79px 0px 160px;
   padding: 0px 635px;
@@ -512,11 +514,17 @@ function Edit(props) {
           tagFood: tags[4].active,
           otherwise: tags[5].active,
 
-          symptomDegree: 'SLIGHT',
+          symptomDegree:
+            severityLists[
+              severity.findIndex((item) => {
+                if (item.active) {
+                  return true;
+                }
+              })
+            ],
         },
       });
-      console.log(responseProfile.data);
-      // alert('요청 성공');
+
       router.push(`/mypage?tab=profile`);
       // alert('서버 요청 성공');
     } catch (error) {
@@ -550,23 +558,10 @@ function Edit(props) {
     }
   }, [tags]);
   useEffect(() => {
-    console.log(
-      nicknameValid,
-      nicknameUnique,
-      birthValid,
-      // emailValid,
-      sinceValid,
-      repeatValid,
-      familyValid,
-      managementsValid,
-      tagValid,
-      severityValid
-    );
     if (
       nicknameValid &&
       nicknameUnique &&
       birthValid &&
-      // emailValid &&
       sinceValid &&
       repeatValid &&
       familyValid &&
@@ -582,7 +577,6 @@ function Edit(props) {
     nicknameValid,
     nicknameUnique,
     birthValid,
-    // emailValid,
     sinceValid,
     repeatValid,
     familyValid,
@@ -593,12 +587,12 @@ function Edit(props) {
 
   // 기존 정보 로딩해서 폼에 채워넣기
   useEffect(() => {
-    console.log(profileData);
-
+    // 닉네임 필드
     setNickname(profileData.nickname);
     setNicknameValid(true);
     setNicknameUnique(true);
 
+    // 생년 + 월일 필드
     if (profileData.birthyear) {
       setBirthYear(profileData.birthyear);
       if (profileData.birthday) {
@@ -609,38 +603,46 @@ function Edit(props) {
       }
     }
 
+    // 이메일 필드
     setEmail(profileData.newsletterEmail);
-    // setEmailValid(true);
 
+    // 병력 필드
     if (profileData.medicalHistory) {
       setSince(profileData.medicalHistory);
       setSinceValid(true);
     }
 
-    setRepeat([
-      {
-        text: 'O',
-        active: profileData.isRecurrence,
-      },
-      {
-        text: 'X',
-        active: !profileData.isRecurrence,
-      },
-    ]);
-    setRepeatValid(true);
+    // 재발 여부 필드
+    if (profileData.isRecurrence) {
+      setRepeat([
+        {
+          text: 'O',
+          active: profileData.isRecurrence,
+        },
+        {
+          text: 'X',
+          active: !profileData.isRecurrence,
+        },
+      ]);
+      setRepeatValid(true);
+    }
 
-    setFamily([
-      {
-        text: 'O',
-        active: profileData.isFamilyHistory,
-      },
-      {
-        text: 'X',
-        active: !profileData.isFamilyHistory,
-      },
-    ]);
-    setFamilyValid(true);
+    // 가족력 여부 필드
+    if (profileData.isFamilyHistory) {
+      setFamily([
+        {
+          text: 'O',
+          active: profileData.isFamilyHistory,
+        },
+        {
+          text: 'X',
+          active: !profileData.isFamilyHistory,
+        },
+      ]);
+      setFamilyValid(true);
+    }
 
+    // 관리법 필드
     if (profileData.managementTypeList) {
       setManagements(
         managements.map((item, index) =>
@@ -653,6 +655,7 @@ function Edit(props) {
       );
     }
 
+    // 선호 태그 필드
     if (profileData.tags) {
       setTags(
         tags.map((item, index) =>
@@ -661,6 +664,20 @@ function Edit(props) {
             : { ...item, active: false }
         )
       );
+    }
+
+    // 증상정도 필드
+    if (profileData.symptomDegree) {
+      const severityIdx = severityLists.indexOf(profileData.symptomDegree);
+
+      setSeverity(
+        severity.map((item, index) =>
+          index === severityIdx
+            ? { ...item, active: true }
+            : { ...item, active: false }
+        )
+      );
+      setSeverityValid(true);
     }
   }, []);
 
