@@ -117,7 +117,7 @@ function Board(props) {
           ) : undefined}
         </BoardLayout>
 
-        <BoardRecommend>
+        {/* <BoardRecommend>
           <BoardRecommendHeader>실시간 추천글</BoardRecommendHeader>
           {recommends.data.map(({ id, title, content, views, likeCounter }) => (
             <Link key={id} href={`/community/post/${id}`}>
@@ -131,7 +131,7 @@ function Board(props) {
               </a>
             </Link>
           ))}
-        </BoardRecommend>
+        </BoardRecommend> */}
       </Row>
     </Layout>
   );
@@ -157,13 +157,13 @@ export const getServerSideProps = async (context) => {
   try {
     const { token } = cookie.parse(context.req.headers.cookie);
 
-    const recommendsResponse = await axios({
-      method: 'get',
-      url: `https://www.weato.kro.kr/api/posts/recommended-posts`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    // const recommendsResponse = await axios({
+    //   method: 'get',
+    //   url: `https://www.weato.kro.kr/api/posts/recommended-posts`,
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // });
 
     if (tab === 'hot') {
       const response = await axios({
@@ -176,7 +176,8 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
-          recommends: recommendsResponse.data,
+          // recommends: recommendsResponse.data,
+          recommends: null,
           data: response.data,
         },
       };
@@ -191,7 +192,8 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
-          recommends: recommendsResponse.data,
+          // recommends: recommendsResponse.data,
+          recommends: null,
           data: response.data,
         },
       };
@@ -206,7 +208,8 @@ export const getServerSideProps = async (context) => {
       return {
         props: {
           query: { ...query, tab: tab, tag: tag, page: page },
-          recommends: recommendsResponse.data,
+          // recommends: recommendsResponse.data,
+          recommends: null,
           data: response.data,
         },
       };
