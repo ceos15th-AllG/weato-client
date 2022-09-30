@@ -547,8 +547,8 @@ const Admin = (props) => {
       return;
     }
 
-    // let result = pretty(newsletter);
-    // setNewsletter(result);
+    let result = convertSingleLine(newsletter);
+    setNewsletter(result);
     // setNewsletter(JSON.stringify(html2json(newsletter)));
   };
 
