@@ -340,11 +340,10 @@ function Signup() {
         },
       });
 
-      console.log(response.data);
       alert('이메일이 인증되었습니다.');
       setEmailConfirm(true);
     } catch (error) {
-      // alert(error);
+      console.log(error);
       alert('인증 번호를 다시 확인해주세요...');
     }
   };
