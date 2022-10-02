@@ -11,7 +11,7 @@ import Pagenator from '@common/Pagenator';
 import { Display1, Headline1, Subhead4, Body3 } from '@styles/FontStyle';
 import { gray04, gray06, text_black } from '@styles/Colors';
 
-const Level = { 1: '새싹', 2: '일반', 3: '우수', 4: '베스트' };
+const Level = { 1: '새싹', 2: '일반', 3: '우수', 4: '베스트', 100: '관리자' };
 
 const toBoardType = {
   MANAGEMENT: '관리법',

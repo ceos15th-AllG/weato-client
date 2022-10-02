@@ -20,7 +20,6 @@ import OptionButton from '@community/OptionButton';
 import { Subhead4, Body1, Body2, Tag1 } from '@styles/FontStyle';
 import { gray04, gray05, gray06, text_black } from '@styles/Colors';
 
-import profile_sample_big from '@public/profile_sample_big.png';
 import icon_gray_views from '@public/icon_gray_views.png';
 
 const toKoreanTypes = { MANAGEMENT: '관리법', QUESTION: '질문' };
@@ -32,7 +31,13 @@ const toKoreanTags = {
   ENVIRONMENT: '환경',
   OTHERWISE: '기타',
 };
-const levelDict = { 1: '새싹', 2: '일반', 3: '우수', 4: '베스트' };
+const levelDict = {
+  1: '새싹',
+  2: '일반',
+  3: '우수',
+  4: '베스트',
+  100: '관리자',
+};
 const severityDict = {
   SLIGHT: '약함',
   BELOWAVG: '평균 이하',

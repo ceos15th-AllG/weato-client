@@ -89,7 +89,13 @@ function BoardRow(props) {
     MANAGEMENT: '관리법',
     QUESTION: '질문',
   };
-  const levelDict = { 1: '새싹', 2: '일반', 3: '우수', 4: '베스트' };
+  const levelDict = {
+    1: '새싹',
+    2: '일반',
+    3: '우수',
+    4: '베스트',
+    100: '관리자',
+  };
 
   return (
     <Link href={`/community/post/${id}`}>

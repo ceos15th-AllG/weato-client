@@ -14,9 +14,7 @@ import { Display1, Tag1 } from '@styles/FontStyle';
 
 import { gray01, gray06, text_black } from '@styles/Colors';
 
-import profile_sample_large from '@public/profile_sample_large.png';
-
-const Level = { 1: '새싹', 2: '일반', 3: '우수', 4: '베스트' };
+const Level = { 1: '새싹', 2: '일반', 3: '우수', 4: '베스트', 100: '관리자' };
 
 const Layout = styled.header`
   height: 400px;
