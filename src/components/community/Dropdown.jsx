@@ -55,7 +55,7 @@ const Item = styled.div`
   border-radius: 5px;
 
   background-color: white;
-  color: ${text_black};
+  color: ${({ valid }) => (valid ? text_black : gray04)};
 `;
 
 const SubItem = styled.div`
@@ -116,7 +116,7 @@ function Dropdown({ item, options, setItem }) {
       }}
     >
       <ShowArea isOpen={isOpen}>
-        <Item>{item}</Item>
+        <Item valid={options.includes(item)}>{item}</Item>
         {isOpen &&
           options.map((option, index) => (
             <SubItem
