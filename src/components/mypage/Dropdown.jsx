@@ -64,7 +64,7 @@ const Item = styled.div`
   border: 2px solid blue;
 
   background-color: white;
-  color: ${text_black};
+  color: ${({ valid }) => (valid ? text_black : gray04)};
 
   border: 1px solid ${gray05};
 `;
@@ -106,7 +106,7 @@ const SubItem = styled.div`
   transition: all 0.3s ease;
 `;
 
-function Dropdown({ item, options, setItem }) {
+function Dropdown({ item, options, setItem, valid }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const onClickItem = useCallback((index) => {
@@ -127,7 +127,7 @@ function Dropdown({ item, options, setItem }) {
       }}
     >
       <ShowArea isOpen={isOpen}>
-        <Item>{item}</Item>
+        <Item valid={valid}>{item}</Item>
         {isOpen &&
           options.map((option, index) => (
             <SubItem

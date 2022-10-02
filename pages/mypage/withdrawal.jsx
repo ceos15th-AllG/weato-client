@@ -217,10 +217,6 @@ const Withdrawal = (props) => {
     setModalActive(true);
   };
 
-  const onClickModalOn = () => {
-    setModalActive(true);
-  };
-
   return (
     <Layout>
       <TopHeader>
@@ -294,6 +290,7 @@ const Withdrawal = (props) => {
                 '기타',
               ]}
               setItem={setReason}
+              valid={reasonValid}
             />
           </InfoData>
         </InfoBox>
