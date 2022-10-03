@@ -173,14 +173,18 @@ function ProfileTab(props) {
         `}
       >
         <SubHeader>아토피 정보</SubHeader>
-        <InfoBox>
-          <InfoName>병력</InfoName>
-          <InfoData>{userProfile.medicalHistory}년</InfoData>
-        </InfoBox>
-        <InfoBox>
-          <InfoName>증상 정도</InfoName>
-          <InfoData>{severityDict[userProfile.symptomDegree]}</InfoData>
-        </InfoBox>
+        {userProfile.medicalHistory && (
+          <InfoBox>
+            <InfoName>병력</InfoName>
+            <InfoData>{userProfile.medicalHistory}년</InfoData>
+          </InfoBox>
+        )}
+        {userProfile.symptomDegree && (
+          <InfoBox>
+            <InfoName>증상 정도</InfoName>
+            <InfoData>{severityDict[userProfile.symptomDegree]}</InfoData>
+          </InfoBox>
+        )}
         <InfoBox>
           <InfoName>선호 태그</InfoName>
           <InfoData>
