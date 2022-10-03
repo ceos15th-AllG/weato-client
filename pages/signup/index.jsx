@@ -172,9 +172,10 @@ const PolicyButton = styled.span`
   color: ${gray07};
 `;
 
-function Signup() {
+function Signup(props) {
   const router = useRouter();
-  const { user, token } = useContext(Context);
+  const { setToken, setUser, setLogin } = useContext(Context);
+  const { token, userData } = props;
 
   const [nickname, setNickname] = useState('');
   const [nicknameValid, setNicknameValid] = useState(false);
@@ -353,9 +354,9 @@ function Signup() {
     }
 
     try {
-      const response = await axios({
+      const signupRequest = await axios({
         method: 'post',
-        url: `https://www.weato.kro.kr/api/members/${user.id}`,
+        url: `https://www.weato.kro.kr/api/members/${userData.id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -370,6 +371,18 @@ function Signup() {
           etc: tags[5].active,
         },
       });
+
+      const response = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/members`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setToken(token);
+      setUser(response.data);
+      setLogin(true);
 
       router.push(`/signup/success`);
     } catch (error) {
@@ -515,36 +528,37 @@ function Signup() {
   );
 }
 
-// export const getServerSideProps = async (context) => {
-//   const query = context.query;
+export const getServerSideProps = async (context) => {
+  const query = context.query;
 
-//   if (Object.keys(query).length === 0 || !query.hasOwnProperty('token')) {
-//     return {
-//       redirect: {
-//         destination: '/login',
-//         permanent: false,
-//       },
-//       props: {},
-//     };
-//   }
+  try {
+    const token = query.token;
 
-//   try {
-//     const response = await axios({
-//       method: 'get',
-//       url: `https://www.weato.kro.kr/api/members`,
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
+    const response = await axios({
+      method: 'get',
+      url: `https://www.weato.kro.kr/api/members`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-//   return {
-//     props: {
-//       token: query.token,
-//     },
-//   };
-// };
+    return {
+      props: {
+        token: token,
+        userData: response.data,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+  }
+
+  return {
+    redirect: {
+      destination: '/login',
+      permanent: false,
+    },
+    props: {},
+  };
+};
 
 export default Signup;
