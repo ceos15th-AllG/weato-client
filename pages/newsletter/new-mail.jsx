@@ -144,7 +144,7 @@ function New() {
     for (let line of lines) {
       convertResult += line.trim();
     }
-    // setResult(convertResult);
+    setResult(convertResult);
     // console.log(convertResult);
     console.log(pretty(convertResult));
   };
