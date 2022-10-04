@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
 
 import Button from '@common/ButtonContainer';
-import TabBar from '@community/TabBar';
+import TabBar from '@community/TabBarMockup';
 import BoardRow from '@community/BoardRow';
 import BoardCard from '@community/BoardCard';
 
@@ -33,6 +33,7 @@ const BoardLayout = styled.div`
 
 const BoardRecommend = styled.div`
   margin-top: 59px;
+  row-gap: 24px;
 
   width: 427px;
 
@@ -90,6 +91,7 @@ function JoinUs() {
     {
       id: 0,
       title: '아토피 이제 괜찮아졌어요',
+      level: 1,
       author: '아토랑',
       views: 200,
       likeCounter: 200,
@@ -98,6 +100,7 @@ function JoinUs() {
     {
       id: 1,
       title: '아토피 이제 괜찮아졌어요',
+      level: 1,
       author: '아토랑',
       views: 200,
       likeCounter: 200,
@@ -106,6 +109,7 @@ function JoinUs() {
     {
       id: 2,
       title: '아토피 이제 괜찮아졌어요',
+      level: 1,
       author: '아토랑',
       views: 200,
       likeCounter: 200,
@@ -114,6 +118,7 @@ function JoinUs() {
     {
       id: 3,
       title: '아토피 이제 괜찮아졌어요',
+      level: 1,
       author: '아토랑',
       views: 200,
       likeCounter: 200,
@@ -122,6 +127,7 @@ function JoinUs() {
     {
       id: 4,
       title: '아토피 이제 괜찮아졌어요',
+      level: 1,
       author: '아토랑',
       views: 200,
       likeCounter: 200,
@@ -130,6 +136,7 @@ function JoinUs() {
     {
       id: 5,
       title: '아토피 이제 괜찮아졌어요',
+      level: 1,
       author: '아토랑',
       views: 200,
       likeCounter: 200,
@@ -196,7 +203,7 @@ function JoinUs() {
         <Row>
           <BoardLayout>
             {sampleData.map(
-              ({ id, title, author, views, likeCounter, boardType }) => (
+              ({ id, title, level, author, views, likeCounter, boardType }) => (
                 <BoardRow
                   key={id}
                   id={id}
@@ -204,8 +211,8 @@ function JoinUs() {
                   boardType={boardType}
                   views={views}
                   likeCounter={likeCounter}
+                  level={level}
                   author={author}
-                  // level={level}
                 />
               )
             )}
