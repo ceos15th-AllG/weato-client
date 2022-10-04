@@ -18,6 +18,8 @@ import RadioButton from '@common/RadioButton';
 import ButtonGroup from '@signup/ButtonGroup';
 import Button from '@common/ButtonContainer';
 
+const severityLists = ['SLIGHT', 'BELOWAVG', 'ABOVEAVG', 'SEVERETY'];
+
 const Layout = styled.div`
   margin: 122px 635px 136px;
 
@@ -273,7 +275,14 @@ export default function More() {
           laser: tags[6].active,
           orientalMedicine: tags[7].active,
           etc: tags[8].active,
-          symptomDegree: 'SLIGHT',
+          symptomDegree:
+            severityLists[
+              severity.findIndex((item) => {
+                if (item.active) {
+                  return true;
+                }
+              })
+            ],
         },
       });
 
