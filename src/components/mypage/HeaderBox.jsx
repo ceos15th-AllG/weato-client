@@ -71,9 +71,9 @@ function HeaderBox(props) {
 
   const { imageUrl, level, name, newsletterEmail } = props.data;
 
-  const onClick = (event) => {
+  const onLogout = (event) => {
     localStorage.clear();
-    document.cookie = `access_token=no_exist; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+    document.cookie = `token=no_exist; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
     document.cookie = `id=no_exist; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
     // setLogOut();
 
@@ -95,7 +95,7 @@ function HeaderBox(props) {
         <LevelText>{Level[level]}</LevelText>
         <Name>{name}</Name>
         <Email>{newsletterEmail}</Email>
-        <Button text="로그아웃" btnType="7" disabled onClick={onClick} />
+        <Button text="로그아웃" btnType="7" disabled onClick={onLogout} />
       </Column>
     </Layout>
   );
