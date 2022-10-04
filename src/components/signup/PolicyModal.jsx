@@ -157,7 +157,7 @@ const ButtonRow = styled.div`
 `;
 
 const PolicyModal = ({ setModalActive, setCheck }) => {
-  const [confirm, setConfirm] = useState(false);
+  const [confirm, setConfirm] = useState(true);
   const scrollRef = useRef(null);
 
   const onCheck = (event) => {
