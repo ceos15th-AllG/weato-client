@@ -35,7 +35,7 @@ const HeaderSubscription = styled.span`
   color: ${gray05};
 `;
 
-const HeaderDate = styled.date`
+const HeaderDate = styled.span`
   width: 100%;
 
   margin-bottom: 27px;
