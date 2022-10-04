@@ -77,7 +77,16 @@ function BoardCard({ title, content, view, like }) {
     <Layout>
       <Box>
         <Title>{title}</Title>
-        <Content>{content}</Content>
+        <Content>
+          {content.split('\n').map((line, index) => {
+            return (
+              <span key={index}>
+                {line}
+                <br />
+              </span>
+            );
+          })}
+        </Content>
       </Box>
       <Row>
         <SmallBox>
