@@ -268,7 +268,7 @@ function PostContent({ id, post }) {
               {
                 label: '수정',
                 action: () => {
-                  alert('수정 기능 연결 중...');
+                  router.push(`/community/post/modify?id=${id}`);
                 },
               },
               {
