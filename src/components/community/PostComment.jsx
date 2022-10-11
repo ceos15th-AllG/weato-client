@@ -12,6 +12,7 @@ import Context from '@contexts/Context';
 
 import Button from '@common/ButtonContainer';
 import CommentRow from '@community/CommentRow';
+import LevelProfile from '@common/LevelProfile';
 
 import { Subhead3, Subhead4, Body1, Body2, Tag1 } from '@styles/FontStyle';
 import { gray03, gray05, gray07, text_black } from '@styles/Colors';
@@ -113,7 +114,6 @@ function PostComment(props) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-
         data: {
           content: myComment.trim(),
         },
@@ -148,7 +148,7 @@ function PostComment(props) {
             margin-left: 10px;
           `}
         >
-          <Image src={profile_guest} width={32} height={32} alt="" />
+          <LevelProfile level={user.level} width={32} />
           <Input
             placeholder="댓글 추가"
             value={myComment}

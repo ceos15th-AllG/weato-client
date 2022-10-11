@@ -166,6 +166,39 @@ const CommentRow = ({
     }
   };
 
+  const onClickModify = async (event) => {
+    try {
+      const newComment = prompt('댓글 수정', content).trim();
+
+      // 수정한 댓글이 이전과 같거나 공백일 경우 그냥 종료
+      if (newComment === content || newComment.length === 0) {
+        console.log('이전 댓글과 같은 내용입니다.');
+        return;
+      }
+
+      const modifyComment = await axios({
+        method: 'patch',
+        url: `https://www.weato.kro.kr/api/posts/${postId}/comments/${commentId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: { content: newComment },
+      });
+
+      const getNewComments = await axios({
+        method: 'get',
+        url: `https://www.weato.kro.kr/api/posts/${postId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setComments(getNewComments.data.comments);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const onClickDelete = async (event) => {
     try {
       const deleteComment = await axios({
@@ -222,9 +255,7 @@ const CommentRow = ({
               options={[
                 {
                   label: '수정',
-                  action: () => {
-                    alert('수정 기능 연결 중...');
-                  },
+                  action: onClickModify,
                 },
                 {
                   label: '삭제',
