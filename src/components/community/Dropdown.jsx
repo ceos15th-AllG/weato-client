@@ -54,8 +54,9 @@ const Item = styled.div`
   border: 1px solid ${gray05};
   border-radius: 5px;
 
-  background-color: white;
   color: ${({ valid }) => (valid ? text_black : gray04)};
+  background-color: ${({ readOnly, valid }) =>
+    readOnly && valid ? gray02 : `white`};
 `;
 
 const SubItem = styled.div`
@@ -95,7 +96,7 @@ const SubItem = styled.div`
   transition: all 0.3s ease;
 `;
 
-function Dropdown({ item, options, setItem }) {
+function Dropdown({ item, options, setItem, readOnly }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const onClickItem = useCallback((index) => {
@@ -105,6 +106,10 @@ function Dropdown({ item, options, setItem }) {
   return (
     <Layout
       onClick={() => {
+        if (readOnly) {
+          return;
+        }
+
         if (!isOpen) {
           setIsOpen(true);
         } else {
@@ -112,11 +117,17 @@ function Dropdown({ item, options, setItem }) {
         }
       }}
       onMouseLeave={() => {
+        if (readOnly) {
+          return;
+        }
+
         setIsOpen(false);
       }}
     >
       <ShowArea isOpen={isOpen}>
-        <Item valid={options.includes(item)}>{item}</Item>
+        <Item valid={options.includes(item)} readOnly={readOnly}>
+          {item}
+        </Item>
         {isOpen &&
           options.map((option, index) => (
             <SubItem
