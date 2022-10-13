@@ -153,6 +153,13 @@ const NewsletterForm = styled.div`
   .content-listitem {
     list-style: disc outside none;
   }
+
+  .content-img {
+    width: 100%;
+    margin-bottom: 24px;
+
+    border-radius: 4px;
+  }
 `;
 
 const toKoreanTags = {
