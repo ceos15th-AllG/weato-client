@@ -1,14 +1,30 @@
 /** @jsxImportSource @emotion/react */
-import { keyframes } from '@emotion/react';
+import { keyframes, withTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import Reveal, { Fade } from 'react-awesome-reveal';
 
 // config({ ssrFadeout: true });
 
+import axios from 'axios';
+
+import { useState, useEffect, useCallback } from 'react';
+
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { main, gray01, text_white, sub } from '@styles/Colors';
+import { Body3 } from '@styles/FontStyle';
+import {
+  main,
+  gray01,
+  gray05,
+  text_black,
+  text_white,
+  sub,
+  gray07,
+  gray03,
+  gray02,
+} from '@styles/Colors';
 
 import bg_1 from '@public/landing/bg_1.png';
 import bg_2 from '@public/landing/bg_2.png';
@@ -28,9 +44,24 @@ import comment_2 from '@public/landing/comment_2.png';
 
 const Layout = styled.div`
   width: 1920px;
+  /* width: 100vw; */
+  /* height: 100vh; */
 
   display: flex;
   flex-direction: column;
+
+  /* @media all and (min-width: 768px) and (max-width: 1023px) {
+    width: 300px;
+    background-color: blue;
+  }
+
+  @media all and (max-width: 767px) {
+    width: 300px;
+  } */
+
+  @media (max-width: 600px) {
+    /* background-color: red; */
+  }
 `;
 
 const Section_1 = styled.section`
@@ -254,13 +285,13 @@ const Section_5 = styled.section`
 `;
 
 const FooterSection = styled.footer`
-  height: 644px;
+  padding: 150px 300px;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
 
-  background-color: ${main};
+  background-color: ${({ bgColor }) => bgColor};
 `;
 
 const FooterBox = styled.div`
@@ -270,11 +301,50 @@ const FooterBox = styled.div`
 `;
 
 const FooterTitle = styled.span`
-  color: ${text_white};
+  color: ${({ color }) => color};
   font-weight: 700;
   font-size: 60px;
 
-  margin-bottom: 48px;
+  margin-bottom: 65px;
+`;
+
+const FooterInputBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  column-gap: 40px;
+`;
+
+const TagLayout = styled.div`
+  margin-top: 21px;
+
+  width: 100%;
+
+  display: grid;
+  /* justify-content: center; */
+  grid: '. . .';
+  column-gap: 21px;
+  row-gap: 19px;
+`;
+
+const TagButton = styled.div`
+  width: 100%;
+  /* min-width: 360px; */
+  height: 84px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: ${({ disabled }) => (disabled ? gray03 : text_white)};
+  font-weight: 700;
+  font-size: 30px;
+
+  border-radius: 8px;
+
+  background-color: ${({ disabled }) => (disabled ? `white` : main)};
+
+  transition: all 0.4s ease-in-out;
 `;
 
 const Button = styled.div`
@@ -294,27 +364,42 @@ const Button = styled.div`
   background-color: white;
 `;
 
-const FooterRow = styled.div`
+const Input = styled.input`
+  width: ${({ width }) => (width ? `${width}px` : `100%`)};
+  height: 92px;
+
+  outline: none;
+  border: none;
+  border-radius: 8px;
+
+  padding: 16px 24px;
+
+  color: ${main};
+  font-weight: 500;
+  font-size: 30px;
+
+  background-color: white;
+`;
+
+const ConfirmButton = styled.div`
+  width: 100%;
+  height: 92px;
+
+  margin-top: 50px;
+
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
-  padding: 0px 128px;
-  margin-bottom: 80px;
-`;
+  font-weight: 700;
+  font-size: 30px;
 
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-`;
+  border-radius: 8px;
 
-const FooterText = styled.span`
-  color: ${gray01};
-  font-size: 24px;
-  font-weight: 300px;
-  line-height: 36px;
-  text-align: right;
+  color: ${({ active }) => (active ? text_white : gray03)};
+  background-color: ${({ active }) => (active ? main : `white`)};
+
+  transition: all 0.4s ease-in-out;
 `;
 
 const CardLoopAnimation = keyframes`
@@ -410,187 +495,358 @@ const RevealAnimation = keyframes`
 `;
 
 const Landing = () => {
+  const [name, setName] = useState('');
+  const [nameValid, setNameValid] = useState(false);
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
+  const [tags, setTags] = useState([
+    {
+      text: '약품',
+      active: false,
+    },
+    {
+      text: '세면',
+      active: false,
+    },
+    {
+      text: '환경',
+      active: false,
+    },
+    {
+      text: '수면',
+      active: false,
+    },
+    {
+      text: '음식',
+      active: false,
+    },
+    {
+      text: '기타',
+      active: false,
+    },
+  ]);
+  const [tagsValid, setTagsValid] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+
+  const onChangeName = useCallback((event) => {
+    setName(event.target.value);
+
+    if (event.target.value.length < 1 || event.target.value.length > 10) {
+      setNameValid(false);
+    } else {
+      setNameValid(true);
+    }
+  }, []);
+
+  const onChangeEmail = useCallback((event) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailCurrent = event.target.value;
+    setEmail(emailCurrent);
+
+    if (!emailRegex.test(emailCurrent)) {
+      setEmailValid(false);
+    } else {
+      setEmailValid(true);
+    }
+  }, []);
+
+  const toggleActive = (id) => {
+    setTags(
+      tags.map((tag, index) =>
+        index === id ? { ...tag, active: !tag.active } : tag
+      )
+    );
+  };
+
+  const onConfirm = async (event) => {
+    if (!confirm) {
+      return;
+    }
+
+    try {
+      const request = await axios({
+        method: 'post',
+        url: `https://www.weato.kro.kr/api/landing`,
+        data: {
+          name: name,
+          newsletterEmail: email,
+          tagDrug: tags[0].active,
+          tagCleaning: tags[1].active,
+          tagEnvironment: tags[2].active,
+          tagSleep: tags[3].active,
+          tagFood: tags[4].active,
+          otherwise: tags[5].active,
+        },
+      });
+
+      alert('함께해 주셔서 감사드려요!');
+
+      // router.push(`/signup/success`);
+    } catch (error) {
+      alert(error);
+      alert('서버 요청이 불가능하네요...');
+    }
+  };
+
+  // 선호 태그 입력 1개 이상인지 체크
+  useEffect(() => {
+    if (tags.filter((tag) => tag.active).length > 0) {
+      setTagsValid(true);
+    } else {
+      setTagsValid(false);
+    }
+  }, [tags]);
+
+  // 전체 필드 만족되었는지 체크
+  useEffect(() => {
+    if (nameValid && emailValid && tagsValid) {
+      setConfirm(true);
+    } else {
+      setConfirm(false);
+    }
+
+    console.log(nameValid, emailValid, tagsValid);
+  }, [nameValid, emailValid, tagsValid]);
+
   return (
-    <Layout>
-      <Section_1>
-        <MockupArea>
-          <Fade triggerOnce duration={1000} delay={500}>
-            <div className="first-mockup-container">
-              <Image alt="" src={mockup_1} />
-            </div>
-          </Fade>
-        </MockupArea>
-      </Section_1>
+    <>
+      <Head>
+        <meta name="viewport" content="viewport-fit=cover" />
+      </Head>
 
-      <Section_2>
-        <h3>
-          너무 다양하고 어렵기만 한 아토피 정보, 찾는 데 지치진 않으셨나요?
-        </h3>
-        <span>
-          아토피는 쉽게 낫지 않는 난치병으로써 긴 여정으로 비유되기도 합니다.
-          <br />
-          저희 위아토는 환자분들이 아토피라는 긴 여정에서 지치지 않도록
-          <br />
-          <strong>사용자별 맞춤 뉴스레터 서비스</strong>와{' '}
-          <strong>서로의 경험을 나눌 수 있는 커뮤니티</strong>를 제공합니다.
-        </span>
-      </Section_2>
+      <Layout>
+        <Section_1>
+          <MockupArea>
+            <Fade triggerOnce duration={1000} delay={500}>
+              <div className="first-mockup-container">
+                <Image alt="" src={mockup_1} />
+              </div>
+            </Fade>
+          </MockupArea>
+        </Section_1>
 
-      <Section_3>
-        <div className="box">
-          <Fade triggerOnce duration={1000} delay={2500}>
-            <section className="line-section"></section>
-          </Fade>
-          <Fade triggerOnce duration={1000} delay={1000}>
-            <div className="content">
-              <section className="circle-section">편리성</section>
-              <section className="text-section">
-                직접 정보를 찾지 말고
-                <br />
-                뉴스레터를 통해
-                <br />
-                편하게 정보를 받아보세요.
-              </section>
-            </div>
-          </Fade>
-          <Fade triggerOnce duration={1000} delay={1300}>
-            <div className="content">
-              <section className="circle-section">신뢰성</section>
-              <section className="text-section">
-                공신력 있는 기사, 논문 등을
-                <br />
-                참조해 만든 뉴스레터로
-                <br />
-                안심하고 읽어보세요.
-              </section>
-            </div>
-          </Fade>
-          <Fade triggerOnce duration={1000} delay={1900}>
-            <div className="content">
-              <section className="circle-section">맞춤형</section>
-              <section className="text-section">
-                선택 태그 별 뉴스레터와
-                <br />
-                유사 병력 회원의 경험 정보 게시글로
-                <br />
-                보다 적합한 정보를 얻어보세요.
-              </section>
-            </div>
-          </Fade>
-        </div>
-      </Section_3>
-
-      <Section_4>
-        <div className="text-box">
-          <div className="text-box-sub-title">
-            <span>01</span>
-            <span>맞춤 뉴스레터</span>
-          </div>
-          <div className="text-box-title">
-            아토피 정보 찾지 마세요, <strong>받아보세요</strong>
-          </div>
-          <div className="text-box-content">
-            약품, 수면, 세면, 음식, 환경, 기타 6가지 영역 중 원하는 분야를
-            선택하고,
+        <Section_2>
+          <h3>
+            너무 다양하고 어렵기만 한 아토피 정보, 찾는 데 지치진 않으셨나요?
+          </h3>
+          <span>
+            아토피는 쉽게 낫지 않는 난치병으로써 긴 여정으로 비유되기도 합니다.
             <br />
-            신뢰성 있는 아토피 정보가 들어있는 맞춤 뉴스레터를 받아보세요.
-          </div>
-        </div>
-        <MockupArea>
-          <div className="third-mockup-container">
-            <div className="third-mockup-item">
-              <Image alt="" src={card_2} />
-            </div>
-            <div className="third-mockup-item">
-              <Image alt="" src={card_3} />
-            </div>
-            <div className="third-mockup-item">
-              <Image alt="" src={card_4} />
-            </div>
-            <div className="third-mockup-item">
-              <Image alt="" src={card_2} />
-            </div>
-            <div className="third-mockup-item">
-              <Image alt="" src={card_3} />
-            </div>
-            <div className="third-mockup-item">
-              <Image alt="" src={card_4} />
-            </div>
-            <div className="third-mockup-item">
-              <Image alt="" src={card_2} />
-            </div>
-            <div className="third-mockup-item">
-              <Image alt="" src={card_3} />
-            </div>
-            <div className="third-mockup-item">
-              <Image alt="" src={card_4} />
-            </div>
-          </div>
-          <Fade triggerOnce duration={1000} delay={1000}>
-            <div className="second-mockup-container">
-              <Image alt="" src={mockup_2} />
-            </div>
-          </Fade>
-        </MockupArea>
-      </Section_4>
-
-      <Section_5>
-        <div className="text-box">
-          <div className="text-box-sub-title">
-            <span>02</span>
-            <span>경험 커뮤니티</span>
-          </div>
-          <div className="text-box-title">
-            <strong>질문부터 노하우까지,</strong> 모두 이곳에서
-          </div>
-          <div className="text-box-content">
-            더 이상 나 혼자서 고민하지 말고
+            저희 위아토는 환자분들이 아토피라는 긴 여정에서 지치지 않도록
             <br />
-            환우분들과 경험에 대해 서로 이야기를 나눠보세요.
-          </div>
-        </div>
-        <MockupArea>
-          <Fade triggerOnce duration={1000} delay={1000}>
-            <div className="fourth-mockup-container">
-              <Image alt="" src={mockup_3} />
-            </div>
-          </Fade>
-          <Fade triggerOnce duration={1000} delay={1300}>
-            <div className="fifth-mockup-container">
-              <Image alt="" src={mockup_4} />
-            </div>
-          </Fade>
-          <Fade triggerOnce duration={1000} delay={2500}>
-            <div className="sixth-mockup-container">
-              <Image alt="" src={comment_1} />
-            </div>
-          </Fade>
-          <Fade triggerOnce duration={1000} delay={2800}>
-            <div className="seventh-mockup-container">
-              <Image alt="" src={comment_2} />
-            </div>
-          </Fade>
-        </MockupArea>
-      </Section_5>
+            <strong>사용자별 맞춤 뉴스레터 서비스</strong>와{' '}
+            <strong>서로의 경험을 나눌 수 있는 커뮤니티</strong>를 제공합니다.
+          </span>
+        </Section_2>
 
-      <Reveal
-        triggerOnce
-        keyframes={RevealAnimation}
-        duration={1500}
-        // delay={500}
-      >
-        <FooterSection>
-          <FooterBox>
-            <FooterTitle>지금 바로 위아토를 만나보세요!</FooterTitle>
-            <Link href={'/'}>
-              <a>
-                <Button>위아토 바로가기</Button>
-              </a>
-            </Link>
-          </FooterBox>
-        </FooterSection>
-      </Reveal>
-    </Layout>
+        <Section_3>
+          <div className="box">
+            <Fade triggerOnce duration={1000} delay={2500}>
+              <section className="line-section"></section>
+            </Fade>
+            <Fade triggerOnce duration={1000} delay={1000}>
+              <div className="content">
+                <section className="circle-section">편리성</section>
+                <section className="text-section">
+                  직접 정보를 찾지 말고
+                  <br />
+                  뉴스레터를 통해
+                  <br />
+                  편하게 정보를 받아보세요.
+                </section>
+              </div>
+            </Fade>
+            <Fade triggerOnce duration={1000} delay={1300}>
+              <div className="content">
+                <section className="circle-section">신뢰성</section>
+                <section className="text-section">
+                  공신력 있는 기사, 논문 등을
+                  <br />
+                  참조해 만든 뉴스레터로
+                  <br />
+                  안심하고 읽어보세요.
+                </section>
+              </div>
+            </Fade>
+            <Fade triggerOnce duration={1000} delay={1900}>
+              <div className="content">
+                <section className="circle-section">맞춤형</section>
+                <section className="text-section">
+                  선택 태그 별 뉴스레터와
+                  <br />
+                  유사 병력 회원의 경험 정보 게시글로
+                  <br />
+                  보다 적합한 정보를 얻어보세요.
+                </section>
+              </div>
+            </Fade>
+          </div>
+        </Section_3>
+
+        <Section_4>
+          <div className="text-box">
+            <div className="text-box-sub-title">
+              <span>01</span>
+              <span>맞춤 뉴스레터</span>
+            </div>
+            <div className="text-box-title">
+              아토피 정보 찾지 마세요, <strong>받아보세요</strong>
+            </div>
+            <div className="text-box-content">
+              약품, 수면, 세면, 음식, 환경, 기타 6가지 영역 중 원하는 분야를
+              선택하고,
+              <br />
+              신뢰성 있는 아토피 정보가 들어있는 맞춤 뉴스레터를 받아보세요.
+            </div>
+          </div>
+          <MockupArea>
+            <div className="third-mockup-container">
+              <div className="third-mockup-item">
+                <Image alt="" src={card_2} />
+              </div>
+              <div className="third-mockup-item">
+                <Image alt="" src={card_3} />
+              </div>
+              <div className="third-mockup-item">
+                <Image alt="" src={card_4} />
+              </div>
+              <div className="third-mockup-item">
+                <Image alt="" src={card_2} />
+              </div>
+              <div className="third-mockup-item">
+                <Image alt="" src={card_3} />
+              </div>
+              <div className="third-mockup-item">
+                <Image alt="" src={card_4} />
+              </div>
+              <div className="third-mockup-item">
+                <Image alt="" src={card_2} />
+              </div>
+              <div className="third-mockup-item">
+                <Image alt="" src={card_3} />
+              </div>
+              <div className="third-mockup-item">
+                <Image alt="" src={card_4} />
+              </div>
+            </div>
+            <Fade triggerOnce duration={1000} delay={1000}>
+              <div className="second-mockup-container">
+                <Image alt="" src={mockup_2} />
+              </div>
+            </Fade>
+          </MockupArea>
+        </Section_4>
+
+        <Section_5>
+          <div className="text-box">
+            <div className="text-box-sub-title">
+              <span>02</span>
+              <span>경험 커뮤니티</span>
+            </div>
+            <div className="text-box-title">
+              <strong>질문부터 노하우까지,</strong> 모두 이곳에서
+            </div>
+            <div className="text-box-content">
+              더 이상 나 혼자서 고민하지 말고
+              <br />
+              환우분들과 경험에 대해 서로 이야기를 나눠보세요.
+            </div>
+          </div>
+          <MockupArea>
+            <Fade triggerOnce duration={1000} delay={1000}>
+              <div className="fourth-mockup-container">
+                <Image alt="" src={mockup_3} />
+              </div>
+            </Fade>
+            <Fade triggerOnce duration={1000} delay={1300}>
+              <div className="fifth-mockup-container">
+                <Image alt="" src={mockup_4} />
+              </div>
+            </Fade>
+            <Fade triggerOnce duration={1000} delay={2500}>
+              <div className="sixth-mockup-container">
+                <Image alt="" src={comment_1} />
+              </div>
+            </Fade>
+            <Fade triggerOnce duration={1000} delay={2800}>
+              <div className="seventh-mockup-container">
+                <Image alt="" src={comment_2} />
+              </div>
+            </Fade>
+          </MockupArea>
+        </Section_5>
+
+        <Reveal
+          triggerOnce
+          keyframes={RevealAnimation}
+          duration={1500}
+          // delay={500}
+        >
+          <FooterSection bgColor={main}>
+            <FooterBox>
+              <FooterTitle color={text_white}>
+                <span>지금 바로 위아토를 만나보세요!</span>
+              </FooterTitle>
+              <Link href={'/'}>
+                <a>
+                  <Button>위아토 바로가기</Button>
+                </a>
+              </Link>
+            </FooterBox>
+          </FooterSection>
+
+          <FooterSection bgColor={gray01}>
+            <FooterBox>
+              <FooterTitle color={text_black}>
+                <span>일단은 메일로 뉴스레터만 받아볼래요.</span>
+              </FooterTitle>
+              <FooterInputBox>
+                <Input
+                  placeholder="이름"
+                  width={300}
+                  value={name}
+                  onChange={onChangeName}
+                />
+                <Input
+                  placeholder="뉴스레터를 받을 이메일"
+                  // width={600}
+                  value={email}
+                  onChange={onChangeEmail}
+                />
+              </FooterInputBox>
+              <TagLayout>
+                {tags.map(({ text, active }, index) =>
+                  active ? (
+                    <TagButton
+                      key={index}
+                      onClick={() => {
+                        toggleActive(index);
+                      }}
+                    >
+                      {text}
+                    </TagButton>
+                  ) : (
+                    <TagButton
+                      key={index}
+                      disabled
+                      onClick={() => {
+                        toggleActive(index);
+                      }}
+                    >
+                      {text}
+                    </TagButton>
+                  )
+                )}
+              </TagLayout>
+              <ConfirmButton active={confirm} onClick={onConfirm}>
+                💌 구독하기
+              </ConfirmButton>
+            </FooterBox>
+          </FooterSection>
+        </Reveal>
+      </Layout>
+    </>
   );
 };
 
