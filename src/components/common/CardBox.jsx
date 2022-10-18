@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import Card from '@common/CardContainer';
 
 const Layout = styled.div`
-  width: 1320px;
+  /* width: 1320px; */
+  width: 100%;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);

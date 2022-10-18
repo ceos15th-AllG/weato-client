@@ -27,6 +27,7 @@ const App = ({ Component, pageProps }) => {
     <ContextProvider>
       <ScreenLayout>
         <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <title>WEATO : 당신만을 위한 아토피 맞춤 정보 서비스</title>
         </Head>
 

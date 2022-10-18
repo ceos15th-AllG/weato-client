@@ -10,6 +10,8 @@ import Tag from '@common/Tag';
 const CardLayout = styled.section`
   width: 315px;
   height: 315px;
+  /* width: 100%;
+  height: 100%; */
 
   border-radius: 16px;
 

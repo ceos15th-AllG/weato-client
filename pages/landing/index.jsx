@@ -11,9 +11,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 
-import { Body3 } from '@styles/FontStyle';
 import {
   main,
   gray01,
@@ -43,7 +41,6 @@ import comment_1 from '@public/landing/comment_1.png';
 import comment_2 from '@public/landing/comment_2.png';
 
 const Layout = styled.div`
-  width: 1920px;
   /* width: 100vw; */
   /* height: 100vh; */
 
@@ -60,7 +57,7 @@ const Layout = styled.div`
   } */
 
   @media (max-width: 600px) {
-    /* background-color: red; */
+    background-color: red;
   }
 `;
 
@@ -611,10 +608,6 @@ const Landing = () => {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="viewport-fit=cover" />
-      </Head>
-
       <Layout>
         <Section_1>
           <MockupArea>
@@ -788,11 +781,9 @@ const Landing = () => {
               <FooterTitle color={text_white}>
                 <span>지금 바로 위아토를 만나보세요!</span>
               </FooterTitle>
-              <Link href={'/'}>
-                <a>
-                  <Button>위아토 바로가기</Button>
-                </a>
-              </Link>
+              <a href={`https://weato.net`} target="_blank" rel="noreferrer">
+                <Button>위아토 바로가기</Button>
+              </a>
             </FooterBox>
           </FooterSection>
 
