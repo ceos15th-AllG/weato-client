@@ -41,7 +41,9 @@ import comment_1 from '@public/landing/comment_1.png';
 import comment_2 from '@public/landing/comment_2.png';
 
 const Layout = styled.div`
-  /* width: 100vw; */
+  width: 100vw;
+
+  /* max-width: 1920px; */
   /* height: 100vh; */
 
   display: flex;
@@ -57,13 +59,13 @@ const Layout = styled.div`
   } */
 
   @media (max-width: 600px) {
-    background-color: red;
+    /* background-color: red; */
   }
 `;
 
 const Section_1 = styled.section`
   width: 100%;
-  height: 1080px;
+  /* height: 1080px; */
 
   position: relative;
 
@@ -73,26 +75,29 @@ const Section_1 = styled.section`
 `;
 
 const Section_2 = styled.section`
-  height: 700px;
+  /* height: 700px; */
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 
-  padding: 200px 222px;
+  padding: 200px 60px;
+  row-gap: 60px;
 
   background-color: #f8f8f8;
 
   h3 {
     font-weight: 500;
-    font-size: 40px;
+    /* font-size: 40px; */
+    font-size: min(8vw, 40px);
   }
 
   span {
     font-weight: 300;
-    font-size: 32px;
-    line-height: 52px;
+    /* font-size: 32px; */
+    font-size: min(2vw, 32px);
+    line-height: min(2.5vw, 52px);
     text-align: center;
   }
 
@@ -199,7 +204,7 @@ const Section_4 = styled.section`
 
     margin-bottom: 10px;
 
-    span:nth-child(1) {
+    span:nth-of-type(1) {
       margin-right: 8px;
       padding-top: 2px;
 
@@ -207,7 +212,7 @@ const Section_4 = styled.section`
       font-size: 18px;
     }
 
-    span:nth-child(2) {
+    span:nth-of-type(2) {
       font-weight: 700;
       font-size: 28px;
       color: ${main};
@@ -252,7 +257,7 @@ const Section_5 = styled.section`
 
     margin-bottom: 10px;
 
-    span:nth-child(1) {
+    span:nth-of-type(1) {
       margin-right: 8px;
       padding-top: 2px;
 
@@ -260,7 +265,7 @@ const Section_5 = styled.section`
       font-size: 18px;
     }
 
-    span:nth-child(2) {
+    span:nth-of-type(2) {
       font-weight: 700;
       font-size: 28px;
       color: ${main};
@@ -303,13 +308,6 @@ const FooterTitle = styled.span`
   font-size: 60px;
 
   margin-bottom: 65px;
-`;
-
-const FooterInputBox = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  column-gap: 40px;
 `;
 
 const TagLayout = styled.div`
@@ -362,13 +360,14 @@ const Button = styled.div`
 `;
 
 const Input = styled.input`
-  width: ${({ width }) => (width ? `${width}px` : `100%`)};
+  width: 100%;
   height: 92px;
 
   outline: none;
   border: none;
   border-radius: 8px;
 
+  margin-bottom: 21px;
   padding: 16px 24px;
 
   color: ${main};
@@ -417,7 +416,8 @@ const MockupArea = styled.div`
     position: relative;
     top: 0px;
 
-    width: 1650px;
+    width: 85vw;
+    /* max-width: 1920px; */
   }
 
   .second-mockup-container {
@@ -792,20 +792,12 @@ const Landing = () => {
               <FooterTitle color={text_black}>
                 <span>일단은 메일로 뉴스레터만 받아볼래요.</span>
               </FooterTitle>
-              <FooterInputBox>
-                <Input
-                  placeholder="이름"
-                  width={300}
-                  value={name}
-                  onChange={onChangeName}
-                />
-                <Input
-                  placeholder="뉴스레터를 받을 이메일"
-                  // width={600}
-                  value={email}
-                  onChange={onChangeEmail}
-                />
-              </FooterInputBox>
+              <Input placeholder="이름" value={name} onChange={onChangeName} />
+              <Input
+                placeholder="뉴스레터를 받을 이메일"
+                value={email}
+                onChange={onChangeEmail}
+              />
               <TagLayout>
                 {tags.map(({ text, active }, index) =>
                   active ? (
