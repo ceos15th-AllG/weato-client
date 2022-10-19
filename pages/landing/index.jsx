@@ -12,6 +12,8 @@ import { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
+import { useMediaQuery } from 'react-responsive';
+
 import {
   main,
   gray01,
@@ -58,9 +60,9 @@ const Layout = styled.div`
     width: 300px;
   } */
 
-  @media (max-width: 600px) {
-    /* background-color: red; */
-  }
+  /* @media (max-width: 600px) {
+    background-color: red;
+  } */
 `;
 
 const Section_1 = styled.section`
@@ -409,7 +411,7 @@ const CardLoopAnimation = keyframes`
 
 const MockupArea = styled.div`
   width: 100%;
-  min-height: 1000px;
+  /* min-height: 1000px; */
   overflow: hidden;
 
   .first-mockup-container {
@@ -525,6 +527,13 @@ const Landing = () => {
   const [tagsValid, setTagsValid] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(false);
+  const mobile = useMediaQuery({ query: '(max-width: 767px)' });
+
+  useEffect(() => {
+    if (mobile) setIsMobile(mobile);
+  }, [mobile]);
+
   const onChangeName = useCallback((event) => {
     setName(event.target.value);
 
@@ -605,6 +614,8 @@ const Landing = () => {
 
     console.log(nameValid, emailValid, tagsValid);
   }, [nameValid, emailValid, tagsValid]);
+
+  // if (isMobile) return <span>모바일</span>;
 
   return (
     <>
