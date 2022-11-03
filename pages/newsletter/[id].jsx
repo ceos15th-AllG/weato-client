@@ -154,6 +154,10 @@ const NewsletterForm = styled.div`
     list-style: disc outside none;
   }
 
+  .content-listitem-nested {
+    list-style-type: circle;
+  }
+
   .content-img {
     width: 100%;
     margin-bottom: 24px;

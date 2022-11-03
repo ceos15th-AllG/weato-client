@@ -33,3 +33,4 @@ yarn-error.log*
 
 public/*.html
 newsletter*.txt
+.*.jsx

@@ -376,6 +376,10 @@ const NewsletterForm = styled.div`
     list-style: disc outside none;
   }
 
+  .content-listitem-nested {
+    list-style-type: circle;
+  }
+
   .content-img {
     width: 100%;
     margin-bottom: 24px;
@@ -510,6 +514,8 @@ const Admin = (props) => {
       'content-text': `<span class='content-text'>
     문단 내용
 </span>      
+`,
+      'content-img': `<img class='content-img' src='' />
 `,
       'content-a': `<a href='' target='_blank'>링크</a>
 `,
@@ -659,6 +665,13 @@ const Admin = (props) => {
               btnType="1"
               onClick={() => {
                 insertText('content-text');
+              }}
+            />
+            <Button
+              text="이미지"
+              btnType="1"
+              onClick={() => {
+                insertText('content-img');
               }}
             />
             <Button
