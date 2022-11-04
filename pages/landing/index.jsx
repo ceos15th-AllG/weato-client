@@ -12,6 +12,8 @@ import { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
+import { useMediaQuery } from 'react-responsive';
+
 import {
   main,
   gray01,
@@ -29,6 +31,10 @@ import section_1 from '@public/landing/section-1.png';
 import section_2 from '@public/landing/section-2.png';
 import section_3 from '@public/landing/section-3.png';
 import section_4 from '@public/landing/section-4.png';
+import section_1_large from '@public/landing/section-1-large.png';
+import section_2_large from '@public/landing/section-2-large.png';
+import section_3_large from '@public/landing/section-3-large.png';
+import section_4_large from '@public/landing/section-4-large.png';
 // import mockup_1 from '@public/landing/mockup_1.png';
 // import mockup_2 from '@public/landing/mockup_2.png';
 // import mockup_3 from '@public/landing/mockup_3.png';
@@ -54,13 +60,13 @@ const Layout = styled.div`
 `;
 
 const FooterSection = styled.footer`
-  padding: 14vw 0;
+  padding: 10vw 0;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  row-gap: 6vw;
+  row-gap: 3vw;
 
   background-color: ${main};
 
@@ -68,47 +74,73 @@ const FooterSection = styled.footer`
     display: flex;
     flex-direction: column;
   }
+
+  @media (max-width: 767px) {
+    padding: 14vw 0;
+    row-gap: 6vw;
+  }
 `;
 
 const FooterTitle = styled.span`
   width: 100%;
 
   font-weight: 700;
-  font-size: 9vw;
+  font-size: 4vw;
   text-align: center;
 
   color: ${({ color }) => color};
+
+  @media (max-width: 767px) {
+    font-size: 9vw;
+  }
 `;
 
 const ApplySection = styled.div`
-  padding: 14vw 10vw;
+  padding: 10vw 2vw;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  row-gap: 8vw;
+  row-gap: 6vw;
 
   background-color: ${gray01};
+
+  @media (max-width: 767px) {
+    padding: 14vw 10vw;
+    row-gap: 8vw;
+  }
 
   .box {
     display: flex;
     flex-direction: column;
-    row-gap: 2vw;
+    row-gap: 1.4vw;
+
+    @media (max-width: 767px) {
+      row-gap: 2vw;
+    }
   }
 
   .emoji {
     font-weight: 700;
-    font-size: 13vw;
+    font-size: 8vw;
     text-align: center;
+
+    @media (max-width: 767px) {
+      font-size: 13vw;
+    }
   }
 
   .title {
     font-weight: 700;
-    font-size: 6.5vw;
+    font-size: 4vw;
     text-align: center;
 
     color: ${text_black};
+
+    @media (max-width: 767px) {
+      font-size: 6.5vw;
+    }
   }
 `;
 
@@ -119,14 +151,19 @@ const TagLayout = styled.div`
 
   display: grid;
   /* justify-content: center; */
-  grid: '. .';
-  gap: 2.5vw;
+  grid: '. . .';
+  gap: 1.4vw;
+
+  @media (max-width: 767px) {
+    grid: '. .';
+    gap: 2.5vw;
+  }
 `;
 
 const TagButton = styled.div`
   width: 100%;
   /* min-width: 360px; */
-  height: 12vw;
+  height: 6.5vw;
 
   display: flex;
   justify-content: center;
@@ -134,13 +171,18 @@ const TagButton = styled.div`
 
   color: ${({ disabled }) => (disabled ? gray03 : text_white)};
   font-weight: 500;
-  font-size: 5.5vw;
+  font-size: 3vw;
 
   border-radius: 8px;
 
   background-color: ${({ disabled }) => (disabled ? `white` : main)};
 
   transition: all 0.4s ease-in-out;
+
+  @media (max-width: 767px) {
+    height: 12vw;
+    font-size: 5.5vw;
+  }
 `;
 
 const Button = styled.div`
@@ -150,43 +192,57 @@ const Button = styled.div`
 
   color: ${main};
   font-weight: 700;
-  font-size: 5.5vw;
+  font-size: 3vw;
 
-  padding: 3vw 10vw;
-  border-radius: 2.5vw;
+  padding: 1.5vw 4vw;
+  border-radius: 1vw;
 
   background-color: white;
+
+  @media (max-width: 767px) {
+    font-size: 5.5vw;
+
+    padding: 3vw 10vw;
+    border-radius: 2.5vw;
+  }
 `;
 
 const Input = styled.input`
   width: 100%;
-  height: 15vw;
+  height: 8vw;
 
   outline: none;
   border: none;
   border-radius: 8px;
 
-  padding: 2vw 4vw;
+  padding: 1vw 2.5vw;
 
   color: ${main};
   font-weight: 500;
-  font-size: 6vw;
+  font-size: 3vw;
 
   background-color: white;
+
+  @media (max-width: 767px) {
+    height: 15vw;
+    padding: 2vw 4vw;
+
+    font-size: 6vw;
+  }
 `;
 
 const ConfirmButton = styled.div`
   width: 100%;
-  height: 12vw;
+  height: 8vw;
 
-  margin-top: 4vw;
+  margin-top: 2.5vw;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   font-weight: 700;
-  font-size: 6vw;
+  font-size: 3vw;
 
   border-radius: 8px;
 
@@ -194,6 +250,13 @@ const ConfirmButton = styled.div`
   background-color: ${({ active }) => (active ? main : gray04)};
 
   transition: all 0.4s ease-in-out;
+
+  @media (max-width: 767px) {
+    height: 12vw;
+    margin-top: 4vw;
+
+    font-size: 6vw;
+  }
 `;
 
 const Landing = () => {
@@ -229,6 +292,13 @@ const Landing = () => {
   ]);
   const [tagsValid, setTagsValid] = useState(false);
   const [confirm, setConfirm] = useState(false);
+
+  const [isMobile, setIsMobile] = useState(false);
+  const mobile = useMediaQuery({ query: '(max-width: 767px)' });
+
+  useEffect(() => {
+    if (mobile) setIsMobile(mobile);
+  }, [mobile]);
 
   const onChangeName = useCallback((event) => {
     setName(event.target.value);
@@ -312,83 +382,161 @@ const Landing = () => {
   }, [nameValid, emailValid, tagsValid]);
 
   return (
-    <>
-      <Layout>
-        <section className="image-section">
-          <Image src={section_1} />
-        </section>
+    <Layout>
+      {isMobile ? (
+        <>
+          <section className="image-section">
+            <Image src={section_1} />
+          </section>
 
-        <section className="image-section">
-          <Image src={section_2} />
-        </section>
+          <section className="image-section">
+            <Image src={section_2} />
+          </section>
 
-        <section className="image-section">
-          <Image src={section_3} />
-        </section>
+          <section className="image-section">
+            <Image src={section_3} />
+          </section>
 
-        <section className="image-section">
-          <Image src={section_4} />
-        </section>
+          <section className="image-section">
+            <Image src={section_4} />
+          </section>
 
-        <FooterSection>
-          <FooterTitle color={text_white}>
-            <span>
-              지금 바로
-              <br />
-              위아토를 만나보세요!
-            </span>
-          </FooterTitle>
-          <a href={`https://weato.net`} target="_blank" rel="noreferrer">
-            <Button>위아토 바로가기</Button>
-          </a>
-        </FooterSection>
+          <FooterSection>
+            <FooterTitle color={text_white}>
+              <span>
+                지금 바로
+                <br />
+                위아토를 만나보세요!
+              </span>
+            </FooterTitle>
+            <a href={`https://weato.net`} target="_blank" rel="noreferrer">
+              <Button>위아토 바로가기</Button>
+            </a>
+          </FooterSection>
 
-        <ApplySection>
-          <div className="box">
-            <span className="emoji">📩</span>
-            <span className="title">일단은 메일로 뉴스레터만 받아볼래요.</span>
-          </div>
+          <ApplySection>
+            <div className="box">
+              <span className="emoji">📩</span>
+              <span className="title">
+                일단은 메일로 뉴스레터만 받아볼래요.
+              </span>
+            </div>
 
-          <div className="box">
-            <Input placeholder="이름" value={name} onChange={onChangeName} />
-            <Input
-              placeholder="뉴스레터를 받을 이메일"
-              value={email}
-              onChange={onChangeEmail}
-            />
+            <div className="box">
+              <Input placeholder="이름" value={name} onChange={onChangeName} />
+              <Input
+                placeholder="뉴스레터를 받을 이메일"
+                value={email}
+                onChange={onChangeEmail}
+              />
 
-            <TagLayout>
-              {tags.map(({ text, active }, index) =>
-                active ? (
-                  <TagButton
-                    key={index}
-                    onClick={() => {
-                      toggleActive(index);
-                    }}
-                  >
-                    {text}
-                  </TagButton>
-                ) : (
-                  <TagButton
-                    key={index}
-                    disabled
-                    onClick={() => {
-                      toggleActive(index);
-                    }}
-                  >
-                    {text}
-                  </TagButton>
-                )
-              )}
-            </TagLayout>
+              <TagLayout>
+                {tags.map(({ text, active }, index) =>
+                  active ? (
+                    <TagButton
+                      key={index}
+                      onClick={() => {
+                        toggleActive(index);
+                      }}
+                    >
+                      {text}
+                    </TagButton>
+                  ) : (
+                    <TagButton
+                      key={index}
+                      disabled
+                      onClick={() => {
+                        toggleActive(index);
+                      }}
+                    >
+                      {text}
+                    </TagButton>
+                  )
+                )}
+              </TagLayout>
 
-            <ConfirmButton active={confirm} onClick={onConfirm}>
-              구독하기
-            </ConfirmButton>
-          </div>
-        </ApplySection>
-      </Layout>
-    </>
+              <ConfirmButton active={confirm} onClick={onConfirm}>
+                구독하기
+              </ConfirmButton>
+            </div>
+          </ApplySection>
+        </>
+      ) : (
+        <>
+          <section className="image-section">
+            <Image src={section_1_large} />
+          </section>
+
+          <section className="image-section">
+            <Image src={section_2_large} />
+          </section>
+
+          <section className="image-section">
+            <Image src={section_3_large} />
+          </section>
+
+          <section className="image-section">
+            <Image src={section_4_large} />
+          </section>
+
+          <FooterSection>
+            <FooterTitle color={text_white}>
+              <span>지금 바로 위아토를 만나보세요!</span>
+            </FooterTitle>
+            <a href={`https://weato.net`} target="_blank" rel="noreferrer">
+              <Button>위아토 바로가기</Button>
+            </a>
+          </FooterSection>
+
+          <ApplySection>
+            <div className="box">
+              <span className="emoji">📩</span>
+              <span className="title">
+                일단은 메일로 뉴스레터만 받아볼래요.
+              </span>
+            </div>
+
+            <div className="box">
+              <Input placeholder="이름" value={name} onChange={onChangeName} />
+              <Input
+                placeholder="뉴스레터를 받을 이메일"
+                value={email}
+                onChange={onChangeEmail}
+              />
+
+              <TagLayout>
+                {tags.map(({ text, active }, index) =>
+                  active ? (
+                    <TagButton
+                      key={index}
+                      onClick={() => {
+                        toggleActive(index);
+                      }}
+                    >
+                      {text}
+                    </TagButton>
+                  ) : (
+                    <TagButton
+                      key={index}
+                      disabled
+                      onClick={() => {
+                        toggleActive(index);
+                      }}
+                    >
+                      {text}
+                    </TagButton>
+                  )
+                )}
+              </TagLayout>
+
+              <ConfirmButton active={confirm} onClick={onConfirm}>
+                구독하기
+              </ConfirmButton>
+            </div>
+          </ApplySection>
+        </>
+      )}
+    </Layout>
   );
 };
 
