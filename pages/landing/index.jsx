@@ -356,8 +356,11 @@ const Landing = () => {
 
       // router.push(`/signup/success`);
     } catch (error) {
-      alert(error);
-      alert('서버 요청이 불가능하네요...');
+      if (error.response.status === 400) {
+        alert('이미 등록된 메일입니다.');
+      } else {
+        alert('서버 요청이 불가능하네요...');
+      }
     }
   };
 
