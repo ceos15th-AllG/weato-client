@@ -1,15 +1,7 @@
-/** @jsxImportSource @emotion/react */
-import { keyframes, withTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-// import Reveal, { Fade } from 'react-awesome-reveal';
-
-// config({ ssrFadeout: true });
-
-import axios from 'axios';
 
 import { useState, useEffect, useCallback } from 'react';
 
-import Head from 'next/head';
 import Image from 'next/image';
 
 import { useMediaQuery } from 'react-responsive';
@@ -17,13 +9,9 @@ import { useMediaQuery } from 'react-responsive';
 import {
   main,
   gray01,
-  gray05,
   text_black,
   text_white,
-  sub,
-  gray07,
   gray03,
-  gray02,
   gray04,
 } from '@styles/Colors';
 
@@ -35,17 +23,6 @@ import section_1_large from '@public/landing/section-1-large.png';
 import section_2_large from '@public/landing/section-2-large.png';
 import section_3_large from '@public/landing/section-3-large.png';
 import section_4_large from '@public/landing/section-4-large.png';
-// import mockup_1 from '@public/landing/mockup_1.png';
-// import mockup_2 from '@public/landing/mockup_2.png';
-// import mockup_3 from '@public/landing/mockup_3.png';
-// import mockup_4 from '@public/landing/mockup_4.png';
-// import card_1 from '@public/landing/card_1.png';
-// import card_2 from '@public/landing/card_2.png';
-// import card_3 from '@public/landing/card_3.png';
-// import card_4 from '@public/landing/card_4.png';
-// import card_5 from '@public/landing/card_5.png';
-// import comment_1 from '@public/landing/comment_1.png';
-// import comment_2 from '@public/landing/comment_2.png';
 
 const Layout = styled.div`
   width: 100vw;
@@ -85,7 +62,7 @@ const FooterTitle = styled.span`
   width: 100%;
 
   font-weight: 700;
-  font-size: 4vw;
+  font-size: 3.5vw;
   text-align: center;
 
   color: ${({ color }) => color};
@@ -133,7 +110,7 @@ const ApplySection = styled.div`
 
   .title {
     font-weight: 700;
-    font-size: 4vw;
+    font-size: 3.5vw;
     text-align: center;
 
     color: ${text_black};
@@ -162,7 +139,6 @@ const TagLayout = styled.div`
 
 const TagButton = styled.div`
   width: 100%;
-  /* min-width: 360px; */
   height: 6.5vw;
 
   display: flex;
@@ -336,35 +312,9 @@ const Landing = () => {
       return;
     }
 
-    try {
-      const request = await axios({
-        method: 'post',
-        url: `https://www.weato.kro.kr/api/landing`,
-        data: {
-          name: name,
-          newsletterEmail: email,
-          tagDrug: tags[0].active,
-          tagCleaning: tags[1].active,
-          tagEnvironment: tags[2].active,
-          tagSleep: tags[3].active,
-          tagFood: tags[4].active,
-          otherwise: tags[5].active,
-        },
-      });
-
-      alert('함께해 주셔서 감사드려요!');
-
-      // router.push(`/signup/success`);
-    } catch (error) {
-      if (error.response.status === 400) {
-        alert('이미 등록된 메일입니다.');
-      } else {
-        alert('서버 요청이 불가능하네요...');
-      }
-    }
+    alert('위아토와 함께해 주셔서 감사드려요!');
   };
 
-  // 선호 태그 입력 1개 이상인지 체크
   useEffect(() => {
     if (tags.filter((tag) => tag.active).length > 0) {
       setTagsValid(true);
@@ -373,7 +323,6 @@ const Landing = () => {
     }
   }, [tags]);
 
-  // 전체 필드 만족되었는지 체크
   useEffect(() => {
     if (nameValid && emailValid && tagsValid) {
       setConfirm(true);
