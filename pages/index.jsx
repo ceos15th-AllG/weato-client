@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 
 import { useContext } from 'react';
 
-import axios from 'axios';
-
 import Context from '@contexts/Context';
 
 import CardBox from '@common/CardBox';
@@ -72,14 +70,113 @@ const ButtonRow = styled.div`
   margin: 60px 0px 96px;
 `;
 
-function Home(props) {
+function Home() {
   const { login } = useContext(Context);
 
-  if (!props.newsletterHot || !props.newsletterScrap) {
-    return <span>로딩 에러...</span>;
-  }
-
-  const { newsletterHot, newsletterScrap } = props;
+  const newsletterHot = {
+    data: [
+      {
+        id: 35,
+        title: '세면 제품 살 때, 이 성분들은 주의!',
+        createdAt: '2022-11-10',
+        tagType: 'CLEANING',
+      },
+      {
+        id: 34,
+        title: '일광욕, 피부에 안 좋은 영향을 줄까?',
+        createdAt: '2022-11-10',
+        tagType: 'ENVIRONMENT',
+      },
+      {
+        id: 33,
+        title: '아토피 후 남는 흉터… 없앨 수 있을까?',
+        createdAt: '2022-11-10',
+        tagType: 'OTHERWISE',
+      },
+      {
+        id: 32,
+        title: '자기 전 젖은 드레싱으로 피부 둘러싸기',
+        createdAt: '2022-11-10',
+        tagType: 'SLEEP',
+      },
+      {
+        id: 31,
+        title: '달콤한 꿀, 피부에 바르기도 한다고?',
+        createdAt: '2022-11-10',
+        tagType: 'FOOD',
+      },
+      {
+        id: 30,
+        title: 'Winter is coming, 아토피도 준비',
+        createdAt: '2022-11-10',
+        tagType: 'ENVIRONMENT',
+      },
+      {
+        id: 29,
+        title: '아토피 증상과 심혈관의 관계?',
+        createdAt: '2022-11-10',
+        tagType: 'OTHERWISE',
+      },
+      {
+        id: 28,
+        title: '코넬 의대 출신이 이야기하는 바디워시',
+        createdAt: '2022-11-10',
+        tagType: 'CLEANING',
+      },
+    ],
+  };
+  const newsletterScrap = {
+    data: [
+      {
+        id: 1,
+        title: '샤워, 목욕, 세면, 습관으로 아토피 관리',
+        createdAt: '2022-10-02',
+        tagType: 'CLEANING',
+      },
+      {
+        id: 2,
+        title: '새로운 대안, JAK 억제제?',
+        createdAt: '2022-10-02',
+        tagType: 'DRUG',
+      },
+      {
+        id: 3,
+        title: '늘고 있는 미세먼지와 아토피',
+        createdAt: '2022-10-02',
+        tagType: 'ENVIRONMENT',
+      },
+      {
+        id: 4,
+        title: '설거지를 하는데 갑자기 증상이?',
+        createdAt: '2022-10-02',
+        tagType: 'OTHERWISE',
+      },
+      {
+        id: 5,
+        title: '장에 좋다는 유익균, 아토피에도 도움을?',
+        createdAt: '2022-10-02',
+        tagType: 'FOOD',
+      },
+      {
+        id: 6,
+        title: '일부 환자들에게 보험 적용되기 시작한 JAK억제제들',
+        createdAt: '2022-10-02',
+        tagType: 'DRUG',
+      },
+      {
+        id: 7,
+        title: '플라스틱, 잘 신경 써서 아토피 예방을',
+        createdAt: '2022-10-09',
+        tagType: 'ENVIRONMENT',
+      },
+      {
+        id: 8,
+        title: '잘 때 쓰는 침대 시트는 어떤 게 좋지?',
+        createdAt: '2022-10-09',
+        tagType: 'SLEEP',
+      },
+    ],
+  };
 
   return (
     <>
@@ -118,35 +215,5 @@ function Home(props) {
     </>
   );
 }
-
-export const getServerSideProps = async () => {
-  try {
-    const responseHot = await axios({
-      method: 'get',
-      url: `https://www.weato.kro.kr/api/newsletters/hot-topics`,
-    });
-
-    const responseScrap = await axios({
-      method: 'get',
-      url: `https://www.weato.kro.kr/api/newsletters/most-bookmarked`,
-    });
-
-    return {
-      props: {
-        newsletterHot: responseHot.data,
-        newsletterScrap: responseScrap.data,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-  }
-
-  return {
-    props: {
-      newsletterHot: null,
-      newsletterScrap: null,
-    },
-  };
-};
 
 export default Home;
